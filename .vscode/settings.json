@@ -1,0 +1,22 @@
+{
+    "python.defaultInterpreterPath": "/home/zhibin/venvs/ft310/bin/python",
+    "python.analysis.extraPaths": [
+        ".",
+    ],
+    "jupyter.notebookFileRoot": "${workspaceFolder}",
+    "python.envFile": "${workspaceFolder}/.env",
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "python.testing.pytestArgs": [
+        "${workspaceFolder}/tests",
+        "--rootdir",
+        "${workspaceFolder}",
+        // "--no-cov",
+        "-s",
+    ],
+    "files.exclude": {
+        "**/*.pyc": {"when": "$(basename).py"}, 
+        "**/__pycache__": true,
+        "*.egg-info":true,
+    }
+}

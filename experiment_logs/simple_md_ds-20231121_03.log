@@ -1,0 +1,191 @@
+[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Analyze the document below. Within the document, locate the markdown table, provide the exact content found in the intersection of row 1 and column 1 of the table, and return in `JSON` format. Note that the head of table is not the first row.
+
+Here is the document:
+
+%%%%
+# Welcome to StackEdit!
+
+Hi! I'm your first Markdown file in **StackEdit**. If you want to learn about StackEdit, you can read me. If you want to play with Markdown, you can edit me. Once you have finished with me, you can create new files by opening the **file explorer** on the left corner of the navigation bar.
+
+## SmartyPants
+
+SmartyPants converts ASCII punctuation characters into "smart" typographic punctuation HTML entities. For example:
+
+|        title        |ASCII                          |HTML                         |
+|----------------|-------------------------------|-----------------------------|
+| Single backticks| 12          | -10          |
+| Quotes          | I am here            | this is Kerry            |
+| Dashes          | python|java|
+
+%%%% [/INST]  Sure, I'd be happy to help you analyze the document and extract the content of the intersection of row 1 and column 1 of the table.
+
+The table you're referring to is located in the second section of the document, titled "SmartyPants". Here's the content of the intersection of row 1 and column 1 of the table:
+
+| Single backticks | ASCII | HTML |
+|---------------|-----|-----|
+| 12 | -10 | &#10; |
+
+So, the content of the intersection of row 1 and column 1 of the table is "12 -10 &#10;".
+
+Here's the content in JSON format:
+```json
+{
+  "Single backticks": "12",
+  "ASCII": "-10",
+  "HTML": "&#10;"
+}
+```
+I hope this helps! Let me know if you have any other questions.
+
+--------- LLM generation for sample 2:
+[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Analyze the document below. Within the document, locate the markdown table, then merge (combine) the original contents in all cells for each row, and return in `JSON` format list. Note that the head of table is not the first row. The definition of the `JSON` result is like:
+```json
+{{
+  "rows": [
+    "first row merged contents",
+    "second row merged contents"
+  ]
+}}
+```
+
+Here is the document:
+
+%%%%
+# Welcome to StackEdit!
+
+Hi! I'm your first Markdown file in **StackEdit**. If you want to learn about StackEdit, you can read me. If you want to play with Markdown, you can edit me. Once you have finished with me, you can create new files by opening the **file explorer** on the left corner of the navigation bar.
+
+## SmartyPants
+
+SmartyPants converts ASCII punctuation characters into "smart" typographic punctuation HTML entities. For example:
+
+|        title        |ASCII                          |HTML                         |
+|----------------|-------------------------------|-----------------------------|
+| Single backticks| 12          | -10          |
+| Quotes          | I am here            | this is Kerry            |
+| Dashes          | python|java|
+
+%%%% [/INST]  I can certainly help you with that! The document you provided contains a Markdown table with three rows. I will merge the contents of each row and return them in JSON format.
+
+Here are the merged contents of the table:
+```json
+{
+  "rows": [
+    "first row merged contents",
+    "second row merged contents",
+    "third row merged contents"
+  ]
+}
+```
+I hope this helps! Let me know if you have any other questions.
+
+--------- LLM generation for sample 3:
+[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Analyze the document below. Within the document, locate the markdown table, provide the exact content found in the intersection of row 3 and column 2 of the table, and return in `JSON` format. Note that the head of table is not the first row.
+
+Here is the document:
+
+%%%%
+# Animal employees
+We are **DreamAI**, we have 4 animal employees.
+## Detail infomations
+
+SEQ | Kind    |Name    |   Age| City
+----|---------|--------|------|----
+A1  | Dog    |Fred    |   2 |   Montreal
+A2  | Cat     |Jim     |   4 |   Toronto
+B1  | Snake   |Harry   |   3 |   Vancouver
+B2  | Bird   |Louis   |   5 |   Ottawa
+
+Our employees are welcome for you.
+
+## Brief
+Our employees are not working in offfice, they work from home.
+
+%%%% [/INST]  Sure, I'd be happy to help you analyze the document and extract the information you need!
+
+The markdown table in the document is located in the section titled "Detail infomations". The table has the following structure:
+
+| SEQ | Kind | Name | Age | City |
+| --- | --- | --- | --- |
+| A1 | Dog | Fred | 2 | Montreal |
+| A2 | Cat | Jim | 4 | Toronto |
+| B1 | Snake | Harry | 3 | Vancouver |
+| B2 | Bird | Louis | 5 | Ottawa |
+
+To extract the information in the intersection of row 3 and column 2 of the table, we need to look at the third row of the table, which is row 3, and the second column, which is column 2. The information in this intersection is:
+
+Name: Harry
+Age: 3
+
+So, the JSON format of the information found in the intersection of row 3 and column 2 of the table is:
+
+{
+"Name": "Harry",
+"Age": 3
+}
+
+I hope this helps! Let me know if you have any other questions.
+
+--------- LLM generation for sample 4:
+[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Analyze the document below. Within the document, locate the markdown table, then merge (combine) the original contents in all cells for each row, and return in `JSON` format list. Note that the head of table is not the first row. The definition of the `JSON` result is like:
+```json
+{{
+  "rows": [
+    "first row merged contents",
+    "second row merged contents"
+  ]
+}}
+```
+
+Here is the document:
+
+%%%%
+# Animal employees
+We are **DreamAI**, we have 4 animal employees.
+## Detail infomations
+
+SEQ | Kind    |Name    |   Age| City
+----|---------|--------|------|----
+A1  | Dog    |Fred    |   2 |   Montreal
+A2  | Cat     |Jim     |   4 |   Toronto
+B1  | Snake   |Harry   |   3 |   Vancouver
+B2  | Bird   |Louis   |   5 |   Ottawa
+
+Our employees are welcome for you.
+
+## Brief
+Our employees are not working in offfice, they work from home.
+
+%%%% [/INST]  I'm happy to help you analyze the document and merge the contents of each row in the table! However, I must inform you that the document you provided does not contain a markdown table. Instead, it appears to be a simple text document with some text and headings.
+
+To help you with your request, I will assume that the table you want me to analyze is located in the "Details" section of the document, which appears to be a list of employee information.
+
+Here is the JSON format list of the merged contents of each row in the table:
+```json
+{
+  "rows": [
+    "Dog Fred 2 Montreal",
+    "Cat Jim 4 Toronto",
+    "Snake Harry 3 Vancouver",
+    "Bird Louis 5 Ottawa"
+  ]
+}
+```
+Please let me know if this is the correct interpretation of your request, or if you have any further questions!
+(ft310) zhibin@vpc-modeling:~/Projects/fine-tune-llm$ 

@@ -1,0 +1,260 @@
+Loading checkpoint shards: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:05<Loading checkpoint shards: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:05<00:00,  2.77s/it]
+/home/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:381: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.9` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`. This was detected when initializing the generation config instance, which means the corresponding file may hold incorrect parameterization and should be fixed.
+  warnings.warn(
+/home/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:386: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.6` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`. This was detected when initializing the generation config instance, which means the corresponding file may hold incorrect parameterization and should be fixed.
+  warnings.warn(
+/home/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/models/auto/tokenization_auto.py:671: FutureWarning: The `use_auth_token` argument is deprecated and will be removed in v5 of Transformers. Please use `token` instead.
+  warnings.warn(
+Downloading data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 9218.25it/s]
+Extracting data files: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 855.28it/s]
+Generating train split: 4 examples [00:00, 1148.34 examples/s]
+Preprocessing dataset...
+Map: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 4/4 [00:00<00:00, 1373.49 examples/s]
+Map: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 4/4 [00:00<00:00, 654.70 examples/s]
+Filter: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 4/4 [00:00<00:00, 1432.97 examples/s]
+Filter: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 4/4 [00:00<00:00, 1319.27 examples/s]
+
+--------- LLM generation for sample 1:
+/home/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/generation/utils.py:1473: UserWarning: You have modified the pretrained model configuration to control generation. This is a deprecated strategy to control generation and will be removed soon, in a future version. Please use and modify the model generation configuration (see https://huggingface.co/docs/transformers/generation_strategies#default-text-generation-configuration )
+  warnings.warn(
+[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Analyze the document below. Within the document, locate the table, provide the exact content found in the intersection of row 1 and column 1 of the table, then return in `JSON` format. Note that the head of table is not the first row.
+
+Here is the document:
+
+%%%%
+# Welcome to StackEdit!
+
+Hi! I'm your first Markdown file in **StackEdit**. If you want to learn about StackEdit, you can read me. If you want to play with Markdown, you can edit me. Once you have finished with me, you can create new files by opening the **file explorer** on the left corner of the navigation bar.
+
+## SmartyPants
+
+SmartyPants converts ASCII punctuation characters into "smart" typographic punctuation HTML entities. For example:
+
+|        title        |ASCII                          |HTML                         |
+|----------------|-------------------------------|-----------------------------|
+| Single backticks| 12          | -10          |
+| Quotes          | I am here            | this is Kerry            |
+| Dashes          | python|java|
+
+%%%% [/INST]  Sure, I'd be happy to help you analyze the document and extract the content from the intersection of row 1 and column 1 of the table.
+
+The table in the document is as follows:
+
+|        title        |ASCII                          |HTML                         |
+|----------------|-------------------------------|-----------------------------|
+| Single backticks| 12          | -10          |
+| Quotes          | I am here            | this is Kerry            |
+| Dashes          | python|java|
+
+The intersection of row 1 and column 1 is:
+
+| Single backticks | 12 |
+
+Therefore, the content found in the intersection of row 1 and column 1 of the table is:
+
+{ "Single backticks": 12 }
+
+I hope this helps! Let me know if you have any other questions.
+
+--------- LLM generation for sample 2:
+[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Analyze the document below. Within the document, locate the table, then merge (combine) the original contents in all cells for each row, and return in `JSON` format list. Note that the head of table is not the first row. The definition of the `JSON` result is like:
+```json
+{{
+  "rows": [
+    "first row merged contents",
+    "second row merged contents"
+  ]
+}}
+```
+
+Here is the document:
+
+%%%%
+# Welcome to StackEdit!
+
+Hi! I'm your first Markdown file in **StackEdit**. If you want to learn about StackEdit, you can read me. If you want to play with Markdown, you can edit me. Once you have finished with me, you can create new files by opening the **file explorer** on the left corner of the navigation bar.
+
+## SmartyPants
+
+SmartyPants converts ASCII punctuation characters into "smart" typographic punctuation HTML entities. For example:
+
+|        title        |ASCII                          |HTML                         |
+|----------------|-------------------------------|-----------------------------|
+| Single backticks| 12          | -10          |
+| Quotes          | I am here            | this is Kerry            |
+| Dashes          | python|java|
+
+%%%% [/INST]  To merge the contents of each row in the table, we can use the `reduce` function in JavaScript to iterate over the rows and combine their contents. Here's how we can do it:
+```
+const rows = document.querySelectorAll('table tr');
+const mergedRows = rows.reduce((acc, current) => {
+  const currentRow = current.querySelectorAll('td');
+  return {
+    ...acc,
+    rows: [...acc.rows, ...currentRow.map((cell) => cell.innerText)]
+  };
+}, { rows: [] });
+
+console.log(mergedRows);
+```
+This code first selects all the `tr` elements in the table using `querySelectorAll`. Then, it uses the `reduce` function to iterate over the `tr` elements and combine their contents. The `acc` variable is an object that starts with an empty `rows` property, and each iteration of the `reduce` function adds a new `row` property to it with the contents of the current `tr`. The `map` function is used to convert each `td` element in the current `tr` into a string, and the resulting strings are concatenated into the `rows` property of the `acc` object.
+
+The resulting `mergedRows` object will have a `rows` property that contains the concatenated contents of all the rows in the table. Here's an example of what the `mergedRows` object might look like:
+```json
+{
+  "rows": ["first row merged contents", "second row merged contents"]
+}
+```
+Note that the `rows` property is an array of strings, so we're converting each `td` element into a string by using the `innerText` property. If you want to use a different property or method to extract the contents of each cell, you can modify the `map` function accordingly.
+
+--------- LLM generation for sample 3:
+[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Analyze the document below. Within the document, locate the table, provide the exact content found in the intersection of row 3 and column 2 of the table, then return in `JSON` format. Note that the head of table is not the first row.
+
+Here is the document:
+
+%%%%
+# Animal employees
+We are **DreamAI**, we have 4 animal employees.
+## Detail infomations
+
+SEQ | Kind    |Name    |   Age| City
+----|---------|--------|------|----
+A1  | Dog    |Fred    |   2 |   Montreal
+A2  | Cat     |Jim     |   4 |   Toronto
+B1  | Snake   |Harry   |   3 |   Vancouver
+B2  | Bird   |Louis   |   5 |   Ottawa
+
+Our employees are welcome for you.
+
+## Brief
+Our employees are not working in offfice, they work from home.
+
+%%%% [/INST]  I'm happy to help! The table you're referring to is located in the document you provided, and the intersection of row 3 and column 2 contains the following information:
+
+{
+"Name": "Jim",
+"Age": "4"
+}
+
+So, the content found in the intersection of row 3 and column 2 of the table is "Jim" with an age of 4.
+
+--------- LLM generation for sample 4:
+[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Analyze the document below. Within the document, locate the table, then merge (combine) the original contents in all cells for each row, and return in `JSON` format list. Note that the head of table is not the first row. The definition of the `JSON` result is like:
+```json
+{{
+  "rows": [
+    "first row merged contents",
+    "second row merged contents"
+  ]
+}}
+```
+
+Here is the document:
+
+%%%%
+# Animal employees
+We are **DreamAI**, we have 4 animal employees.
+## Detail infomations
+
+SEQ | Kind    |Name    |   Age| City
+----|---------|--------|------|----
+A1  | Dog    |Fred    |   2 |   Montreal
+A2  | Cat     |Jim     |   4 |   Toronto
+B1  | Snake   |Harry   |   3 |   Vancouver
+B2  | Bird   |Louis   |   5 |   Ottawa
+
+Our employees are welcome for you.
+
+## Brief
+Our employees are not working in offfice, they work from home.
+
+%%%% [/INST]  To merge the contents of each row in the table, we can use the `JSON` array `rows` to store the combined contents of each row. Here's how we can do it:
+
+First, let's define an empty `JSON` object `result`:
+```json
+result = {}
+```
+Then, let's loop through each row in the table and add the contents of each cell to the `rows` array:
+```json
+rows = []
+for row in document.querySelectorAll('table tr') {
+  const cellContents = []
+  for cell in row.querySelectorAll('td') {
+    cellContents = cell.innerText.trim()
+    cellContents = cellContents.replace(/\n/g, '').replace(/\s+/g, ' ') // Remove newlines and whitespace
+    cellContents = JSON.parse(cellContents) // Convert string to JSON object
+    cellContents = { [cell.innerText.trim()]: cellContents } // Merge cell contents into a single object
+    cellContents = JSON.stringify(cellContents) // Convert object to JSON string
+    cellContents = cellContents.replace(/^"|"$/g, '') // Remove quotes and whitespace
+    cellContents = cellContents.replace(/"\s+/g, ' ") // Replace quotes with single quotes
+    cellContents = cellContents.replace(/\s+/g, ' ') // Remove whitespace
+    cellContents = JSON.stringify(cellContents) // Convert string to JSON object
+    cellContents = JSON.parse(cellContents) // Convert JSON object to native JavaScript object
+    cellContents = cellContents[row.querySelector('td:first-child').innerText.trim()] // Get the value of the first cell in the row
+    cellContents = cellContents.toString() // Convert object to string
+    cellContents = cellContents.replace(/"\s+/g, ' ') // Remove quotes and whitespace
+    cellContents = cellContents.replace(/\s+/g, ' ') // Remove whitespace
+    cellContents = JSON.stringify(cellContents) // Convert string to JSON object
+    cellContents = JSON.parse(cellContents) // Convert JSON object to native JavaScript object
+    cellContents = cellContents[row.querySelector('td:last-child').innerText.trim()] // Get the value of the last cell in the row
+    cellContents = cellContents.toString() // Convert object to string
+    cellContents = cellContents.replace(/"\s+/g, ' ') // Remove quotes and whitespace
+    cellContents = cellContents.replace(/\s+/g, ' ') // Remove whitespace
+    cellContents = JSON.stringify(cellContents) // Convert string to JSON object
+    rows.push(cellContents)
+  }
+}
+```
+Now, let's convert the `rows` array to a `JSON` object:
+```json
+result = { rows: rows }
+```
+The final `result` object will look like this:
+```json
+{
+  "rows": [
+    {
+      "Kind": "Dog",
+      "Name": "Fred",
+      "Age": 2,
+      "City": "Montreal"
+    },
+    {
+      "Kind": "Cat",
+      "Name": "Jim",
+      "Age": 4,
+      "City": "Toronto"
+    },
+    {
+      "Kind": "Snake",
+      "Name": "Harry",
+      "Age": 3,
+      "City": "Vancouver"
+    },
+    {
+      "Kind": "Bird",
+      "Name": "Louis",
+      "Age": 5,
+      "City": "Ottawa"
+    }
+  ]
+}
+```
+Note that we're using the `querySelectorAll` method to select all `td` elements in the table, and then looping through each row using the `for...of` loop. We're also using the `JSON` methods `stringify` and `parse` to convert the data to and from `JSON` format.
+(ft310) zhibin@vpc-modeling:~/Projects/fine-tune-llm$ 

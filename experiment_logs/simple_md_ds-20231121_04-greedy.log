@@ -1,0 +1,194 @@
+(ft310) zhibin@vpc-modeling:~/Projects/fine-tune-llm$ source /home/zhibin/venvs/ft310/bin/activate
+(ft310) zhibin@vpc-modeling:~/Projects/fine-tune-llm$  /usr/bin/env /home/zhibin/venvs/ft310/bin/python /home/zhibin/.vscode-server/extensions/ms-python.python-2023.20.0/pythonFiles/lib/python/debugpy/adapter/../../debugpy/launcher 47537 -- /home/zhibin/Projects/fine-tune-llm/test_model.py 
+Loading checkpoint shards: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:05<00:00,  2.79s/it]
+/home/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:381: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.9` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`. This was detected when initializing the generation config instance, which means the corresponding file may hold incorrect parameterization and should be fixed.
+  warnings.warn(
+/home/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:386: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.6` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`. This was detected when initializing the generation config instance, which means the corresponding file may hold incorrect parameterization and should be fixed.
+  warnings.warn(
+/home/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/models/auto/tokenization_auto.py:671: FutureWarning: The `use_auth_token` argument is deprecated and will be removed in v5 of Transformers. Please use `token` instead.
+  warnings.warn(
+Preprocessing dataset...
+
+--------- LLM generation for sample 1:
+/home/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/generation/utils.py:1473: UserWarning: You have modified the pretrained model configuration to control generation. This is a deprecated strategy to control generation and will be removed soon, in a future version. Please use and modify the model generation configuration (see https://huggingface.co/docs/transformers/generation_strategies#default-text-generation-configuration )
+  warnings.warn(
+/home/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:381: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.3` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+  warnings.warn(
+/home/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:386: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.9` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`.
+  warnings.warn(
+/home/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:396: UserWarning: `do_sample` is set to `False`. However, `top_k` is set to `5` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_k`.
+  warnings.warn(
+[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Analyze the document below. Within the document, locate the markdown table, provide the exact content found in the intersection of row 1 and column 1 of the table, and return in `JSON` format. Note that the head of table is not the first row.
+
+Here is the document:
+
+%%%%
+# Welcome to StackEdit!
+
+Hi! I'm your first Markdown file in **StackEdit**. If you want to learn about StackEdit, you can read me. If you want to play with Markdown, you can edit me. Once you have finished with me, you can create new files by opening the **file explorer** on the left corner of the navigation bar.
+
+## SmartyPants
+
+SmartyPants converts ASCII punctuation characters into "smart" typographic punctuation HTML entities. For example:
+
+|        title        |ASCII                          |HTML                         |
+|----------------|-------------------------------|-----------------------------|
+| Single backticks| 12          | -10          |
+| Quotes          | I am here            | this is Kerry            |
+| Dashes          | python|java|
+
+%%%% [/INST]  Sure, I'd be happy to help you analyze the document and extract the content of the intersection of row 1 and column 1 of the table!
+
+The table you're referring to is located in the second section of the document, titled "SmartyPants". Here's the content of the intersection of row 1 and column 1 of the table:
+
+| Single backticks | ASCII | HTML |
+| --- | --- | --- |
+| 12 | -10 | &#10; |
+
+So, the content of the intersection of row 1 and column 1 of the table is "12 -10 &#10;".
+
+Here's the JSON format of the content:
+```json
+{
+  "Single backticks": "12",
+  "ASCII": "-10",
+  "HTML": "&#10;"
+}
+```
+I hope this helps! Let me know if you have any other questions.
+
+--------- LLM generation for sample 2:
+[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Analyze the document below. Within the document, locate the markdown table, then merge (combine) the original contents in all cells for each row, and return in `JSON` format list. Note that the head of table is not the first row. The definition of the `JSON` result is like:
+```json
+{{
+  "rows": [
+    "first row merged contents",
+    "second row merged contents"
+  ]
+}}
+```
+
+Here is the document:
+
+%%%%
+# Welcome to StackEdit!
+
+Hi! I'm your first Markdown file in **StackEdit**. If you want to learn about StackEdit, you can read me. If you want to play with Markdown, you can edit me. Once you have finished with me, you can create new files by opening the **file explorer** on the left corner of the navigation bar.
+
+## SmartyPants
+
+SmartyPants converts ASCII punctuation characters into "smart" typographic punctuation HTML entities. For example:
+
+|        title        |ASCII                          |HTML                         |
+|----------------|-------------------------------|-----------------------------|
+| Single backticks| 12          | -10          |
+| Quotes          | I am here            | this is Kerry            |
+| Dashes          | python|java|
+
+%%%% [/INST]  I'm happy to help you with that! The document you provided contains a Markdown table with several rows. I will merge the contents of each row and return them in JSON format.
+
+Here is the merged content of the table:
+```json
+{
+  "rows": [
+    "first row merged contents",
+    "second row merged contents",
+    "third row merged contents"
+  ]
+}
+```
+I hope this helps! Let me know if you have any other questions.
+
+--------- LLM generation for sample 3:
+[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Analyze the document below. Within the document, locate the markdown table, provide the exact content found in the intersection of row 3 and column 2 of the table, and return in `JSON` format. Note that the head of table is not the first row.
+
+Here is the document:
+
+%%%%
+# Animal employees
+We are **DreamAI**, we have 4 animal employees.
+## Detail infomations
+
+SEQ | Kind    |Name    |   Age| City
+----|---------|--------|------|----
+A1  | Dog    |Fred    |   2 |   Montreal
+A2  | Cat     |Jim     |   4 |   Toronto
+B1  | Snake   |Harry   |   3 |   Vancouver
+B2  | Bird   |Louis   |   5 |   Ottawa
+
+Our employees are welcome for you.
+
+## Brief
+Our employees are not working in offfice, they work from home.
+
+%%%% [/INST]  Sure, I'd be happy to help you analyze the document and extract the information you need!
+
+The markdown table in the document is located in the second section, titled "Detail infomations". The table has 4 rows and 3 columns, with the head of the table being row 1.
+
+The intersection of row 3 and column 2 of the table contains the following information:
+
+Name: Jim
+Age: 4
+City: Toronto
+
+Therefore, the JSON representation of this information would be:
+```json
+{
+  "Name": "Jim",
+  "Age": 4,
+  "City": "Toronto"
+}
+```
+
+--------- LLM generation for sample 4:
+[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Analyze the document below. Within the document, locate the markdown table, then merge (combine) the original contents in all cells for each row, and return in `JSON` format list. Note that the head of table is not the first row. The definition of the `JSON` result is like:
+```json
+{{
+  "rows": [
+    "first row merged contents",
+    "second row merged contents"
+  ]
+}}
+```
+
+Here is the document:
+
+%%%%
+# Animal employees
+We are **DreamAI**, we have 4 animal employees.
+## Detail infomations
+
+SEQ | Kind    |Name    |   Age| City
+----|---------|--------|------|----
+A1  | Dog    |Fred    |   2 |   Montreal
+A2  | Cat     |Jim     |   4 |   Toronto
+B1  | Snake   |Harry   |   3 |   Vancouver
+B2  | Bird   |Louis   |   5 |   Ottawa
+
+Our employees are welcome for you.
+
+## Brief
+Our employees are not working in offfice, they work from home.
+
+%%%% [/INST]  I'm happy to help you analyze the document and merge the contents of each row in the table! However, I must inform you that the document you provided does not contain a markdown table, so I cannot merge the contents of each row as you requested.
+
+The document you provided is a plain text document with some text and headings, but it does not contain any markdown formatting or tables. Therefore, I cannot extract the contents of each row in the table and merge them into a JSON format list.
+
+If you have a different document or a specific table you would like me to analyze, please feel free to provide it, and I will do my best to assist you.
+(ft310) zhibin@vpc-modeling:~/Projects/fine-tune-llm$ 
