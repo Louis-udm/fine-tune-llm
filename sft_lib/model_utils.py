@@ -1,21 +1,21 @@
-from typing import Callable
-import bitsandbytes as bnb
-from datasets import load_dataset
-from functools import partial
 import os
+from functools import partial
+from typing import Callable
+
+import bitsandbytes as bnb
 import peft
 import torch
 from transformers import (
     AutoModelForCausalLM,
     AutoTokenizer,
-    set_seed,
-    Trainer,
-    TrainingArguments,
     BitsAndBytesConfig,
     DataCollatorForLanguageModeling,
     Trainer,
     TrainingArguments,
+    set_seed,
 )
+
+from datasets import load_dataset
 
 
 def create_4bit_bnb_config():
@@ -48,17 +48,31 @@ def load_model(model_name, bnb_config):
 
     return model, tokenizer
 
-def load_model_with_adaptor(model_name="NousResearch/Llama-2-7b-chat-hf",lora_adaptor_dir=None):
+
+def load_model_with_adaptor(
+    model_name="NousResearch/Llama-2-7b-chat-hf", lora_adaptor_dir=None
+):
+    n_gpus = torch.cuda.device_count()
+    max_memory = f"{40960}MB"
     if lora_adaptor_dir:
-        lora_adaptor_path = os.path.join("results", lora_adaptor_dir,"final_checkpoint")
+        lora_adaptor_path = os.path.join(
+            "results", lora_adaptor_dir, "final_checkpoint"
+        )
         model = peft.AutoPeftModelForCausalLM.from_pretrained(
-            lora_adaptor_path, device_map="auto", torch_dtype=torch.bfloat16
+            lora_adaptor_path,
+            device_map="auto",
+            torch_dtype=torch.bfloat16,
+            # 如果使用rola的配置（加quantization_config, max_memory），生成的text好像不是训练rola的风格，why?
+            # 这是采用adapter，也可以测试merge_and_unload后的模型会不会这样。
+            # quantization_config=create_4bit_bnb_config(),
+            # max_memory={i: max_memory for i in range(n_gpus)},
         )
         tokenizer = AutoTokenizer.from_pretrained(model_name, use_auth_token=True)
     else:
         model, tokenizer = load_model(model_name, create_4bit_bnb_config())
 
     return model, tokenizer
+
 
 def create_peft_config(modules):
     """

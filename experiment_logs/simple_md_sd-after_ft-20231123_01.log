@@ -1,0 +1,218 @@
+Loading checkpoint shards: 100%|██████████████████████████████████████████████████████████████████████| 2/2 [00:07<00:00,  3.77s/it]
+/home/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:381: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.9` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`. This was detected when initializing the generation config instance, which means the corresponding file may hold incorrect parameterization and should be fixed.
+  warnings.warn(
+/home/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:386: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.6` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`. This was detected when initializing the generation config instance, which means the corresponding file may hold incorrect parameterization and should be fixed.
+  warnings.warn(
+/home/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/models/auto/tokenization_auto.py:671: FutureWarning: The `use_auth_token` argument is deprecated and will be removed in v5 of Transformers. Please use `token` instead.
+  warnings.warn(
+Preprocessing dataset...
+
+--------- LLM generation for sample 1:
+/home/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/generation/utils.py:1473: UserWarning: You have modified the pretrained model configuration to control generation. This is a deprecated strategy to control generation and will be removed soon, in a future version. Please use and modify the model generation configuration (see https://huggingface.co/docs/transformers/generation_strategies#default-text-generation-configuration )
+  warnings.warn(
+[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Analyze the document below. Within the document, locate the markdown table, provide the exact content found in the intersection of row 3 and column 2 of the table, then return in `JSON` format with `content` key-value pair. Note that the head of table is not the first content row.
+
+Here is the document:
+
+%%%%
+# Animal employees
+We are **DreamAI**, we have 4 animal employees.
+## Detail infomations
+
+SEQ | Kind    |Name    |   Age| City
+----|---------|--------|------|----
+A1  | Dog    |Fred    |   2 |   Montreal
+A2  | Cat     |Jim     |   4 |   Toronto
+B1  | Snake   |Harry   |   3 |   Vancouver
+B2  | Bird   |Louis   |   5 |   Ottawa
+
+Our employees are welcome for you.
+
+## Brief
+Our employees are not working in offfice, they work from home.
+
+%%%% [/INST] First, the markdown table is:
+SEQ | Kind    |Name    |   Age| City
+----|---------|--------|------|----
+A1  | Dog    |Fred    |   2 |   Montreal
+A2  | Cat     |Jim     |   4 |   Toronto
+B1  | Snake   |Harry   |   3 |   Vancouver
+B2  | Bird   |Louis   |   5 |   Ottawa
+
+The first content row is not the head of table, so the head of table is:
+SEQ | Kind    |Name    |   Age| City
+
+Now, the content found in the intersection of row 3 and column 2 of the table is:
+B1  | Snake   |Harry   |   3 |   Vancouver
+
+And the JSON format answer is:
+```json
+{
+  "content": {
+    "B1": "Snake",
+    "Harry": "3",
+    "Vancouver": "Vancouver"
+  }
+}
+```
+
+--------- LLM generation for sample 2:
+[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Analyze the document below. Within the document, locate the markdown table, then merge (combine) the original contents in all cells for each row, and return in `JSON` format list. Note that the head of table is not the first content row. The definition of the `JSON` result is like:
+```json
+{{
+  "rows": [
+    "first row merged contents",
+    "second row merged contents"
+  ]
+}}
+```
+
+Here is the document:
+
+%%%%
+# Welcome to StackEdit!
+
+Hi! I'm your first Markdown file in **StackEdit**. If you want to learn about StackEdit, you can read me. If you want to play with Markdown, you can edit me. Once you have finished with me, you can create new files by opening the **file explorer** on the left corner of the navigation bar.
+
+## SmartyPants
+
+SmartyPants converts ASCII punctuation characters into "smart" typographic punctuation HTML entities. For example:
+
+|        title        |ASCII                          |HTML                         |
+|----------------|-------------------------------|-----------------------------|
+| Single backticks| 12          | -10          |
+| Quotes          | I am here            | this is Kerry            |
+| Dashes          | python|java|
+
+%%%% [/INST] First, the markdown table is:
+|        title        |ASCII                          |HTML                         |
+|----------------|-------------------------------|-----------------------------|
+| Single backticks| 12          | -10          |
+| Quotes          | I am here            | this is Kerry            |
+| Dashes          | python|java|
+
+The definition of the JSON result is:
+```json
+{
+  "rows": [
+    "Single backticks12 -10",
+    "QuotesI am herethis is Kerry",
+    "Dashespythonjava"
+  ]
+}
+```
+Note that the first row is not the header, the header is the second row.
+
+--------- LLM generation for sample 3:
+[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Analyze the document below. Within the document, locate the markdown table, provide the exact content found in the intersection of row 1 and column 1 of the table, then return in `JSON` format with `content` key-value pair. Note that the head of table is not the first content row.
+
+Here is the document:
+
+%%%%
+# Welcome to StackEdit!
+
+Hi! I'm your first Markdown file in **StackEdit**. If you want to learn about StackEdit, you can read me. If you want to play with Markdown, you can edit me. Once you have finished with me, you can create new files by opening the **file explorer** on the left corner of the navigation bar.
+
+## SmartyPants
+
+SmartyPants converts ASCII punctuation characters into "smart" typographic punctuation HTML entities. For example:
+
+|        title        |ASCII                          |HTML                         |
+|----------------|-------------------------------|-----------------------------|
+| Single backticks| 12          | -10          |
+| Quotes          | I am here            | this is Kerry            |
+| Dashes          | python|java|
+
+%%%% [/INST] First, the markdown table is:
+|        title        |ASCII                          |HTML                         |
+|----------------|-------------------------------|-----------------------------|
+| Single backticks| 12          | -10          |
+| Quotes          | I am here            | this is Kerry            |
+| Dashes          | python|java|
+
+The first content row is:
+| Single backticks| 12          | -10          |
+
+Second, here is the answer in JSON format with `content` key-value pair:
+```json
+{
+  "content": [
+    "Single backticks",
+    12,
+    -10
+  ]
+}
+```
+
+--------- LLM generation for sample 4:
+[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Analyze the document below. Within the document, locate the markdown table, then merge (combine) the original contents in all cells for each row, and return in `JSON` format list. Note that the head of table is not the first content row. The definition of the `JSON` result is like:
+```json
+{{
+  "rows": [
+    "first row merged contents",
+    "second row merged contents"
+  ]
+}}
+```
+
+Here is the document:
+
+%%%%
+# Animal employees
+We are **DreamAI**, we have 4 animal employees.
+## Detail infomations
+
+SEQ | Kind    |Name    |   Age| City
+----|---------|--------|------|----
+A1  | Dog    |Fred    |   2 |   Montreal
+A2  | Cat     |Jim     |   4 |   Toronto
+B1  | Snake   |Harry   |   3 |   Vancouver
+B2  | Bird   |Louis   |   5 |   Ottawa
+
+Our employees are welcome for you.
+
+## Brief
+Our employees are not working in offfice, they work from home.
+
+%%%% [/INST] First, the markdown table is:
+SEQ | Kind    |Name    |   Age| City
+----|---------|--------|------|----
+A1  | Dog    |Fred    |   2 |   Montreal
+A2  | Cat     |Jim     |   4 |   Toronto
+B1  | Snake   |Harry   |   3 |   Vancouver
+B2  | Bird   |Louis   |   5 |   Ottawa
+
+The definition of the JSON result is:
+```json
+{{
+  "rows": [
+    "first row merged contents",
+    "second row merged contents"
+  ]
+}}
+```
+Second, merge the original contents in each cell for each row, and then return in JSON format list as you requested:
+```json
+{{
+  "rows": [
+    "first row merged contents: Dog, Fred, 2, Montreal",
+    "second row merged contents: Cat, Jim, 4, Toronto"
+  ]
+}}
+```

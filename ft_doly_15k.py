@@ -1,27 +1,26 @@
-import json
 import argparse
-import bitsandbytes as bnb
-from datasets import load_dataset
-from functools import partial
+import json
 import os
+import random
+from functools import partial
+
+import bitsandbytes as bnb
+import pandas as pd
 import peft
 import torch
 from transformers import (
     AutoModelForCausalLM,
     AutoTokenizer,
-    set_seed,
-    Trainer,
-    TrainingArguments,
     BitsAndBytesConfig,
     DataCollatorForLanguageModeling,
     Trainer,
     TrainingArguments,
+    set_seed,
 )
-import random
-import pandas as pd
+
 from datasets import load_dataset
+from sft_lib.dataset_utils_dolly_ds import *
 from sft_lib.model_utils import *
-from sft_lib.dataset_utils import *
 
 # Reproducibility
 SEED = 44
@@ -47,28 +46,31 @@ def load_and_show_dataset(dataset_path):
         print(json.dumps(s, indent=4))
 
     print("\n------prompt example converted from dataset:")
-    print(prompterize(samples[0])["text"])
+    print(prompterizer_for_dolly_ds(samples[0]))
 
     return dataset
 
 
 def train_cli(
-    warmup_steps=4,
-    max_steps=15, #100,
+    warmup_steps=2,
+    max_steps=15,  # 100,
     learning_rate=2e-4,
+    accumulate_batch_size=4,
+    optimizer="paged_adamw_8bit",
     output_root="results",
 ):
-    dataset = load_and_show_dataset(DS_NAME)
     bnb_config = create_4bit_bnb_config()
     model, tokenizer = load_model(MODEL_NAME, bnb_config)
 
     max_length = get_model_max_length(model)
+    dataset = load_and_show_dataset(DS_NAME)
     dataset = preprocess_dataset(
-        tokenizer=tokenizer,
-        max_length=max_length,
-        seed=SEED,
         dataset=dataset,
-        create_prompt_formats=prompterize,
+        tokenizer=tokenizer,
+        prompterize=prompterizer_for_dolly_ds,
+        seed=SEED,
+        max_length=max_length,
+        do_shuffle=True,
     )
     print(f"preprocessed dataset length: {len(dataset)}")
 
@@ -82,10 +84,10 @@ def train_cli(
         args=TrainingArguments(
             # per_device_train_batch_size=1加gradient_accumulation_steps=4, 相当于每次更新参数的时候，batch_size=4
             per_device_train_batch_size=1,
-            gradient_accumulation_steps=4,
+            gradient_accumulation_steps=accumulate_batch_size,
             fp16=True,
             logging_steps=1,
-            optim="paged_adamw_8bit",
+            optim=optimizer,
             warmup_steps=warmup_steps,
             max_steps=max_steps,
             learning_rate=learning_rate,
@@ -113,6 +115,8 @@ def train_cli(
     del model
     del trainer
     torch.cuda.empty_cache()
+
+    print("Fine-tuning finished!")
 
 
 if __name__ == "__main__":

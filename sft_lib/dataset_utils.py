@@ -1,21 +1,21 @@
-from datasets import load_dataset
-from typing import Callable
-from functools import partial
 import glob
 import os
+from functools import partial
+from typing import Callable
+
 import peft
 import torch
 from transformers import (
     AutoModelForCausalLM,
     AutoTokenizer,
-    set_seed,
-    Trainer,
-    TrainingArguments,
     BitsAndBytesConfig,
     DataCollatorForLanguageModeling,
     Trainer,
     TrainingArguments,
+    set_seed,
 )
+
+from datasets import load_dataset
 from sft_lib.prompt_utils import text2prompt
 
 
@@ -31,6 +31,9 @@ def get_model_max_length(model):
         max_length = 1024
         print(f"Using default max length: {max_length}")
     return max_length
+
+
+tranparent_prompterize = lambda x: x
 
 
 # SOURCE https://github.com/databrickslabs/dolly/blob/master/training/trainer.py
@@ -52,7 +55,7 @@ def preprocess_dataset(
         Tokenizing a batch
         """
         # batch = {"text": ["sample1","sample2"]} # batch_size default is 1000
-        batch_ids=tokenizer(
+        batch_ids = tokenizer(
             batch["text"],
             # later dataset.filter will remove samples that exceed max_length
             max_length=max_length + 1,
@@ -99,18 +102,18 @@ def preprocess_dataset(
 
 
 # -------- create Special dataset ----
-def get_simple_markdown_dataset():
+def get_dataset_from_text_files(dir, suffix="txt"):
     # Load text dataset: https://huggingface.co/docs/datasets/nlp_load
-    texts = []
-    ds_files = glob.glob("datasets/simple_markdown/*.md")
-    for f in ds_files:
-        with open(f, "rt") as fp:
-            texts.append(fp.read())
+    # texts = []
+    # ds_files = glob.glob(os.path.join("datasets",dir,f"*.{suffix}"))
+    # for f in ds_files:
+    #     with open(f, "rt") as fp:
+    #         texts.append(fp.read())
 
     ds = load_dataset(
         "text",
         sample_by="document",
-        data_files="datasets/simple_markdown/*.md",
+        data_files=glob.glob(os.path.join("datasets", dir, f"*.{suffix}")),
         name="simple_markdown",
         split="train",
     )
@@ -118,6 +121,6 @@ def get_simple_markdown_dataset():
 
 
 if __name__ == "__main__":
-    ds = get_simple_markdown_dataset()
+    ds = get_dataset_from_text_files("simple_markdown_with_answer", suffix="md")
     for sample in ds:
         print(sample)

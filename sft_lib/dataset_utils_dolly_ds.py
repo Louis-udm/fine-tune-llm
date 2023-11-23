@@ -1,23 +1,23 @@
-from datasets import load_dataset
-from typing import Callable
-from functools import partial
 import os
+from functools import partial
+from typing import Callable
+
 import peft
 import torch
 from transformers import (
     AutoModelForCausalLM,
     AutoTokenizer,
-    set_seed,
-    Trainer,
-    TrainingArguments,
     BitsAndBytesConfig,
     DataCollatorForLanguageModeling,
     Trainer,
     TrainingArguments,
+    set_seed,
 )
 
+from datasets import load_dataset
 
-def create_prompt_formats(sample):
+
+def prompterizer_for_dolly_ds(sample):
     """
     special for Databricks Dolly 15k dataset: https://huggingface.co/datasets/databricks/databricks-dolly-15k
 
@@ -43,9 +43,7 @@ def create_prompt_formats(sample):
 
     formatted_prompt = "\n\n".join(parts)
 
-    sample["text"] = formatted_prompt
-
-    return sample
+    return formatted_prompt
 
 
 def get_model_max_length(model):
@@ -62,42 +60,53 @@ def get_model_max_length(model):
     return max_length
 
 
-def _preprocess_batch(batch, tokenizer, max_length):
-    """
-    Tokenizing a batch
-    """
-    return tokenizer(
-        batch["text"],
-        max_length=max_length + 1, # later dataset.filter will remove samples that exceed max_length
-        truncation=True,
-    )
-
-
 # SOURCE https://github.com/databrickslabs/dolly/blob/master/training/trainer.py
 def preprocess_dataset(
-    tokenizer: AutoTokenizer,
-    max_length: int,
-    seed,
     dataset,
-    create_prompt_formats: Callable,
+    tokenizer: AutoTokenizer,
+    prompterize: Callable,
+    seed,
+    max_length: int,
+    do_shuffle=True,
 ):
     """Format & tokenize it so it is ready for training
     :param tokenizer (AutoTokenizer): Model Tokenizer
     :param max_length (int): Maximum number of tokens to emit from tokenizer
     """
 
+    def _tokenize_batch(batch, tokenizer, max_length):
+        """
+        Tokenizing a batch
+        """
+        # batch = {"text": ["sample1","sample2"]} # batch_size default is 1000
+        batch_ids = tokenizer(
+            batch["text"],
+            # later dataset.filter will remove samples that exceed max_length
+            max_length=max_length + 1,
+            # padding="longest",
+            truncation=True,
+            # https://huggingface.co/docs/datasets/process#batch-processing
+            # return_tensors="pt", # 前面batch_size必须为1，不然默认batch_size=1000，而这里如果没有padding，sample不等长
+            # 但是这个地方设置return_tensors没有用，因为dataset会自动转为ist
+        )
+        return batch_ids
+
+    def _create_prompt_formats(sample):
+        sample["text"] = prompterize(sample)
+        return sample
+
     # Add prompt to each sample
     print("Preprocessing dataset...")
-    dataset = dataset.map(create_prompt_formats)  # , batched=True)
+    dataset = dataset.map(_create_prompt_formats)  # , batched=True)
 
     # Apply preprocessing to each batch of the dataset & and remove 'instruction', 'context', 'response', 'category' fields
-    _preprocessing_function = partial(
-        _preprocess_batch, max_length=max_length, tokenizer=tokenizer
+    _tokenize_function = partial(
+        _tokenize_batch, max_length=max_length, tokenizer=tokenizer
     )
     dataset = dataset.map(
-        _preprocessing_function,
-        batched=True,
+        _tokenize_function,
         remove_columns=["instruction", "context", "response", "text", "category"],
+        batched=True,
     )
 
     # Filter out samples that have input_ids exceeding max_length
@@ -108,6 +117,7 @@ def preprocess_dataset(
     dataset = dataset.filter(lambda sample: len(sample["input_ids"]) <= max_length)
 
     # Shuffle dataset
-    dataset = dataset.shuffle(seed=seed)
+    if do_shuffle:
+        dataset = dataset.shuffle(seed=seed)
 
     return dataset

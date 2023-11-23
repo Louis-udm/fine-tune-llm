@@ -31,25 +31,50 @@ def llama2_prompt_format(
                 "content": get_sys_prompt_template(assistant_action),
             }
         ] + messages
-    messages = [
-        {
-            "role": messages[1]["role"],
-            "content": f"{B_SYS}{messages[0]['content']}{E_SYS}{messages[1]['content']}",
-        }
-    ] + messages[2:]
+    if messages[0]["role"] == "system":
+        messages = [
+            {
+                "role": messages[1]["role"],
+                "content": f"{B_SYS}{messages[0]['content']}{E_SYS}{messages[1]['content']}",
+            }
+        ] + messages[2:]
 
     messages_list = [
         f"{BOS}{B_INST} {(prompt['content']).strip()} {E_INST} {(answer['content']).strip()} {EOS}"
         for prompt, answer in zip(messages[::2], messages[1::2])
     ]
-    messages_list.append(f"{BOS}{B_INST} {(messages[-1]['content']).strip()} {E_INST}")
+    if len(messages) % 2 == 1:
+        # the last message is from user
+        messages_list.append(
+            f"{BOS}{B_INST} {(messages[-1]['content']).strip()} {E_INST}"
+        )
+    else:
+        # the last message is from assistant,
+        # this case is for training the model, the last message is what we want the answer from the model,
+        # so we delete last EOS
+        messages_list[-1] = messages_list[-1][: -len(EOS)].strip()
 
     return "".join(messages_list)
 
 
-def text2prompt(text: str, add_sys_prompt: bool = True, assistant_action: str = None):
+def text2prompt(
+    text: str,
+    add_sys_prompt: bool = True,
+    assistant_action: str = None,
+    answer_delimiter: str = "^^^^A^^^^",
+):
+    answer = None
+    answer_idx = text.find(answer_delimiter)
+    if answer_idx > -1:
+        text, answer = (
+            text[:answer_idx].strip(),
+            text[answer_idx + len(answer_delimiter) :].strip(),
+        )
+    messages = [{"role": "user", "content": text}]
+    if answer:
+        messages.append({"role": "assistant", "content": answer})
     return llama2_prompt_format(
-        messages=[{"role": "user", "content": text}],
+        messages=messages,
         add_sys_prompt=add_sys_prompt,
         assistant_action=assistant_action,
     )
@@ -60,12 +85,47 @@ if __name__ == "__main__":
         # {"role": "system", "content": "You are a helpful assistant."},
         {"role": "user", "content": "Knock knock."},
         {"role": "assistant", "content": "Who's there?"},
-        {"role": "user", "content": "Orange."},
-        {"role": "assistant", "content": "Hi Orange, how are you?"},
-        {"role": "user", "content": "I am good, and you?"},
-        {"role": "assistant", "content": "I am also good, thanks!"},
+        {"role": "user", "content": "Orange. What's your name?"},
     ]
 
     # print(convert_openai_to_llama_format(messages))
-    # print(llama2_prompt_format(messages))
-    print(text2prompt("Knock knock."))
+    assert (
+        llama2_prompt_format(messages)
+        == """<s>[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Knock knock. [/INST] Who's there? </s><s>[INST] Orange. What's your name? [/INST]"""
+    )
+    assert (
+        llama2_prompt_format(messages, assistant_action="tell a story")
+        == """<s>[INST] <<SYS>>
+You are a helpful, respectful and honest assistant who can help tell a story, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Knock knock. [/INST] Who's there? </s><s>[INST] Orange. What's your name? [/INST]"""
+    )
+    assert (
+        llama2_prompt_format(messages, add_sys_prompt=False)
+        == "<s>[INST] Knock knock. [/INST] Who's there? </s><s>[INST] Orange. What's your name? [/INST]"
+    )
+
+    # this is the text for traning the model
+    messages = [
+        # {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": "Knock knock."},
+        {"role": "assistant", "content": "Who's there?"},
+        {"role": "user", "content": "Orange. What's your name?"},
+        {
+            "role": "assistant",
+            "content": "Hi Orange. My name is LLM. Nice to meet you.",
+        },
+    ]
+    assert (
+        llama2_prompt_format(messages, add_sys_prompt=False)
+        == "<s>[INST] Knock knock. [/INST] Who's there? </s><s>[INST] Orange. What's your name? [/INST] Hi Orange. My name is LLM. Nice to meet you."
+    )
+    assert (
+        text2prompt("Knock knock.\n^^^^A^^^^Who's there?", add_sys_prompt=False)
+        == "<s>[INST] Knock knock. [/INST] Who's there?"
+    )

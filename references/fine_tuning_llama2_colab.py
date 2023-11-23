@@ -14,19 +14,15 @@ Original file is located at
 # %pip install accelerate peft bitsandbytes transformers trl
 
 import os
+
 import torch
-from datasets import load_dataset
-from transformers import (
-    AutoModelForCausalLM,
-    AutoTokenizer,
-    BitsAndBytesConfig,
-    HfArgumentParser,
-    TrainingArguments,
-    pipeline,
-    logging,
-)
 from peft import LoraConfig, PeftModel
+from transformers import (AutoModelForCausalLM, AutoTokenizer,
+                          BitsAndBytesConfig, HfArgumentParser,
+                          TrainingArguments, logging, pipeline)
 from trl import SFTTrainer
+
+from datasets import load_dataset
 
 """## Model Config"""
 
@@ -125,6 +121,7 @@ trainer.model.save_pretrained(new_model)
 # !kill 26235
 
 from tensorboard import notebook
+
 log_dir = "results/runs"
 notebook.start("--logdir {} --port 4000".format(log_dir))
 

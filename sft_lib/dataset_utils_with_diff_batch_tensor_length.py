@@ -1,23 +1,23 @@
-from datasets import load_dataset
-from typing import Callable
-from functools import partial
 import glob
 import os
+from functools import partial
+from typing import Callable
+
 import peft
 import torch
+from torch.utils.data.dataloader import DataLoader
 from transformers import (
     AutoModelForCausalLM,
     AutoTokenizer,
-    set_seed,
-    Trainer,
-    TrainingArguments,
     BitsAndBytesConfig,
     DataCollatorForLanguageModeling,
     Trainer,
     TrainingArguments,
+    set_seed,
 )
+
+from datasets import load_dataset
 from sft_lib.prompt_utils import text2prompt
-from torch.utils.data.dataloader import DataLoader
 
 
 def get_model_max_length(model):
@@ -62,7 +62,7 @@ def preprocess_dataset(
             max_length=max_length + 1,
             padding="longest",
             truncation=True,
-            return_tensors="pt", # 这里虽然可以是tensor，但是最后会变成list，why?
+            return_tensors="pt",  # 这里虽然可以是tensor，但是最后会变成list，why?
         )
         # print(batch_ids)
         # batch_ids={"input_ids": tensor.size=(2,367), "attention_mask": tensor.size=(2,367)}
@@ -105,9 +105,9 @@ def preprocess_dataset(
 
 
 def collate_fn(batch):
-    # torch DataLoader batch = 
+    # torch DataLoader batch =
     # [
-    #    {"input_ids": [sample1's input_ids in list], "attention_mask": [sample1's att mask in list]}, 
+    #    {"input_ids": [sample1's input_ids in list], "attention_mask": [sample1's att mask in list]},
     #     ...
     #    {"input_ids": [sampleN's input_ids in list], "attention_mask": [sampleN's att mask in list]},
     # ]
@@ -138,11 +138,11 @@ def get_simple_markdown_dataset():
 
 
 if __name__ == "__main__":
-    batch_size=2
-    max_length=4096
-    SEED=44
-    model_name="NousResearch/Llama-2-7b-chat-hf"
-    tokenizer=AutoTokenizer.from_pretrained(model_name)
+    batch_size = 2
+    max_length = 4096
+    SEED = 44
+    model_name = "NousResearch/Llama-2-7b-chat-hf"
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
 
     ds = get_simple_markdown_dataset()
     for sample in ds:

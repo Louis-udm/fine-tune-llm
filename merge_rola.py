@@ -1,20 +1,20 @@
-import bitsandbytes as bnb
-from datasets import load_dataset
-from functools import partial
 import os
+from functools import partial
+
+import bitsandbytes as bnb
 import peft
 import torch
 from transformers import (
     AutoModelForCausalLM,
     AutoTokenizer,
-    set_seed,
-    Trainer,
-    TrainingArguments,
     BitsAndBytesConfig,
     DataCollatorForLanguageModeling,
     Trainer,
     TrainingArguments,
+    set_seed,
 )
+
+from datasets import load_dataset
 
 old_model_name = "NousResearch/Llama-2-7b-chat-hf"
 
@@ -71,6 +71,3 @@ outputs = model.generate(
 
 # Decode output & print it
 print(tokenizer.decode(outputs[0], skip_special_tokens=True))
-
-
-

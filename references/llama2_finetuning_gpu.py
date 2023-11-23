@@ -5,23 +5,22 @@
 # %%
 # Import libraries
 import argparse
-import bitsandbytes as bnb
-from datasets import load_dataset
-from functools import partial
 import os
+from functools import partial
+
+import bitsandbytes as bnb
 import peft
 import torch
 from transformers import (
     AutoModelForCausalLM,
     AutoTokenizer,
-    set_seed,
-    Trainer,
-    TrainingArguments,
     BitsAndBytesConfig,
     DataCollatorForLanguageModeling,
     Trainer,
     TrainingArguments,
+    set_seed,
 )
+
 from datasets import load_dataset
 
 # Reproducibility
@@ -84,6 +83,7 @@ for d in dataset:
 
 # %%
 import random
+
 import pandas as pd
 
 # Generate random indices

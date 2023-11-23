@@ -5,6 +5,22 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}",
+                "PYDEVD_WARN_EVALUATION_TIMEOUT": "500"
+            },
+            "envFile": "${workspaceFolder}/.env",
+            // "cwd": "${fileDirname}",
+            // "pythonArgs": ["-m"]
+        },
+        {
             "name": "Inference-service",
             "type": "python",
             "request": "launch",
@@ -20,22 +36,6 @@
             },
             "args": ["llama2.main:app","--reload"]
             // "args": ["--workers", "2", "llama2.main:app","--reload"]
-        },
-        {
-            "name": "Python: Current File",
-            "type": "python",
-            "request": "launch",
-            "program": "${file}",
-            "console": "integratedTerminal",
-            "justMyCode": false,
-            "cwd": "${workspaceFolder}",
-            "env": {
-                "PYTHONPATH": "${workspaceFolder}",
-                "PYDEVD_WARN_EVALUATION_TIMEOUT": "500"
-            },
-            "envFile": "${workspaceFolder}/.env",
-            // "cwd": "${fileDirname}",
-            // "pythonArgs": ["-m"]
         }
     ]
 }

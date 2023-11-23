@@ -1,0 +1,293 @@
+(ft310) zhibin@vpc-modeling:~/Projects/fine-tune-llm$  cd /home/zhibin/Projects/fine-tune-llm ; /usr/bin/env /home/zhibin/venvs/ft310/bin/python /home/zhibin/.vscode-server/extensions/ms-python.python-2023.20.0/pythonFiles/lib/python/debugpy/adapter/../../debugpy/launcher 59621 -- /home/zhibin/Projects/fine-tune-llm/infer.py 
+Downloading data files: 100%|███████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 5102.56it/s]
+Extracting data files: 100%|█████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 462.74it/s]
+Generating train split: 9 examples [00:00, 1897.30 examples/s]
+Loading checkpoint shards: 100%|██████████████████████████████████████████████████████████████████████| 2/2 [00:07<00:00,  3.72s/it]
+/home/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:381: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.9` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`. This was detected when initializing the generation config instance, which means the corresponding file may hold incorrect parameterization and should be fixed.
+  warnings.warn(
+/home/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:386: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.6` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`. This was detected when initializing the generation config instance, which means the corresponding file may hold incorrect parameterization and should be fixed.
+  warnings.warn(
+/home/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/models/auto/tokenization_auto.py:671: FutureWarning: The `use_auth_token` argument is deprecated and will be removed in v5 of Transformers. Please use `token` instead.
+  warnings.warn(
+Preprocessing dataset...
+Map: 100%|███████████████████████████████████████████████████████████████████████████████████| 9/9 [00:00<00:00, 2347.70 examples/s]
+Map: 100%|████████████████████████████████████████████████████████████████████████████████████| 9/9 [00:00<00:00, 202.90 examples/s]
+Filter: 100%|████████████████████████████████████████████████████████████████████████████████| 9/9 [00:00<00:00, 1151.40 examples/s]
+abandoning long sentences:
+[2049, 2049]
+Filter: 100%|████████████████████████████████████████████████████████████████████████████████| 9/9 [00:00<00:00, 1200.16 examples/s]
+
+--------- LLM generation for sample 1:
+/home/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/generation/utils.py:1473: UserWarning: You have modified the pretrained model configuration to control generation. This is a deprecated strategy to control generation and will be removed soon, in a future version. Please use and modify the model generation configuration (see https://huggingface.co/docs/transformers/generation_strategies#default-text-generation-configuration )
+  warnings.warn(
+[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Analyze the document contained by %%%% below. Within the document, locate the markdown table, provide the exact content found in the intersection of row 3 and column 2 in the table, then return in `JSON` format. Note that the header of table is not the first content row. The definition of the `JSON` result is like:
+```json
+{{
+  "request": "Intersection content of row 3 and column 2 in the table",
+  "content": "bla bla"
+}}
+```
+
+Here is the document:
+
+%%%%
+# Animal employees
+We are **DreamAI**, we have 4 animal employees.
+## Detail infomations
+
+SEQ | Kind    |Name    |   Age| City
+----|---------|--------|------|----
+A1  | Dog    |Fred    |   2 |   Montreal
+A2  | Cat     |Jim     |   4 |   Toronto
+B1  | Snake   |Harry   |   3 |   Vancouver
+B2  | Bird   |Louis   |   5 |   Ottawa
+
+Our employees are welcome for you.
+
+## Brief
+Our employees are not working in offfice, they work from home.
+
+%%%% [/INST] First, the markdown table is:
+SEQ | Kind    |Name    |   Age| City
+----|---------|--------|------|----
+A1  | Dog    |Fred    |   2 |   Montreal
+A2  | Cat     |Jim     |   4 |   Toronto
+B1  | Snake   |Harry   |   3 |   Vancouver
+B2  | Bird   |Louis   |   5 |   Ottawa
+
+The header row, which is not the first content row, includes column names such as SEQ, Kind, Name, Age, and City.
+
+Second, row 3 is:
+B1  | Snake   |Harry   |   3 |   Vancouver
+
+Third, column 2 in row 3 is:
+Snake
+
+Finally, here's the JSON format answer according to your `JSON` format example:
+```json
+{
+  "request": "bla bla",
+  "content": "Snake"
+}
+```
+
+--------- LLM generation for sample 2:
+[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Analyze the document contained by %%%% below. Within the document, locate the markdown table, provide the exact content found in the intersection of row 2 and column 4 in the table, then return in `JSON` format. Note that the header of table is not the first content row. The definition of the `JSON` result is like:
+```json
+{{
+  "request": "Intersection content of row 3 and column 2 in the table",
+  "content": "bla bla"
+}}
+```
+
+Here is the document:
+
+%%%%
+
+ANNEX C- EVALUATION CRITERIA 
+ 
+| ID   | Rated Requirement Description                                                                                                                                                                                                                           | Rating Criteria                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Max Points    |
+|------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
+| R1.1 | The solution should provide written a  RPA strategic enterprise    implementation plan which will be  evaluated based on the following  marking scheme:   1.1 E- SDC infrastructure requirements;                                                       | 1 •  Information is well  documented / clear and  relevant to the subject – full  points per bullet  •  Information is semi  documented / unclear /  contains unrelated  information – half points per  bullet  .1 - ESDC infrastructure  requirements evaluation criteria   - includes relevant infrastructure  diagrams (Max 10 points)  - includes relevant infrastructure  hardware and software  requirements(Max 10 points)  - includes relevant costings and  firewall rule requirements(Max 10  points) | Max 30 points |
+| R1.2 | The solution should provide written a  RPA strategic enterprise    implementation plan which will be  evaluated based on the following  marking scheme:   1.2 - best practices for business and IT  RPA Centres of Expertise (CoE);                     | •  Information is well  documented / clear and  relevant to the subject – full  points per bullet  •  Information is semi  documented / unclear /  contains unrelated  information – half points per  bullet    1.2 -best practices for business  and IT RPA centres of expertise  (CoE);   - includes relevant best practices  for business RPA center of  excellence. (Max 10 points)  - includes relevant best practices  for IT RPA center of excellence.  (Max 10 points)                                  | Max 20 points |
+| R1.3 | 1 The solution should provide written a  RPA strategic enterprise    implementation plan which will be  evaluated based on the following  marking scheme:   .3 - business process evaluation and  creation of inventories of potential  RPA candidates; | •  Information is well  documented / clear and  relevant to the subject – full  points per bullet  •  Information is semi  documented / unclear /  contains unrelated  information – half points per  bullet                                                                                                                                                                                                                                                                                                    | Max 60 points |
+ 
+%%%% [/INST] First, the markdown table is:
+| ID | Rated Requirement Description | Rating Criteria | Max Points |
+| --- | --- | --- | --- |
+| R1.1 | The solution should provide written a RPA strategic enterprise implementation plan which will be evaluated based on the following marking scheme:<br>1.1 E- SDC infrastructure requirements;<br>- includes relevant infrastructure diagrams (Max 10 points)<br>- includes relevant infrastructure hardware and software requirements (Max 10 points)<br>- includes relevant costings and firewall rule requirements (Max 10 points) | 1 • Information is well documented / clear and relevant to the subject – full points per bullet<br>• Information is semi documented / unclear / contains unrelated information – half points per bullet | Max 30 points |
+| R1.2 | The solution should provide written a RPA strategic enterprise implementation plan which will be evaluated based on the following marking scheme:<br>1.2 - best practices for business and IT RPA Centres of Expertise (CoE);<br>- includes relevant best practices for business RPA center of excellence (Max 10 points)<br>- includes relevant best practices for IT RPA center of excellence (Max 10 points) | • Information is well documented / clear and relevant to the subject – full points per bullet<br>• Information is semi documented / unclear / contains unrelated information – half points per bullet | Max 20 points |
+| R1.3 | The solution should provide written a RPA strategic enterprise implementation plan which will be evaluated based on the following marking scheme:<br>.3 - business process evaluation and creation of inventories of potential RPA candidates; | • Information is well documented / clear and relevant to the subject – full points per bullet<br>• Information is semi documented / unclear / contains unrelated information – half points per bullet | Max 60 points |
+
+Second, the intersection of row 2 and column 4 is:
+R1.1 | 1.1 E- SDC infrastructure requirements; | includes relevant infrastructure diagrams (Max 10 points) |
+
+Finally, here's the JSON format answer according to your `JSON` example:
+```json
+{
+  "request": "Intersection content of row 2 and column 4 in the table",
+  "content": "R1.1 | 1.1 E- SDC infrastructure requirements; | includes relevant infrastructure diagrams (Max 10 points)"
+}
+```
+
+--------- LLM generation for sample 3:
+[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Analyze the document contained by %%%% below. Within the document, locate the markdown table, then merge (combine) the original contents in all cells for each row, and return in `JSON` format list. Note that the header of table is not the first content row. The definition of the `JSON` result is like:
+```json
+{{
+  "request": "Merge original contents of each cell in every row.",
+  "rows": [
+    "first row merged contents",
+    "second row merged contents"
+  ]
+}}
+```
+
+Here is the document:
+
+%%%%
+
+ANNEX C- EVALUATION CRITERIA 
+ 
+| ID   | Rated Requirement Description                                                                                                                                                                                                                           | Rating Criteria                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Max Points    |
+|------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
+| R1.1 | The solution should provide written a  RPA strategic enterprise    implementation plan which will be  evaluated based on the following  marking scheme:   1.1 E- SDC infrastructure requirements;                                                       | 1 •  Information is well  documented / clear and  relevant to the subject – full  points per bullet  •  Information is semi  documented / unclear /  contains unrelated  information – half points per  bullet  .1 - ESDC infrastructure  requirements evaluation criteria   - includes relevant infrastructure  diagrams (Max 10 points)  - includes relevant infrastructure  hardware and software  requirements(Max 10 points)  - includes relevant costings and  firewall rule requirements(Max 10  points) | Max 30 points |
+| R1.2 | The solution should provide written a  RPA strategic enterprise    implementation plan which will be  evaluated based on the following  marking scheme:   1.2 - best practices for business and IT  RPA Centres of Expertise (CoE);                     | •  Information is well  documented / clear and  relevant to the subject – full  points per bullet  •  Information is semi  documented / unclear /  contains unrelated  information – half points per  bullet    1.2 -best practices for business  and IT RPA centres of expertise  (CoE);   - includes relevant best practices  for business RPA center of  excellence. (Max 10 points)  - includes relevant best practices  for IT RPA center of excellence.  (Max 10 points)                                  | Max 20 points |
+| R1.3 | 1 The solution should provide written a  RPA strategic enterprise    implementation plan which will be  evaluated based on the following  marking scheme:   .3 - business process evaluation and  creation of inventories of potential  RPA candidates; | •  Information is well  documented / clear and  relevant to the subject – full  points per bullet  •  Information is semi  documented / unclear /  contains unrelated  information – half points per  bullet                                                                                                                                                                                                                                                                                                    | Max 60 points |
+ 
+%%%% [/INST] First, the markdown table is:
+| ID | Rated Requirement Description | Rating Criteria | Max Points |
+| --- | --- | --- | --- |
+| R1.1 | The solution should provide written a RPA strategic enterprise implementation plan which will be evaluated based on the following marking scheme:<br>1.1 E- SDC infrastructure requirements;<br>- includes relevant infrastructure diagrams (Max 10 points)<br>- includes relevant infrastructure hardware and software requirements (Max 10 points)<br>- includes relevant costings and firewall rule requirements (Max 10 points) | 1 • Information is well documented / clear and relevant to the subject – full points per bullet<br>• Information is semi documented / unclear / contains unrelated information – half points per bullet | Max 30 points |
+| R1.2 | The solution should provide written a RPA strategic enterprise implementation plan which will be evaluated based on the following marking scheme:<br>1.2 - best practices for business and IT RPA Centres of Expertise (CoE);<br>- includes relevant best practices for business RPA center of excellence (Max 10 points)<br>- includes relevant best practices for IT RPA center of excellence (Max 10 points) | • Information is well documented / clear and relevant to the subject – full points per bullet<br>• Information is semi documented / unclear / contains unrelated information – half points per bullet | Max 20 points |
+| R1.3 | 1 The solution should provide written a RPA strategic enterprise implementation plan which will be evaluated based on the following marking scheme:<br>.3 - business process evaluation and creation of inventories of potential RPA candidates; | • Information is well documented / clear and relevant to the subject – full points per bullet<br>• Information is semi documented / unclear / contains unrelated information – half points per bullet | Max 60 points |
+
+Second, the merged original contents of each cell in every row are:
+R1.1:
+1.1 E- SDC infrastructure requirements
+Includes relevant infrastructure diagrams (Max 10 points)
+Includes relevant infrastructure hardware and software requirements (Max 10 points)
+Includes relevant costings and firewall rule requirements (Max 10 points)
+
+R1.2:
+1.2 - best practices for business and IT RPA Centres of Expertise (CoE)
+Includes relevant best practices for business RPA center of excellence (Max 10 points)
+Includes relevant best practices for IT RPA center of excellence (Max 10 points)
+
+R1.3:
+.3 - business process evaluation and creation of inventories of potential RPA candidates;
+
+Finally, the JSON format answer according to your `JSON` example is:
+```json
+{
+  "request": "Merge original contents of each cell in every row.",
+  "rows": [
+    "1.1 E- SDC infrastructure requirements\nIncludes relevant infrastructure diagrams (Max 10 points)\nIncludes relevant infrastructure hardware and software requirements (Max 10 points)\nIncludes relevant costings and firewall rule requirements (Max 10 points)",
+    "1.2 - best practices for business and IT RPA Centres of Expertise (CoE)\nIncludes relevant best practices for business RPA center of excellence (Max 10 points)\nIncludes relevant best practices for IT RPA center of excellence (Max 10 points)",
+    ".3 - business process evaluation and creation of inventories of potential RPA candidates;\n"
+  ]
+}
+```
+
+--------- LLM generation for sample 4:
+[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Analyze the document contained by %%%% below. Within the document, locate the markdown table, then merge (combine) the original contents in all cells for each row, and return in `JSON` format list. Note that the header of table is not the first content row. The definition of the `JSON` result is like:
+```json
+{{
+  "request": "Merge original contents of each cell in every row.",
+  "rows": [
+    "first row merged contents",
+    "second row merged contents"
+  ]
+}}
+```
+
+Here is the document:
+
+%%%%
+# Welcome to StackEdit!
+
+Hi! I'm your first Markdown file in **StackEdit**. If you want to learn about StackEdit, you can read me. If you want to play with Markdown, you can edit me. Once you have finished with me, you can create new files by opening the **file explorer** on the left corner of the navigation bar.
+
+## SmartyPants
+
+SmartyPants converts ASCII punctuation characters into "smart" typographic punctuation HTML entities. For example:
+
+|        title        |ASCII                          |HTML                         |
+|----------------|-------------------------------|-----------------------------|
+| Single backticks| 12          | -10          |
+| Quotes          | I am here            | this is Kerry            |
+| Dashes          | python|java|
+
+%%%% [/INST] First, the markdown table is:
+|        title        |ASCII                          |HTML                         |
+|----------------|-------------------------------|-----------------------------|
+| Single backticks| 12          | -10          |
+| Quotes          | I am here            | this is Kerry            |
+| Dashes          | python|java|
+
+The header row, which is not the first content row, includes column names such as title, ASCII and HTML.
+
+Second, merge original contents of each cell in every row:
+Single backticks| 12          | -10          |
+Quotes          | I am here            | this is Kerry            |
+Dashes          | python|java|
+
+Finally, here's the `JSON` format answer according to your `JSON` format example:
+```json
+{
+  "request": "Merge original contents of each cell in every row.",
+  "rows": [
+    "Single backticks| 12          | -10          |",
+    "Quotes          | I am here            | this is Kerry            |",
+    "Dashes          | python|java|"
+  ]
+}
+```
+Note that the `JSON` format answer includes an array of strings, each string is a merged content of a cell in a row, and the keys of the `JSON` object are the same as the column names in the table.
+
+--------- LLM generation for sample 5:
+[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Analyze the document contained by %%%% below. Within the document, locate the markdown table, provide the exact content found in the intersection of row 1 and column 1 in the table, then return in `JSON` format. Note that the header of table is not the first content row. The definition of the `JSON` result is like:
+```json
+{{
+  "request": "Intersection content of row 1 and column 1 in the table",
+  "content": "bla bla"
+}}
+```
+
+Here is the document:
+
+%%%%
+# Welcome to StackEdit!
+
+Hi! I'm your first Markdown file in **StackEdit**. If you want to learn about StackEdit, you can read me. If you want to play with Markdown, you can edit me. Once you have finished with me, you can create new files by opening the **file explorer** on the left corner of the navigation bar.
+
+## SmartyPants
+
+SmartyPants converts ASCII punctuation characters into "smart" typographic punctuation HTML entities. For example:
+
+|        title        |ASCII                          |HTML                         |
+|----------------|-------------------------------|-----------------------------|
+| Single backticks| 12          | -10          |
+| Quotes          | I am here            | this is Kerry            |
+| Dashes          | python|java|
+
+%%%% [/INST] First, the markdown table is:
+|        title        |ASCII                          |HTML                         |
+|----------------|-------------------------------|-----------------------------|
+| Single backticks| 12          | -10          |
+| Quotes          | I am here            | this is Kerry            |
+| Dashes          | python|java|
+
+The header row, which is not the first content row, includes column names such as title, ASCII and HTML.
+
+Second, the content of intersection row 1 and column 1 is:
+Single backticks
+
+Finally, here's the JSON format answer according to your `JSON` format example:
+```json
+{
+  "request": "Intersection content of row 1 and column 1 in the table",
+  "content": "Single backticks"
+}
+```
+
+--------- LLM generation for sample 6:
