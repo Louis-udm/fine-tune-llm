@@ -41,7 +41,7 @@ def predict_cli(
     output_root="predictions",
     max_prompt_length=2048,
     # max_new_length=2048,
-    max_new_length=1024,
+    max_new_length=500,
     # num_beams=1,
     # num_return_sequences=1,
     temperature=0.3,
