@@ -110,10 +110,12 @@ def get_dataset_from_text_files(dir, suffix="txt"):
     #     with open(f, "rt") as fp:
     #         texts.append(fp.read())
 
+    data_files=glob.glob(os.path.join("datasets", dir, f"*.{suffix}"))
+    data_files=sorted(data_files)
     ds = load_dataset(
         "text",
         sample_by="document",
-        data_files=glob.glob(os.path.join("datasets", dir, f"*.{suffix}")),
+        data_files=data_files,
         name="simple_markdown",
         split="train",
     )

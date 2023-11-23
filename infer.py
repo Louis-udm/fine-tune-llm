@@ -40,7 +40,8 @@ def predict_cli(
     model_name="NousResearch/Llama-2-7b-chat-hf",
     output_root="predictions",
     max_prompt_length=2048,
-    max_new_length=2048,
+    # max_new_length=2048,
+    max_new_length=1024,
     # num_beams=1,
     # num_return_sequences=1,
     temperature=0.3,
@@ -53,18 +54,19 @@ def predict_cli(
     # diversity_penalty=0.0,
     do_sample=True,
     # do_sample=False,
-    ds_name=1,
+    # ds_name="dir:simple_markdown",
+    ds_name="dir:smd_with_rfp",
     # ds_name=["What is OVHcloud?", "Where is Montreal?", "What is Markdown?"],
-    # in cli: --ds-name "I am here||you are there ||bla bla"
+    # in cli: --ds-name "eg:I am here||you are there ||bla bla"
 ):
-    if isinstance(ds_name, str):
-        ds = ds_name.strip().split("||")
+    if isinstance(ds_name, str) and ds_name.startswith("dir:"):
+        ds = get_dataset_from_text_files(ds_name[4:], suffix="md")
+    if isinstance(ds_name, str) and ds_name.startswith("eg:"):
+        ds = ds_name[3:].split("||")
         ds = Dataset.from_dict({"text": ds})
     if isinstance(ds_name, list):
         ds = ds_name
         ds = Dataset.from_dict({"text": ds})
-    if ds_name == 1:
-        ds = get_dataset_from_text_files("simple_markdown", suffix="md")
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     # Load model and tokenizer
