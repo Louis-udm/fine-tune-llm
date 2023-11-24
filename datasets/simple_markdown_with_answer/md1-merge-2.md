@@ -1,13 +1,4 @@
-Analyze the document contained by %%%% below. Within the document, locate the markdown table, then merge (combine) the original contents in all cells for each row, and return in `JSON` format list. Note that the header of table is not the first content row. The definition of the `JSON` result is like:
-```json
-{{
-  "request": "Merge original contents of each cell in every row.",
-  "rows": [
-    "first row merged contents",
-    "second row merged contents"
-  ]
-}}
-```
+Analyze the document contained by %%%% below. Within the document, locate the markdown table, then merge (combine) the original contents row by row, and return in `JSON` format list. Note do not include the header of the table. 
 
 Here is the document:
 
@@ -29,13 +20,11 @@ SmartyPants converts ASCII punctuation characters into "smart" typographic punct
 %%%%
 
 ^^^^A^^^^
-Merging markdown cells in a row means replace `|` with a space in the row. For example:
-The first row in the table is: "| Single backticks| 12          | -10          |", then the merged original content is: "Single backticks 12 -10"
+Here you are the merged rows in `JSON` format:
 
-Finally, here's the JSON format answer according to your `JSON` format example:
 ```json
 {
-  "request": "Merge original contents of each cell in every row.",
+  "request": "Merge original contents of each cell in every content row.",
   "rows": [
     "Single backticks 12 -10",
     "Quotes I am here this is Kerry",

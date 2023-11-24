@@ -5,15 +5,9 @@ from typing import Callable
 
 import peft
 import torch
-from transformers import (
-    AutoModelForCausalLM,
-    AutoTokenizer,
-    BitsAndBytesConfig,
-    DataCollatorForLanguageModeling,
-    Trainer,
-    TrainingArguments,
-    set_seed,
-)
+from transformers import (AutoModelForCausalLM, AutoTokenizer,
+                          BitsAndBytesConfig, DataCollatorForLanguageModeling,
+                          Trainer, TrainingArguments, set_seed)
 
 from datasets import load_dataset
 from sft_lib.prompt_utils import text2prompt
@@ -44,13 +38,14 @@ def preprocess_dataset(
     seed,
     max_length: int,
     do_shuffle=True,
+    abandon_long_sent=True,
 ):
     """Format & tokenize it so it is ready for training
     :param tokenizer (AutoTokenizer): Model Tokenizer
     :param max_length (int): Maximum number of tokens to emit from tokenizer
     """
 
-    def _tokenize_batch(batch, tokenizer, max_length):
+    def _tokenize_batch(batch, tokenizer, max_length, abandon_long_sent):
         """
         Tokenizing a batch
         """
@@ -58,7 +53,7 @@ def preprocess_dataset(
         batch_ids = tokenizer(
             batch["text"],
             # later dataset.filter will remove samples that exceed max_length
-            max_length=max_length + 1,
+            max_length=max_length + 1 if abandon_long_sent else max_length,
             # padding="longest",
             truncation=True,
             # https://huggingface.co/docs/datasets/process#batch-processing
@@ -77,7 +72,10 @@ def preprocess_dataset(
 
     # Apply preprocessing to each batch of the dataset & and remove 'instruction', 'context', 'response', 'category' fields
     _tokenize_function = partial(
-        _tokenize_batch, max_length=max_length, tokenizer=tokenizer
+        _tokenize_batch,
+        max_length=max_length,
+        tokenizer=tokenizer,
+        abandon_long_sent=abandon_long_sent,
     )
     dataset = dataset.map(
         _tokenize_function,
@@ -88,6 +86,7 @@ def preprocess_dataset(
     )
 
     # Filter out samples that have input_ids exceeding max_length
+    # if abandon_long_sent is False, there should not have any sample exceeding max_length (truncated by max_length)
     long_sent_ds = dataset.filter(lambda sample: len(sample["input_ids"]) > max_length)
     if len(long_sent_ds) > 0:
         print("abandoning long sentences:")
@@ -110,8 +109,8 @@ def get_dataset_from_text_files(dir, suffix="txt"):
     #     with open(f, "rt") as fp:
     #         texts.append(fp.read())
 
-    data_files=glob.glob(os.path.join("datasets", dir, f"*.{suffix}"))
-    data_files=sorted(data_files)
+    data_files = glob.glob(os.path.join("datasets", dir, f"*.{suffix}"))
+    data_files = sorted(data_files)
     ds = load_dataset(
         "text",
         sample_by="document",

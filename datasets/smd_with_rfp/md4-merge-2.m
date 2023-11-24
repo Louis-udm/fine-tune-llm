@@ -1,7 +1,7 @@
-Analyze the document contained by %%%% below. Within the document, locate the markdown table, then merge (combine) the original contents in all cells for each row, and return in `JSON` format list. Note that the header of table is not the first content row. The definition of the `JSON` result is like:
+Analyze the document contained by %%%% below. Within the document, locate the markdown table, then merge (combine) the original contents in all cells for each content row, and return in `JSON` format list. Note that the header of table is not the first content row. The definition of the `JSON` result is like:
 ```json
 {{
-  "request": "Merge original contents of each cell in every row.",
+  "request": "Merge original contents of each cell in every content row.",
   "rows": [
     "first row merged contents",
     "second row merged contents"

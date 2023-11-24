@@ -1,11 +1,8 @@
-Analyze the document contained by %%%% below. Within the document, locate the markdown table, then merge (combine) the original contents in all cells for each row, and return in `JSON` format list. Note that the header of table is not the first content row. The definition of the `JSON` result is like:
+Analyze the document contained by %%%% below. Within the document, locate the markdown table, provide the exact content found in the intersection of no.3 row and no.2 column in the table, then return in `JSON` format. Note that the header of table is not the first content row. The definition of the `JSON` result is like:
 ```json
 {{
-  "request": "Merge original contents of each cell in every row.",
-  "rows": [
-    "first row merged contents",
-    "second row merged contents"
-  ]
+  "request": "Intersection content",
+  "content": "bla bla"
 }}
 ```
 

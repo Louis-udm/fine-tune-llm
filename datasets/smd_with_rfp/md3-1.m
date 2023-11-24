@@ -1,7 +1,7 @@
-Analyze the document contained by %%%% below. Within the document, locate the markdown table, provide the exact content found in the intersection of no.3 row and no.2 column in the table, then return in `JSON` format. Note that the header of table is not the first content row. The definition of the `JSON` result is like:
+Analyze the document contained by %%%% below. Within the document, locate the markdown table, provide the exact content found in the intersection of no.2 row and no.4 column in the table, then return in `JSON` format. Note that the header of table is not the first content row. The definition of the `JSON` result is like:
 ```json
 {{
-  "request": "Intersection content of no.3 row and no.2 column in the table",
+  "request": "Intersection content",
   "content": "bla bla"
 }}
 ```

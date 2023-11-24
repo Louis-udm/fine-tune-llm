@@ -8,6 +8,7 @@ import bitsandbytes as bnb
 import pandas as pd
 import peft
 import torch
+from accelerate import Accelerator
 from transformers import (AutoModelForCausalLM, AutoTokenizer,
                           BitsAndBytesConfig, DataCollatorForLanguageModeling,
                           Trainer, TrainingArguments, set_seed)
@@ -45,7 +46,7 @@ def load_and_show_dataset(ds_name, suffix):
 
 def train_cli(
     warmup_steps=4,
-    max_steps=100,  # 100,
+    max_steps=30,  # 100,
     learning_rate=2e-4,
     output_root="results",
     ds_name="simple_markdown_with_answer",
@@ -71,7 +72,15 @@ def train_cli(
     model = assemble_trainable_model(model)
     verify_datatypes(model)
 
-    # Training parameters
+    # if training_args.gradient_checkpointing:
+    #     model.gradient_checkpointing_enable()
+
+    accelerator = Accelerator(fp16=True)
+    model, optimizer, dataloader = accelerator.prepare(model, adam_bnb_optim, dataloader)
+
+    model.train()
+    # for epoch in range(1, 5):
+    for i, sample in enumerate(ds, start=1):
     trainer = Trainer(
         model=model,
         train_dataset=dataset,

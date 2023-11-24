@@ -1,7 +1,7 @@
-Analyze the document contained by %%%% below. Within the document, locate the markdown table, then merge (combine) the original contents in all cells for each row, and return in `JSON` format list. Note that the header of table is not the first content row. The definition of the `JSON` result is like:
+Analyze the document contained by %%%% below. Within the document, locate the markdown table, then merge (combine) the original contents in all cells for each content row, and return in `JSON` format list. Note that the header of table is not the first content row. The definition of the `JSON` result is like:
 ```json
 {{
-  "request": "Merge original contents of each cell in every row.",
+  "request": "Merge original contents of each cell in every content row.",
   "rows": [
     "first row merged contents",
     "second row merged contents"
@@ -33,12 +33,12 @@ Our employees are not working in offfice, they work from home.
 ^^^^A^^^^
 
 Merging markdown cells in a row means replace `|` with a space in the row. For example:
-The first row in the table is: "A1  | Dog    |Fred    |   2 |   Montreal", then the merged original content is: "A1 Dog Fred 2 Montreal"
+The first content row in the table is: "A1  | Dog    |Fred    |   2 |   Montreal", then the merged original content is: "A1 Dog Fred 2 Montreal"
 
 Finally, here's the JSON format answer according to your `JSON` format example:
 ```json
 {
-  "request": "Merge original contents of each cell in every row.",
+  "request": "Merge original contents of each cell in every content row.",
   "rows": [
     "A1 Dog Fred 2 Montreal",
     "A2 Cat Jim 4 Toronto",

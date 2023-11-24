@@ -6,15 +6,9 @@ from typing import Callable
 import peft
 import torch
 from torch.utils.data.dataloader import DataLoader
-from transformers import (
-    AutoModelForCausalLM,
-    AutoTokenizer,
-    BitsAndBytesConfig,
-    DataCollatorForLanguageModeling,
-    Trainer,
-    TrainingArguments,
-    set_seed,
-)
+from transformers import (AutoModelForCausalLM, AutoTokenizer,
+                          BitsAndBytesConfig, DataCollatorForLanguageModeling,
+                          Trainer, TrainingArguments, set_seed)
 
 from datasets import load_dataset
 from sft_lib.prompt_utils import text2prompt

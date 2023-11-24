@@ -1,0 +1,215 @@
+Downloading data files: 100%|████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 8224.13it/s]
+Extracting data files: 100%|██████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 717.47it/s]
+Generating train split: 5 examples [00:00, 1397.36 examples/s]
+Loading checkpoint shards: 100%|███████████████████████████████████████████████████████████████████████████████████| 2/2 [00:07<00:00,  3.64s/it]
+/home/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:381: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.9` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`. This was detected when initializing the generation config instance, which means the corresponding file may hold incorrect parameterization and should be fixed.
+  warnings.warn(
+/home/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:386: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.6` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`. This was detected when initializing the generation config instance, which means the corresponding file may hold incorrect parameterization and should be fixed.
+  warnings.warn(
+/home/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/models/auto/tokenization_auto.py:671: FutureWarning: The `use_auth_token` argument is deprecated and will be removed in v5 of Transformers. Please use `token` instead.
+  warnings.warn(
+Preprocessing dataset...
+Map: 100%|████████████████████████████████████████████████████████████████████████████████████████████████| 5/5 [00:00<00:00, 1363.29 examples/s]
+Map: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████| 5/5 [00:00<00:00, 110.77 examples/s]
+Filter: 100%|█████████████████████████████████████████████████████████████████████████████████████████████| 5/5 [00:00<00:00, 1053.21 examples/s]
+abandoning long sentences:
+[1025, 1025]
+Filter: 100%|█████████████████████████████████████████████████████████████████████████████████████████████| 5/5 [00:00<00:00, 1080.12 examples/s]
+
+--------- LLM generation for sample 1:
+/home/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/generation/utils.py:1473: UserWarning: You have modified the pretrained model configuration to control generation. This is a deprecated strategy to control generation and will be removed soon, in a future version. Please use and modify the model generation configuration (see https://huggingface.co/docs/transformers/generation_strategies#default-text-generation-configuration )
+  warnings.warn(
+[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Analyze the document contained by %%%% below. Within the document, locate the markdown table, then merge (combine) the original contents in all cells for each content row, and return in `JSON` format list. Note that the header of table is not the first content row. The definition of the `JSON` result is like:
+```json
+{{
+  "request": "Merge original contents of each cell in every content row.",
+  "rows": [
+    "first row merged contents",
+    "second row merged contents"
+  ]
+}}
+```
+
+Here is the document:
+
+%%%%
+
+A.4     Contract Term 
+ 
+DC anticipates entering into negotiations with the selected proponent(s) for up to a five (5) year period, 
+with an option to extend on an annual basis by DC for a total period not to exceed another five (5) years, 
+at DC’s sole discretion. DC does not grant exclusivity, guarantee business or make any guarantee of the 
+value or volume of work that may be assigned to the Contractor. 
+A.5     Abbreviated Definitions 
+
+| ADR    | Average Daily Rate                               |
+|--------|--------------------------------------------------|
+| AOR    | Average Occupancy Rate                           |
+| API    | Application Programming Interface                |
+| AWS    | Amazon Web Services                              |
+| BI     | Business Intelligence                            |
+| CBRE   | CBRE Group, Inc. - Coldwell Banker Richard Ellis |
+| CBSA   | Canada Border Services Agency                    |
+| CRM    | Customer Relationship Management                 |
+| CSV    | Comma-Separated Values                           |
+| DC     | Destination Canada                               |
+| DCM    | DoubleClick Campaign Manager                     |
+| ETL    | Extract, Transform, Load                         |
+| ELT    | Extract, Load, Transform                         |
+| IATA   | International Air Transport Association          |
+| MDM    | Master Data Management                           |
+| NA     | Not Applicable                                   |
+| NRFP   | Negotiated Request for Proposal                  |
+| PO     | Purchase Order                                   |
+| RACI   | Responsible, Accountable, Consulted, Informed    |
+| RevPar | Revenue Per Available Room                       |
+| SPSS   | Statistical Package for the Social Sciences      |
+
+%%%% [/INST] The header of the table is "| ADR    | Average Daily Rate                               |", which is the content row 1
+
+Then, the merged original contents in each cell of the content row 1 are: "Average Daily Rate", "Average Occupancy Rate", "Application Programming Interface", "Amazon Web Services", "Business Intelligence", "Customer Relationship Management", "Comma-Separated Values", "Destination Canada", "DoubleClick Campaign Manager", "Extract, Transform, Load", "Extract, Load, Transform", "International Air Transport Association", "Master Data Management", "Not Applicable", "Negotiated Request for Proposal", "Purchase Order", "Responsible, Accountable, Consulted, Informed", "Revenue Per Available Room", "Statistical Package for the Social Sciences"
+
+Finally, here's the JSON format answer according to your `JSON` format example:
+```json
+{
+  "request": "Merge original contents of each cell in every content row.",
+  "rows": [
+    "Average Daily Rate",
+    "Average Occupancy Rate",
+    "Application Programming Interface",
+    "Amazon Web Services",
+    "Business Intelligence",
+    "Customer Relationship Management",
+    "Comma-Separated Values",
+    "Destination Canada",
+    "DoubleClick Campaign Manager",
+    "Extract, Transform, Load",
+    "Extract, Load, Transform",
+    "International Air Transport Association",
+    "Master Data Management",
+    "Not Applicable",
+    "Negotiated Request for Proposal",
+    "Purchase Order",
+    "Responsible, Accountable, Consulted, Informed",
+    "Revenue Per Available Room",
+    "Statistical Package for the Social Sciences"
+  ]
+}
+```
+Note that the header of the `JSON` format answer is "request", which is the same as the definition in the `JSON` format example.
+
+--------- LLM generation for sample 2:
+[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Analyze the document contained by %%%% below. Within the document, locate the markdown table, then merge (combine) the original contents row by row, and return in `JSON` format list. Note do not include the header of the table. 
+
+Here is the document:
+
+%%%%
+
+A.4     Contract Term 
+ 
+DC anticipates entering into negotiations with the selected proponent(s) for up to a five (5) year period, 
+with an option to extend on an annual basis by DC for a total period not to exceed another five (5) years, 
+at DC’s sole discretion. DC does not grant exclusivity, guarantee business or make any guarantee of the 
+value or volume of work that may be assigned to the Contractor. 
+A.5     Abbreviated Definitions 
+
+| ADR    | Average Daily Rate                               |
+|--------|--------------------------------------------------|
+| AOR    | Average Occupancy Rate                           |
+| API    | Application Programming Interface                |
+| AWS    | Amazon Web Services                              |
+| BI     | Business Intelligence                            |
+| CBRE   | CBRE Group, Inc. - Coldwell Banker Richard Ellis |
+| CBSA   | Canada Border Services Agency                    |
+| CRM    | Customer Relationship Management                 |
+| CSV    | Comma-Separated Values                           |
+| DC     | Destination Canada                               |
+| DCM    | DoubleClick Campaign Manager                     |
+| ETL    | Extract, Transform, Load                         |
+| ELT    | Extract, Load, Transform                         |
+| IATA   | International Air Transport Association          |
+| MDM    | Master Data Management                           |
+| NA     | Not Applicable                                   |
+| NRFP   | Negotiated Request for Proposal                  |
+| PO     | Purchase Order                                   |
+| RACI   | Responsible, Accountable, Consulted, Informed    |
+| RevPar | Revenue Per Available Room                       |
+| SPSS   | Statistical Package for the Social Sciences      |
+
+%%%% [/INST] Here you are the merged rows in `JSON` format:
+
+```json
+{
+  "request": "Merge original contents of each cell in every content row.",
+  "rows": [
+    "Average Daily Rate",
+    "Average Occupancy Rate",
+    "Application Programming Interface",
+    "Amazon Web Services",
+    "Business Intelligence",
+    "CBRE Group, Inc. - Coldwell Banker Richard Ellis",
+    "Canada Border Services Agency",
+    "Customer Relationship Management",
+    "Comma-Separated Values",
+    "Destination Canada",
+    "DoubleClick Campaign Manager",
+    "Extract, Transform, Load",
+    "Extract, Load, Transform",
+    "International Air Transport Association",
+    "Master Data Management",
+    "Not Applicable",
+    "Negotiated Request for Proposal",
+    "Purchase Order",
+    "Responsible, Accountable, Consulted, Informed",
+    "Revenue Per Available Room",
+    "Statistical Package for the Social Sciences"
+  ]
+}
+```
+
+Note that I didn't include the header of the table in the `JSON` format answer.
+
+--------- LLM generation for sample 3:
+[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Analyze the document contained by %%%% below. Within the document, locate the markdown table, then merge (combine) the original contents row by row, and return in `JSON` format list. Note do not include the header of the table. 
+
+Here is the document:
+
+%%%%
+
+ANNEX C- EVALUATION CRITERIA 
+ 
+| ID   | Rated Requirement Description                                                                                                                                                                                                                           | Rating Criteria                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Max Points    |
+|------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
+| R1.1 | The solution should provide written a  RPA strategic enterprise    implementation plan which will be  evaluated based on the following  marking scheme:   1.1 E- SDC infrastructure requirements;                                                       | 1 •  Information is well  documented / clear and  relevant to the subject – full  points per bullet  •  Information is semi  documented / unclear /  contains unrelated  information – half points per  bullet  .1 - ESDC infrastructure  requirements evaluation criteria   - includes relevant infrastructure  diagrams (Max 10 points)  - includes relevant infrastructure  hardware and software  requirements(Max 10 points)  - includes relevant costings and  firewall rule requirements(Max 10  points) | Max 30 points |
+| R1.2 | The solution should provide written a  RPA strategic enterprise    implementation plan which will be  evaluated based on the following  marking scheme:   1.2 - best practices for business and IT  RPA Centres of Expertise (CoE);                     | •  Information is well  documented / clear and  relevant to the subject – full  points per bullet  •  Information is semi  documented / unclear /  contains unrelated  information – half points per  bullet    1.2 -best practices for business  and IT RPA centres of expertise  (CoE);   - includes relevant best practices  for business RPA center of  excellence. (Max 10 points)  - includes relevant best practices  for IT RPA center of excellence.  (Max 10 points)                                  | Max 20 points |
+| R1.3 | 1 The solution should provide written a  RPA strategic enterprise    implementation plan which will be  evaluated based on the following  marking scheme:   .3 - business process evaluation and  creation of inventories of potential  RPA candidates; | •  Information is well  documented / clear and  relevant to the subject – full  points per bullet  •  Information is semi  documented / unclear /  contains unrelated  information – half points per  bullet                                                                                                                                                                                                                                                                                                    | Max 60 points |
+ 
+%%%% [/INST] Here you are the merged rows in `JSON` format:
+
+```json
+{
+  "request": "Merge the original contents of each cell in every content row. Note do not include the header of the table.",
+  "rows": [
+    "1.1 E- SDC infrastructure requirements; includes relevant infrastructure diagrams (Max 10 points) includes relevant infrastructure hardware and software requirements(Max 10 points) includes relevant costings and firewall rule requirements(Max 10 points)",
+    "1.2 - best practices for business and IT  RPA Centres of Expertise (CoE); includes relevant best practices for business RPA center of  excellence. (Max 10 points) includes relevant best practices for IT RPA center of excellence. (Max 10 points)",
+    "1.3 - business process evaluation and  creation of inventories of potential  RPA candidates;",
+    "The solution should provide written a  RPA strategic enterprise    implementation plan which will be  evaluated based on the following  marking scheme:   1.1 E- SDC infrastructure requirements;                                                       | 1 •  Information is well  documented / clear and  relevant to the subject – full  points per bullet  •  Information is semi  documented / unclear /  contains unrelated  information – half points per  bullet  .1 - ESDC infrastructure  requirements evaluation criteria   - includes relevant infrastructure  diagrams (Max 10 points)  - includes relevant infrastructure  hardware and software  requirements(Max 10 points)  - includes relevant costings and  firewall rule requirements(Max 10  points)",
+    "The solution should provide written a  RPA strategic enterprise    implementation plan which will be  evaluated based on the following  marking scheme:   1.2 - best practices for business and IT  RPA Centres of Expertise (CoE);                     | •  Information is well  documented / clear and  relevant to the subject – full  points per bullet  •  Information is semi  documented / unclear /  contains unrelated  information – half points per  bullet    1.2 -best practices for business  and IT RPA centres of expertise  (CoE);   - includes relevant best practices  for business RPA center of  excellence. (Max 10 points)  - includes relevant best practices  for IT RPA center of excellence. (Max 10 points)",
+    "The solution should provide written a  RPA strategic enterprise    implementation plan which will be  evaluated based on the following  marking scheme:   .3 - business process evaluation and  creation of inventories of potential  RPA candidates;",
+    "The solution should provide written a  RPA strategic enterprise    implementation plan which will be  evaluated based on the following  marking scheme:   1.1 E- SDC infrastructure requirements;                                                       | 1 •  Information is well  documented / clear and  relevant to the subject – full  points per bullet  •  Information is semi  documented / unclear /  contains unrelated  information – half points per  bullet  .1 - ESDC infrastructure  requirements evaluation criteria   - includes relevant infrastructure  diagrams (Max 10 points)  - includes relevant infrastructure  hardware and software  requirements(Max 10 points)  - includes relevant costings and  firewall rule requirements(Max 10  points)",
+    "The solution should provide written a  RPA strategic enterprise    implementation plan which will be  evaluated based on the following  marking scheme:   1.2 - best practices for business and IT  RPA Centres of Expertise (CoE);                     | •  Information is well  documented / clear and  relevant to the subject – full  points per bullet  •  Information is semi  documented / unclear /  contains unrelated  information – half points per  bullet    1.2 -best practices for business  and IT RPA centres of expertise  (CoE);   - includes relevant best practices  for business RPA center of  excellence. (Max 10 points)  - includes relevant best practices  for IT RPA center of excellence. (Max 10 points)",
+    "The solution should provide written a  RPA strategic enterprise    implementation plan which will be  evaluated based on the following  marking scheme:   .3 - business process evaluation and  creation of inventories of potential  RPA candidates;",
+    "The solution should provide written a  RPA strategic enterprise    implementation plan which will be  evaluated based on the following  marking scheme:   1.3 - business
+(ft310) zhibin@vpc-modeling:~/Projects/fine-tune-llm$ 

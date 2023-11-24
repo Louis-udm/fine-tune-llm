@@ -1,3 +1,4 @@
+import gc
 import glob
 import os
 from functools import partial
@@ -7,22 +8,13 @@ import fire
 import peft
 import torch
 from torch.utils.data.dataloader import DataLoader
-from transformers import (
-    AutoModelForCausalLM,
-    AutoTokenizer,
-    BitsAndBytesConfig,
-    DataCollatorForLanguageModeling,
-    Trainer,
-    TrainingArguments,
-    set_seed,
-)
+from transformers import (AutoModelForCausalLM, AutoTokenizer,
+                          BitsAndBytesConfig, DataCollatorForLanguageModeling,
+                          TextStreamer, Trainer, TrainingArguments, set_seed)
 
 from datasets import Dataset, load_dataset
-from sft_lib.dataset_utils import (
-    get_dataset_from_text_files,
-    preprocess_dataset,
-    tranparent_prompterize,
-)
+from sft_lib.dataset_utils import (get_dataset_from_text_files,
+                                   preprocess_dataset, tranparent_prompterize)
 from sft_lib.model_utils import load_model_with_adaptor
 from sft_lib.prompt_utils import text2prompt
 
@@ -39,9 +31,8 @@ def predict_cli(
     lora_adaptor_dir="Llama-2-7b-chat-hf_simple_markdown_with_answer",
     model_name="NousResearch/Llama-2-7b-chat-hf",
     output_root="predictions",
-    max_prompt_length=2048,
-    # max_new_length=2048,
-    max_new_length=500,
+    max_prompt_length=1400,
+    max_new_length=1400,
     # num_beams=1,
     # num_return_sequences=1,
     temperature=0.3,
@@ -73,6 +64,7 @@ def predict_cli(
     model, tokenizer = load_model_with_adaptor(
         model_name=model_name, lora_adaptor_dir=lora_adaptor_dir
     )
+    streamer = TextStreamer(tokenizer)
 
     ds = preprocess_dataset(
         dataset=ds,
@@ -83,12 +75,14 @@ def predict_cli(
         # for inference, max_length shoud be less than max model token length, and the subtraction is for generation.
         max_length=max_prompt_length,
         do_shuffle=False,
+        abandon_long_sent=False,
     )
 
     for i, sample in enumerate(ds, start=1):
         # transformers/generation/utils.py GenerationMixin.generate.generation_config
         # https://huggingface.co/docs/transformers/main_classes/text_generation
-        print(f"\n--------- LLM generation for sample {i}:")
+        print(f"\n--------- LLM generation for sample {i}-{len(ds)}:")
+        # print(f"input text: {sample['text']}")
         input_ids = torch.tensor(sample["input_ids"]).to(device)
         att_mask = torch.tensor(sample["attention_mask"]).to(device)
         outputs = model.generate(
@@ -102,8 +96,14 @@ def predict_cli(
             top_p=top_p,
             repetition_penalty=repetition_penalty,
             do_sample=do_sample,
+            streamer=streamer,
         )
-        print(tokenizer.decode(outputs[0], skip_special_tokens=True))
+        del input_ids
+        del att_mask
+        gc.collect()
+        torch.cuda.empty_cache()
+        gc.collect()
+        # print(tokenizer.decode(outputs[0], skip_special_tokens=True))
 
 
 if __name__ == "__main__":

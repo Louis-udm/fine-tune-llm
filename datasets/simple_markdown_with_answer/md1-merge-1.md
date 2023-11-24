@@ -1,8 +1,11 @@
-Analyze the document contained by %%%% below. Within the document, locate the markdown table, then return the no.3 row with original content in `JSON` format:
+Analyze the document contained by %%%% below. Within the document, locate the markdown table, then merge (combine) the original contents in all cells for each content row, and return in `JSON` format list. Note that the header of table is not the first content row. The definition of the `JSON` result is like:
 ```json
 {{
-  "row_num": 3,
-  "content": "bla bla"
+  "request": "Merge original contents of each cell in every content row.",
+  "rows": [
+    "first row merged contents",
+    "second row merged contents"
+  ]
 }}
 ```
 
@@ -25,18 +28,18 @@ SmartyPants converts ASCII punctuation characters into "smart" typographic punct
 
 %%%%
 
-
 ^^^^A^^^^
-
-The header of the table is "|        title        |ASCII                          |HTML                         |", which is not a content row.
-
-So, no.3 row is:
-| Dashes          | python|java|
+Merging markdown cells in a row means replace `|` with a space in the row. For example:
+The first content row in the table is: "| Single backticks| 12          | -10          |", then the merged original content is: "Single backticks 12 -10"
 
 Finally, here's the JSON format answer according to your `JSON` format example:
 ```json
 {
-  "row_num": 3,
-  "content": "Dashes python java"
+  "request": "Merge original contents of each cell in every content row.",
+  "rows": [
+    "Single backticks 12 -10",
+    "Quotes I am here this is Kerry",
+    "Dashes python java"
+  ]
 }
 ```

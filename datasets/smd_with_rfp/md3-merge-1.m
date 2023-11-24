@@ -1,8 +1,11 @@
-Analyze the document contained by %%%% below. Within the document, locate the markdown table, provide the exact content found in the intersection of no.2 row and no.4 column in the table, then return in `JSON` format. Note that the header of table is not the first content row. The definition of the `JSON` result is like:
+Analyze the document contained by %%%% below. Within the document, locate the markdown table, then merge (combine) the original contents in all cells for each content row, and return in `JSON` format list. Note that the header of table is not the first content row. The definition of the `JSON` result is like:
 ```json
 {{
-  "request": "Intersection content of row no.2 and column no.4 in the table",
-  "content": "bla bla"
+  "request": "Merge original contents of each cell in every content row.",
+  "rows": [
+    "first row merged contents",
+    "second row merged contents"
+  ]
 }}
 ```
 
