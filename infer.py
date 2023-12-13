@@ -24,6 +24,7 @@ from sft_lib.dataset_utils import (
     get_dataset_from_text_files,
     preprocess_dataset,
     tranparent_prompterize,
+    get_model_max_length,
 )
 from sft_lib.model_utils import load_model_with_adaptor
 from sft_lib.prompt_utils import text2prompt
@@ -76,6 +77,11 @@ def predict_cli(
     )
     streamer = TextStreamer(tokenizer)
 
+    max_length = get_model_max_length(model)
+    print(
+        f"max_model_length: {max_length}, setting max_prompt_length to {max_prompt_length}"
+    )
+
     ds = preprocess_dataset(
         dataset=ds,
         tokenizer=tokenizer,
@@ -84,8 +90,10 @@ def predict_cli(
         seed=SEED,
         # for inference, max_length shoud be less than max model token length, and the subtraction is for generation.
         max_length=max_prompt_length,
+        batch_size=1,
         do_shuffle=False,
-        abandon_long_sent=False,
+        abandon_long_sent=True,
+        with_labels=False,
     )
 
     for i, sample in enumerate(ds, start=1):

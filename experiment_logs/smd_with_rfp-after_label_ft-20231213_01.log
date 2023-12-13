@@ -1,0 +1,468 @@
+(ft310) zhibin@vpc-modeling:~/Projects/fine-tune-llm$ python infer.py
+Loading checkpoint shards: 100%|███████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:06<00:00,  3.23s/it]
+/mnt/data/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:381: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.9` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`. This was detected when initializing the generation config instance, which means the corresponding file may hold incorrect parameterization and should be fixed.
+  warnings.warn(
+/mnt/data/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:386: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.6` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`. This was detected when initializing the generation config instance, which means the corresponding file may hold incorrect parameterization and should be fixed.
+  warnings.warn(
+/mnt/data/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/models/auto/tokenization_auto.py:671: FutureWarning: The `use_auth_token` argument is deprecated and will be removed in v5 of Transformers. Please use `token` instead.
+  warnings.warn(
+Found max lenth: 4096
+max_model_length: 4096, setting max_prompt_length to 1400
+Preprocessing dataset...
+abandoning too long samples:
+len: 2775, sent: <s>[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Analyze the document contained by %%%% below. Within the document, locate the markdown table, then merge (combine) the original contents row by row, and return in `JSON` format list. Note do not include the header of the table.
+
+Here is the document:
+
+%%%%
+
+
+
+
+ANNEX C- EVALUATION CRITERIA
+
+| ID   | Mandatory Requirement Description                                                                                                                                                                                                                                                                                                                               | Contractors Substantiation of Requirement   |
+|------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------|
+| M1   | The RPA solution must provide a bilingual (Official  languages– English and French) interface.                                                                                                                                                                                                                                                                  |                                             |
+| M2.1 | The Contractor must provide a Robotic Process Automation  (RPA) solution that will operate on an enterprise-class  infrastructure using physical and virtual machines (VMs).                                                                                                                                                                                    |                                             |
+| M2.2 | The RPA solution must include a design suite that will allow  ESDC to develop and deliver automated processes                                                                                                                                                                                                                                                   |                                             |
+| M2.3 | The RPA solution must offer both attended and unattended  bot functions.                                                                                                                                                                                                                                                                                        |                                             |
+| M2.4 | The RPA solution must have a bot administration suite that  allow ESDC to manage, schedule, and deploy automated  processes (for both attended and unattended automations)                                                                                                                                                                                      |                                             |
+| M2.5 | The RPA solution must include autonomous agents,  meaning unattended bots that execute tasks and interact  with applications or systems independent of human  involvement.                                                                                                                                                                                      |                                             |
+| M3   | The Contractor must provide a complete list of all  components and version numbers included in their solution  and must include:   a)  an Enterprise Optical character recognition (OCR)  engine.   b)  all database components required to support the  RPA solution  c)  all web browsers and versions it supports.  d)  All cloud base services it supports. |                                             |
+| M4   | The solution must support hosting on a virtualized x86-64  architecture and must support hosting on a Windows 64-bit  operating systems running Windows Server 2016 and later  version.                                                                                                                                                                         |                                             |
+| M5   | The solution must support the input and output of data  from the following file systems:   • Network File System (NFS)   • SAMBA                                                                                                                                                                                                                                |                                             |
+| M6   | The solution must adhere to remote secure login through  ESDC network and remote desktop protocols.                                                                                                                                                                                                                                                             |                                             |
+
+
+
+
+| M7   | The software must not require the use of Adobe Flash or Shockwave for any functionality.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | &#xfeff;   |
+|------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
+| M8   | The solution must support Enterprise browser standards  without degradation in functionality.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |            |
+| M9   | The solution must support the packaging and re- deployment of all required components within a given  automation process in order to migrate a process from one  RPA infrastructure environment to another such as from a  Development environment to Production environment.                                                                                                                                                                                                                                                                                                                                                                          |            |
+| M10  | a The solution must integrate with directory services using  Lightweight Directory Access Protocol (LDAP) in order to:   ) Enforce role-based access control (RBAC) policies defined  by ESDC for both bots and authorized users;   b) Enforce authentication and authorization for any logical  access to information and solution resources; and   c) Enforce authentication and authorization before  performing any action that creates, views, updates,  transmits or deletes data.                                                                                                                                                               |            |
+| M11  | For authentication credentials:   • the solution must obscure all authentication credentials  when entered into the RPA solution.   • the solution must obscure the display of all stored  authentication credentials once entered into the RPA  solution, including any logs.                                                                                                                                                                                                                                                                                                                                                                         |            |
+| M12  | The solution must define, collect, and store audit records  and events associated with all user or bot operations listed  below:   a) successful and unsuccessful attempts to create, access,  modify, or delete security objects including audit data,  system configuration files and file or users' formal access  permissions;   b) successful and unsuccessful logon attempts;   c) privileged activities;   d) type of activity that occurred;   e) date and time the activity occurred;   f) where the activity occurred;   g) the source of activity;   h) success or failure outcome of activity; and   i) identity associated with activity. |            |
+| M13  | The solution must employ cryptographic mechanisms for  end-to-end protection of data both when in motion or at  rest that have been approved by Communication Security  Establishment (CSE) and validated by the Cryptographic  Algorithm Validation Program (CAVP), and are specified in  the August 2016 ITSP.40.111 (https://www.cse- cst.gc.ca/en/system/files/pdf_documents/itsp.40.111- eng.pdf).                                                                                                                                                                                                                                                |            |
+
+
+
+
+| ID   | Rated Requirement Description                                                                                                                                                                                                                           | Rating Criteria                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Max Points    |
+|------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
+| R1.1 | The solution should provide written a  RPA strategic enterprise    implementation plan which will be  evaluated based on the following  marking scheme:   1.1 E- SDC infrastructure requirements;                                                       | 1 •  Information is well  documented / clear and  relevant to the subject – full  points per bullet  •  Information is semi  documented / unclear /  contains unrelated  information – half points per  bullet  .1 - ESDC infrastructure  requirements evaluation criteria   - includes relevant infrastructure  diagrams (Max 10 points)  - includes relevant infrastructure  hardware and software  requirements(Max 10 points)  - includes relevant costings and  firewall rule requirements(Max 10  points) | Max 30 points |
+| R1.2 | The solution should provide written a  RPA strategic enterprise    implementation plan which will be  evaluated based on the following  marking scheme:   1.2 - best practices for business and IT  RPA Centres of Expertise (CoE);                     | •  Information is well  documented / clear and  relevant to the subject – full  points per bullet  •  Information is semi  documented / unclear /  contains unrelated  information – half points per  bullet    1.2 -best practices for business  and IT RPA centres of expertise  (CoE);   - includes relevant best practices  for business RPA center of  excellence. (Max 10 points)  - includes relevant best practices  for IT RPA center of excellence.  (Max 10 points)                                  | Max 20 points |
+| R1.3 | 1 The solution should provide written a  RPA strategic enterprise    implementation plan which will be  evaluated based on the following  marking scheme:   .3 - business process evaluation and  creation of inventories of potential  RPA candidates; | •  Information is well  documented / clear and  relevant to the subject – full  points per bullet  •  Information is semi  documented / unclear /  contains unrelated  information – half points per  bullet                                                                                                                                                                                                                                                                                                    | Max 60 points |
+
+
+
+
+| &#xfeff;   | &#xfeff;                                                                                                                                                                                                                                       | 1.3 - business process evaluation and creation of inventories of potential RPA candidates; (Max 25 points)) - includes relevant business process evaluation steps(Max 10 points) - includes relevant steps for the creation of inventories of candidates( Max 25 points)                                                                                                                                                                                                                                                                                                                                                                                            | &#xfeff;      |
+|------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
+| R1.4       | 1 The solution should provide written a  RPA strategic enterprise    implementation plan which will be  evaluated based on the following  marking scheme:   .4 - development, testing,  implementation, and maintenance of  the RPA solution ; | •  Information is well  documented / clear and  relevant to the subject – full  points per bullet  •  Information is semi  documented / unclear /  contains unrelated  information – half points per  bullet    1.4 - development, testing,  implementation, and maintenance  of the RPA solution ;  (Max 40  points)   - includes relevant information on  developing with the RPA solution  (Max 10 points)  - includes relevant information on  testing the RPA solution (Max 10  points)  - includes relevant information on  implementing the RPA solution  (Max 10 points)  - includes relevant information on  maintaining the RPA solution (Max  10 points) | Max 40 points |
+| R1.5       | 1 The solution should provide written a  RPA strategic enterprise    implementation plan which will be  evaluated based on the following  marking scheme:   .5 - training;                                                                     | 1 •  Information is well  documented / clear and  relevant to the subject – full  points per bullet  •  Information is semi  documented / unclear /  contains unrelated  information – half points per  bullet  .5 - training; (Max 50 points)  -includes the training for strategy  for developers and administrators  (Max 10 points)  | Max 50 points |
+
+%%%% [/INST]
+len: 3251, sent: <s>[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Analyze the document contained by %%%% below. Within the document, locate the markdown table, then merge (combine) the original contents row by row, and return in `JSON` format list. Note do not include the header of the table.
+
+Here is the document:
+
+%%%%
+
+SECTION C.10.1 – SCOPE OF WORK A: CLOUD-BASED MDM SOFTWARE
+| Item     | Requirement                          | Description                                                                                                                                                                                                                                                                             |
+|--------------------------------|-----------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| A  B  C  D  E  F  G  H         | Data Integration and  Preparation | Platform must provide data connectors for common structured and  unstructured data sources (files (Excel, CSV), databases, business  applications),  marketing  platforms  (advertising,  social,  content,  analytics), as well as the ability to develop custom API connectors.    |
+|                                |                                   | Platform  needs  to  provide  intuitive  self-service  data  curation  and  data preparation capabilities.                                                                                                                                                                           |
+|                                |                                   | Platform  must  support  ETL/ELT  batch  and  stream  loading,  and  event-based data acquisition (time-based or data value based).                                                                                                                                                  |
+|                                |                                   | Platform must support robust transformation (join, filter, calculator,  window/ranking,  type  conversion,  aggregate,  transpose,  normalization / denormalization).                                                                                                                |
+|                                |                                   | Platform  must  provide  audit  and  error  log  capabilities  for  data  integration and preparation processes.                                                                                                                                                                     |
+|                                |                                   | Platform  must  provide  job  automation,  scheduling,  flow  control  capabilities.                                                                                                                                                                                                 |
+|                                |                                   | Platform  must  provide  or  integrate  with  common  source  control  platforms for versioning and code maintenance (e.g Git).                                                                                                                                                      |
+|                                |                                   | Platform must have the ability to utilize common Cloud-based data  storage  platforms  including  Amazon  RedShift,  Google  BigQuery,  Snowflake,  Azure  SQL,  and  relational  databases  such  as  Oracle,  SQL Server, and PostgreSQL.                                          |
+| I                              | Data Stewardship                  | Platform needs to make it easy for anyone to certify and reconcile  data. Using a team-based, workflow approach, tasks should be able  to  be  assigned  to  non-technical  data  stewards  across  the  organization and tracked for progress or audit.                             |
+| J                              | Data Quality                      | Platform  needs  to  provide  data  quality  capabilities  including  the  ability  to  evaluate  data  quality  against  custom-defined  thresholds  and measure conformance to internal or external standards.                                                                     |
+| K                              | Data Masking                      | Platform  must  provide  the  ability  to  selectively  share  production  quality data across the organization and with external partners for  development, analysis and more, without exposing data to people  who aren't authorized to see it (i.e., PII or non-anonymized data). |
+| L                              | Data Lineage                      | Platform  must  provide  ability  to  track  the  full  lifecycle  of  data,  including and change alert capabilities.                                                                                                                                                               |
+| M                              | Data Glossary / Catalogue         | Platform  should  automatically  crawl,  profile,  organize,  link,  enrich,  and  document  all  metadata  with  supporting  data  glossary                                                                                                                                         |
+
+
+
+| &#xfeff;      | &#xfeff;                            | capabilities.                                                                                                                                                                                                                          |
+|---------------|-------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| N  O          | Platform Management and  Monitoring | Platform  needs  to  provide  robust  management  and  monitoring  capabilities  including  master  data  management,  and  secure  data  access controls at the user, data entity, and data row / column level.                       |
+|               |                                     | Platform  should  provide  SSO  and  Active  Directory  integration  capabilities.                                                                                                                                                     |
+| P  Q  R  S  T | Cloud Environment                   | Platform  needs  to  reside  in  a  cloud  environment  where  the  core  system  and  associated  technology  infrastructure  is  hosted  in  Canada  and  managed  by  the  Contractor  as  part  of  the  platform  licensing cost. |
+|               |                                     | Platform  must  provide  ability  to  seamlessly  scale  as  DC’s  data  management requirements evolve.                                                                                                                               |
+|               |                                     | Platform  must  automatically  provide  highly  durable,  replicated  instances in multiple geographic locations (Canada or countries not  impacted by the Patriot Act), and high availability.                                        |
+|               |                                     | Contractor must have robust disaster recovery capabilities to quickly  and easily restore from a previous backup.                                                                                                                      |
+|               |                                     | Platform license should be owned and managed by DC and should  provide  fixed  low  cost  annual  licensing  models  or  flexible  on- demand licensing models based on platform usage.                                                |
+| U             | Customer Service                    | Contractor should provide a range of customer service and support  options such as self-service knowledge bases, and live support to  help them get the most out of the platform.                                                      |
+| V             | Training                            | Contractor should provide a range of training services including self- service tutorials, on-demand and classroom training.                                                                                                            |
+
+
+
+SECTION C.10.2 – SCOPE OF WORK B: CLOUD-BASED BI SOFTWARE
+|    |Requirement                          | Description                                                                                                                                                                                                                                                                                                          |
+|---------------------------|-----------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| A                         | Data Integration and  Preparation | Platform must provide data connectors for common cloud data storage  platforms  including  Amazon  RedShift,  Google  BigQuery,  Snowflake,  Azure SQL, and relational databases such as Oracle, SQL Server, and  PostgreSQL and Microsoft Excel.                                                                 |
+| B                         |                                   | Platform must have the ability to connect to common data sources for  ad-hoc analysis, including but not limited to: files, databases, business  applications,  marketing  platforms  (advertising,  social,  content,  analytics), and API accessible data sources.                                              |
+| C                         |                                   | Platform  needs  to  provide  basic  self-service  data  preparation  capabilities  including  joins,  filters,  data  type  conversions,  string  manipulations, calculations, create calculated fields, etc.                                                                                                    |
+| D                         |                                   | Platforms  needs  to  provide  basic  data  preparation  management  capabilities including job scheduler, versioning, task management, and  audit log capabilities.                                                                                                                                              |
+| E                         | Data Visualization and  Analysis  | Platform should provide ability for non-technical analysts and business  users  to  create  interactive  reports  and  dashboards  composed  of  charts,  graphs,  maps  charts  with  layers,  and  other  visualizations  through an intuitive and easy to use web-based user interface.                        |
+| F                         |                                   | Platform  should  provide  ability  to  refine  visualizations  by  selecting  different chart types and data series or applying filters and drilldowns.                                                                                                                                                          |
+| G                         |                                   | Platform should provide ability to set notification alerts when the data  changes beyond defined thresholds                                                                                                                                                                                                       |
+| H                         |                                   | Platform should provide ability to extend analysis with trend analyses,  regressions, correlations and predictive models with embedded data  science functions, R and / or Python scripting capabilities.                                                                                                         |
+| I                         |                                   | Platform should provide ability for non-technical users to develop and  deliver  insights  to  mobile  devices  in  a  publishing  and/or  interactive  mode  that  takes  advantage  of  native  capabilities  of  mobile  devices,  such  as  touchscreen,  location  awareness,  and  natural-language  query. |
+| J                         |                                   | Platform  should  provide  ability  for  non-technical  users  to  share  and  discuss  information,  analysis,  analytic  content,  and  decisions  via  discussion threads, chat, annotations, and storytelling.                                                                                                |
+| K                         |                                   | Platform  should  provide  ability  to  export  reports  and  dashboards  to  PDF and Microsoft Office applications (PowerPoint, Excel)                                                                                                                                                                           |
+| L                         |                                   | Platform  should  provide  the  ability  to  add  additional  chart  types  or  extend data visualization and analysis capabilities via third party add-                                                                                                                                                          |
+
+
+
+| &#xfeff;   | &#xfeff;                            | ons  or  via  developing  custom  solutions  with  common  development libraries.                                                                                                                         |
+|------------|-------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| M          | Data Export                         | Platform  should  provide  self-service  data  extraction  capabilities  to  allow users to access and download underlying report data for offline  analysis.                                             |
+| N          | Embedded Analytics                  | Platform should provide capabilities for creating and modifying analytic  content,  visualizations  and  applications,  and  embedding  them  into  a  business process and/or an application or portal.  |
+| O          | Platform Management  and Monitoring | Platform  needs  to  provide  robust  management  and  monitoring  capabilities  including  data  management,  and  secure  data  access  controls at the user, data entity, and data row / column level. |
+| P          |                                     | Platform  should  provide  SSO  and  Active  Directory  integration  capabilities.                                                                                                                        |
+| Q          |                                     | Platform  should  provide  user  usage  insights  to  help  administrators  assess user adoption and utilization.                                                                                         |
+| R          |                                     | Platform should provide ability to apply custom branding, including but  not limited to custom color controls, as well as white labeling options.                                                         |
+| S          | Cloud Environment                   | Platform needs to reside in a cloud environment where the core system  and associated technology infrastructure is managed by the Contractor  as part of the platform licensing cost.                     |
+| T          |                                     | Platform  must  be  100%  web  based,  with  no  required  desktop  components or browser plugins.                                                                                                        |
+| U          |                                     | Platform  must  provide  the  ability  to  seamlessly  scale  to  support  increased number of users and allow for added functionality as DC’s  data management requirements evolve.                      |
+| V          |                                     | Platform  must  automatically  provide  highly  durable,  replicated  instances  in  multiple  geographic  locations  (Canada  or  countries  not  impacted by the Patriot Act), and high availability.   |
+| W          |                                     | Contractor must have robust disaster recovery capabilities to quickly  and easily restore from a previous backup.                                                                                         |
+| X          |                                     | Platform  license  should  be  owned  and  managed  by  DC  and  should  provide fixed low cost annual licensing models or flexible on-demand  licensing models based on platform usage.                  |
+| Y          | Customer Service                    | Contractor  should  provide  a  range  of  customer  service  and  support  options such as self-service knowledge bases, and live support to help  them get the most out of the platform.                |
+| Z          | Training                            | Contractor should provide a range of training services including self- service tutorials, on-demand and classroom training.                                                                               |
+
+%%%% [/INST]
+Map: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████| 5/5 [00:00<00:00, 150.88 examples/s]
+
+--------- LLM generation for sample 1-5:
+/mnt/data/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/generation/utils.py:1473: UserWarning: You have modified the pretrained model configuration to control generation. This is a deprecated strategy to control generation and will be removed soon, in a future version. Please use and modify the model generation configuration (see https://huggingface.co/docs/transformers/generation_strategies#default-text-generation-configuration )
+  warnings.warn(
+<s><s>[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Analyze the document contained by %%%% below. Within the document, locate the markdown table, then merge (combine) the original contents in all cells for each content row, and return in `JSON` format list. Note that the header of table is not the first content row. The definition of the `JSON` result is like:
+```json
+{{
+  "request": "Merge original contents of each cell in every content row.",
+  "rows": [
+    "first row merged contents",
+    "second row merged contents"
+  ]
+}}
+```
+
+Here is the document:
+
+%%%%
+
+A.4     Contract Term
+
+DC anticipates entering into negotiations with the selected proponent(s) for up to a five (5) year period,
+with an option to extend on an annual basis by DC for a total period not to exceed another five (5) years,
+at DC’s sole discretion. DC does not grant exclusivity, guarantee business or make any guarantee of the
+value or volume of work that may be assigned to the Contractor.
+A.5     Abbreviated Definitions
+
+| ADR    | Average Daily Rate                               |
+|--------|--------------------------------------------------|
+| AOR    | Average Occupancy Rate                           |
+| API    | Application Programming Interface                |
+| AWS    | Amazon Web Services                              |
+| BI     | Business Intelligence                            |
+| CBRE   | CBRE Group, Inc. - Coldwell Banker Richard Ellis |
+| CBSA   | Canada Border Services Agency                    |
+| CRM    | Customer Relationship Management                 |
+| CSV    | Comma-Separated Values                           |
+| DC     | Destination Canada                               |
+| DCM    | DoubleClick Campaign Manager                     |
+| ETL    | Extract, Transform, Load                         |
+| ELT    | Extract, Load, Transform                         |
+| IATA   | International Air Transport Association          |
+| MDM    | Master Data Management                           |
+| NA     | Not Applicable                                   |
+| NRFP   | Negotiated Request for Proposal                  |
+| PO     | Purchase Order                                   |
+| RACI   | Responsible, Accountable, Consulted, Informed    |
+| RevPar | Revenue Per Available Room                       |
+| SPSS   | Statistical Package for the Social Sciences      |
+
+%%%% [/INST] Merging markdown cells in a row means replace `|` with a space in the row. For example:
+The first content row in the table is: "| ADR    | Average Daily Rate                               |", then the merged original content is: "ADR Average Daily Rate"
+
+Finally, here's the JSON format answer according to your `JSON` format example:
+```json
+{
+ "request": "Merge original contents of each cell in every content row.",
+ "rows": [
+   "ADR Average Daily Rate",
+   "AOR Average Occupancy Rate",
+   "API Application Programming Interface",
+   "AWS Amazon Web Services",
+   "BI Business Intelligence",
+   "CBRE CBRE Group, Inc. - Coldwell Banker Richard Ellis",
+   "CBSA Canada Border Services Agency",
+   "CRM Customer Relationship Management",
+   "CSV Comma-Separated Values",
+   "DC Destination Canada",
+   "DCM DoubleClick Campaign Manager",
+   "ETL Extract, Transform, Load",
+   "ELT Extract, Load, Transform",
+   "IATA International Air Transport Association",
+   "MDM Master Data Management",
+   "NA Not Applicable",
+   "NRFP Negotiated Request for Proposal",
+   "PO Purchase Order",
+   "RACI Responsible, Accountable, Consulted, Informed",
+   "RevPar Revenue Per Available Room",
+   "SPSS Statistical Package for the Social Sciences"
+ ]
+}
+```
+Note that the header of the table is not the first content row.</s>
+
+--------- LLM generation for sample 2-5:
+<s><s>[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Analyze the document contained by %%%% below. Within the document, locate the markdown table, then merge (combine) the original contents row by row, and return in `JSON` format list. Note do not include the header of the table.
+
+Here is the document:
+
+%%%%
+
+A.4     Contract Term
+
+DC anticipates entering into negotiations with the selected proponent(s) for up to a five (5) year period,
+with an option to extend on an annual basis by DC for a total period not to exceed another five (5) years,
+at DC’s sole discretion. DC does not grant exclusivity, guarantee business or make any guarantee of the
+value or volume of work that may be assigned to the Contractor.
+A.5     Abbreviated Definitions
+
+| ADR    | Average Daily Rate                               |
+|--------|--------------------------------------------------|
+| AOR    | Average Occupancy Rate                           |
+| API    | Application Programming Interface                |
+| AWS    | Amazon Web Services                              |
+| BI     | Business Intelligence                            |
+| CBRE   | CBRE Group, Inc. - Coldwell Banker Richard Ellis |
+| CBSA   | Canada Border Services Agency                    |
+| CRM    | Customer Relationship Management                 |
+| CSV    | Comma-Separated Values                           |
+| DC     | Destination Canada                               |
+| DCM    | DoubleClick Campaign Manager                     |
+| ETL    | Extract, Transform, Load                         |
+| ELT    | Extract, Load, Transform                         |
+| IATA   | International Air Transport Association          |
+| MDM    | Master Data Management                           |
+| NA     | Not Applicable                                   |
+| NRFP   | Negotiated Request for Proposal                  |
+| PO     | Purchase Order                                   |
+| RACI   | Responsible, Accountable, Consulted, Informed    |
+| RevPar | Revenue Per Available Room                       |
+| SPSS   | Statistical Package for the Social Sciences      |
+
+%%%% [/INST] Here you are the merged rows in `JSON` format:
+
+```json
+{
+ "request": "Merge original contents of each cell in every content row.",
+ "rows": [
+   "Average Daily Rate",
+   "Average Occupancy Rate",
+   "Application Programming Interface",
+   "Amazon Web Services",
+   "Business Intelligence",
+   "CBRE Group, Inc. - Coldwell Banker Richard Ellis",
+   "Canada Border Services Agency",
+   "Customer Relationship Management",
+   "Comma-Separated Values",
+   "Destination Canada",
+   "DoubleClick Campaign Manager",
+   "Extract, Transform, Load",
+   "Extract, Load, Transform",
+   "International Air Transport Association",
+   "Master Data Management",
+   "Not Applicable",
+   "Negotiated Request for Proposal",
+   "Purchase Order",
+   "Responsible, Accountable, Consulted, Informed",
+   "Revenue Per Available Room",
+   "Statistical Package for the Social Sciences"
+ ]
+}
+```
+
+Note that the header of the table is not included in the result.</s>
+
+--------- LLM generation for sample 3-5:
+<s><s>[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Analyze the document contained by %%%% below. Within the document, locate the markdown table, then merge (combine) the original contents row by row, and return in `JSON` format list. Note do not include the header of the table.
+
+Here is the document:
+
+%%%%
+
+ANNEX C- EVALUATION CRITERIA
+
+| ID   | Rated Requirement Description                                                                                                                                                                                                                           | Rating Criteria                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Max Points    |
+|------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
+| R1.1 | The solution should provide written a  RPA strategic enterprise    implementation plan which will be  evaluated based on the following  marking scheme:   1.1 E- SDC infrastructure requirements;                                                       | 1 •  Information is well  documented / clear and  relevant to the subject – full  points per bullet  •  Information is semi  documented / unclear /  contains unrelated  information – half points per  bullet  .1 - ESDC infrastructure  requirements evaluation criteria   - includes relevant infrastructure  diagrams (Max 10 points)  - includes relevant infrastructure  hardware and software  requirements(Max 10 points)  - includes relevant costings and  firewall rule requirements(Max 10  points) | Max 30 points |
+| R1.2 | The solution should provide written a  RPA strategic enterprise    implementation plan which will be  evaluated based on the following  marking scheme:   1.2 - best practices for business and IT  RPA Centres of Expertise (CoE);                     | •  Information is well  documented / clear and  relevant to the subject – full  points per bullet  •  Information is semi  documented / unclear /  contains unrelated  information – half points per  bullet    1.2 -best practices for business  and IT RPA centres of expertise  (CoE);   - includes relevant best practices  for business RPA center of  excellence. (Max 10 points)  - includes relevant best practices  for IT RPA center of excellence.  (Max 10 points)                                  | Max 20 points |
+| R1.3 | 1 The solution should provide written a  RPA strategic enterprise    implementation plan which will be  evaluated based on the following  marking scheme:   .3 - business process evaluation and  creation of inventories of potential  RPA candidates; | •  Information is well  documented / clear and  relevant to the subject – full  points per bullet  •  Information is semi  documented / unclear /  contains unrelated  information – half points per  bullet   | Max 60 points |
+
+%%%% [/INST] Here you are the merged rows in `JSON` format:
+
+```json
+{
+ "request": "Merge original contents of each cell in every content row.",
+ "rows": [
+   "1.1 E- SDC infrastructure requirements include relevant infrastructure diagrams (Max 10 points) include relevant infrastructure hardware and software requirements (Max 10 points) include relevant costings and firewall rule requirements (Max 10 points)",
+   "1.2 - best practices for business and IT RPA centres of expertise (CoE) include relevant best practices for business RPA center of excellence (Max 10 points) include relevant best practices for IT RPA center of excellence (Max 10 points)",
+   "1.3 - business process evaluation and creation of inventories of potential RPA candidates"
+ ]
+}
+```
+
+Note that the header of the table is not included in the `JSON` format answer. If you want to include the header, you can modify the `JSON` format as follows:
+
+```json
+{
+ "request": "Merge original contents of each cell in every content row.",
+ "rows": [
+   "1.1 E- SDC infrastructure requirements",
+   "1.2 - best practices for business and IT RPA centres of expertise (CoE)",
+   "1.3 - business process evaluation and creation of inventories of potential RPA candidates"
+ ]
+}
+```
+
+I hope this helps! Let me know if you have any other questions.</s>
+
+--------- LLM generation for sample 4-5:
+<s><s>[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Analyze the document contained by %%%% below. Within the document, locate the markdown table, then merge (combine) the original contents row by row, and return in `JSON` format list. Note do not include the header of the table.
+
+Here is the document:
+
+%%%%
+
+
+
+
+ANNEX C- EVALUATION CRITERIA
+Table1
+
+| ID   | Mandatory Requirement Description                                                                                                                                                                                                                                                                                                                               | Contractors Substantiation of Requirement   |
+|------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------|
+| M1   | The RPA solution must provide a bilingual (Official  languages– English and French) interface.                                                                                                                                                                                                                                                                  |                                             |
+| M2.1 | The Contractor must provide a Robotic Process Automation  (RPA) solution that will operate on an enterprise-class  infrastructure using physical and virtual machines (VMs).                                                                                                                                                                                    |                                             |
+| M2.2 | The RPA solution must include a design suite that will allow  ESDC to develop and deliver automated processes                                                                                                                                                                                                                                                   |                                             |
+| M3   | The Contractor must provide a complete list of all  components and version numbers included in their solution  and must include:   a)  an Enterprise Optical character recognition (OCR)  engine.   b)  all database components required to support the  RPA solution  c)  all web browsers and versions it supports.  d)  All cloud base services it supports. |                                             |
+
+Table2
+
+| M7   | The software must not require the use of Adobe Flash or Shockwave for any functionality.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | &#xfeff;   |
+|------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
+| M8   | The solution must support Enterprise browser standards  without degradation in functionality.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |            |
+| M9   | The solution must support the packaging and re- deployment of all required components within a given  automation process in order to migrate a process from one  RPA infrastructure environment to another such as from a  Development environment to Production environment.                                                                                                                                                                                                                                                                                                                                                                          |            |
+
+Table3
+
+| ID   | Rated Requirement Description                                                                                                                                                                                                                           | Rating Criteria                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Max Points    |
+|------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
+| R1.1 | The solution should provide written a  RPA strategic enterprise    implementation plan which will be  evaluated based on the following  marking scheme:   1.1 E- SDC infrastructure requirements;                                                       | 1 •  Information is well  documented / clear and  relevant to the subject – full  points per bullet  •  Information is semi  documented / unclear /  contains unrelated  information – half points per  bullet  .1 - ESDC infrastructure  requirements evaluation criteria   - includes relevant infrastructure  diagrams (Max 10 points)  - includes relevant infrastructure  hardware and software  requirements(Max 10 points)  - includes relevant costings and  firewall rule requirements(Max 10  points) | Max 30 points |
+| R1.2 | The solution should provide written a  RPA strategic enterprise    implementation plan which will be  evaluated based on the following  marking scheme:   1.2 - best practices for business and IT  RPA Centres of Expertise (CoE);                     | •  Information is well  documented / clear and  relevant to the subject – full  points per bullet  •  Information is semi  documented / unclear /  contains unrelated  information – half points per  bullet    1.2 -best practices for business  and IT RPA centres of expertise  (CoE);   - includes relevant best practices  for business RPA center of  excellence. (Max 10 points)  - includes relevant best practices  for IT RPA center of excellence.  (Max 10 points)                                  | Max 20 points |
+
+%%%% [/INST] Merging markdown cells in a row means replace `|` with a space in the row. For example:
+The first row in the first table is: "| M1   | The RPA solution must provide a bilingual (Official  languages– English and French) interface. |", then the first row merged is: "M1 The RPA solution must provide a bilingual (Official languages– English and French) interface."
+
+Finally, here's the JSON format answer according to your `JSON` format example:
+```json
+{
+ "request": "Merge (combine) the original contents of each cell in every content row, and return in `JSON` format list.",
+ "rows": [
+   "M1 The RPA solution must provide a bilingual (Official languages– English and French) interface.",
+   "M2.1 The Contractor must provide a Robotic Process Automation  (RPA) solution that will operate on an enterprise-class  infrastructure using physical and virtual machines (VMs).",
+   "M2.2 The RPA solution must include a design suite that will allow ESDC to develop and deliver automated processes.",
+   "M3 The Contractor must provide a complete list of all components and version numbers included in their solution and must include: a) an Enterprise Optical character recognition (OCR) engine. b) all database components required to support the RPA solution c) all web browsers and versions it supports. d) All cloud base services it supports.",
+   "M7 The software must not require the use of Adobe Flash or Shockwave for any functionality.",
+   "M8 The solution must support Enterprise browser standards without degradation in functionality.",
+   "M9 The solution must support the packaging and re-deployment of all required components within a given automation process in order to migrate a process from one RPA infrastructure environment to another such as from a Development environment to Production environment."
+ ]
+}
+```
+Note that the `JSON` format answer is a list, which is defined by the `JSON` format definition you provided.</s>
+
+--------- LLM generation for sample 5-5:
+<s><s>[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Analyze the document contained by %%%% below. Within the document, locate the markdown table, then merge (combine) the original contents row by row, and return in `JSON` format list. Note do not include the header of the table.
+
+Here is the document:
+
+%%%%
+
+SECTION C.10.1 – SCOPE OF WORK A: CLOUD-BASED MDM SOFTWARE
+| Item     | Requirement                          | Description                                                                                                                                                                                                                                                                             |
+|--------------------------------|-----------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| A  B  C  D  E  F  G  H         | Data Integration and  Preparation | Platform must provide data connectors for common structured and  unstructured data sources (files (Excel, CSV), databases, business  applications),  marketing  platforms  (advertising,  social,  content,  analytics), as well as the ability to develop custom API connectors.    |
+| L                              | Data Lineage                      | Platform  must  provide  ability  to  track  the  full  lifecycle  of  data,  including and change alert capabilities.                                                                                                                                                               |
+| M                              | Data Glossary / Catalogue         | Platform  should  automatically  crawl,  profile,  organize,  link,  enrich,  and  document  all  metadata  with  supporting  data  glossary                                                                                                                                         |
+
+
+SECTION C.10.2 – SCOPE OF WORK B: CLOUD-BASED BI SOFTWARE
+|    |Requirement                          | Description                                                                                                                                                                                                                                                                                                          |
+|---------------------------|-----------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| A                         | Data Integration and  Preparation | Platform must provide data connectors for common cloud data storage  platforms  including  Amazon  RedShift,  Google  BigQuery,  Snowflake,  Azure SQL, and relational databases such as Oracle, SQL Server, and  PostgreSQL and Microsoft Excel.                                                                 |
+| D                         |                                   | Platforms  needs  to  provide  basic  data  preparation  management  capabilities including job scheduler, versioning, task management, and  audit log capabilities.                                                                                                                                              |
+| E                         | Data Visualization and  Analysis  | Platform should provide ability for non-technical analysts and business  users  to  create  interactive  reports  and  dashboards  composed  of  charts,  graphs,  maps  charts  with  layers,  and  other  visualizations  through an intuitive and easy to use web-based user interface.                        |
+| F                         |                                   | Platform  should  provide  ability  to  refine  visualizations  by  selecting  different chart types and data series or applying filters and drilldowns.                                                                                                                                                          |
+| G                         |                                   | Platform should provide ability to set notification alerts when the data  changes beyond defined thresholds                                                                                                                                                                                                       |
+
+
+%%%% [/INST] Merging markdown cells in a row means replace `|` with a space in the row. For example:
+The first row in the table is: "| A  B  C  D  E  F  G  H         |", then the first cell in the row is: "A", and the last cell in the row is: "H".
+
+Finally, here's the JSON format list according to your `JSON` format example:
+```json
+{
+ "request": "Merge original contents of each cell in every content row.",
+ "rows": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F",
+   "G",
+   "H"
+ ]
+}
+```
+Note that the header of the table is not included in the `JSON` format list.</s>
+(ft310) zhibin@vpc-modeling:~/Projects/fine-tune-llm$
