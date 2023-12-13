@@ -5,9 +5,15 @@ from typing import Callable
 
 import peft
 import torch
-from transformers import (AutoModelForCausalLM, AutoTokenizer,
-                          BitsAndBytesConfig, DataCollatorForLanguageModeling,
-                          Trainer, TrainingArguments, set_seed)
+from transformers import (
+    AutoModelForCausalLM,
+    AutoTokenizer,
+    BitsAndBytesConfig,
+    DataCollatorForLanguageModeling,
+    Trainer,
+    TrainingArguments,
+    set_seed,
+)
 
 from datasets import load_dataset
 from sft_lib.prompt_utils import text2prompt
@@ -58,7 +64,7 @@ def preprocess_dataset(
             truncation=True,
             # https://huggingface.co/docs/datasets/process#batch-processing
             # return_tensors="pt", # 前面batch_size必须为1，不然默认batch_size=1000，而这里如果没有padding，sample不等长
-            # 但是这个地方设置return_tensors没有用，因为dataset会自动转为ist
+            # 但是这个地方设置return_tensors没有用，因为dataset会自动转为list
         )
         return batch_ids
 
@@ -125,3 +131,19 @@ if __name__ == "__main__":
     ds = get_dataset_from_text_files("simple_markdown_with_answer", suffix="md")
     for sample in ds:
         print(sample)
+        break
+
+    tokenizer = AutoTokenizer.from_pretrained(
+        "NousResearch/Llama-2-7b-chat-hf", use_auth_token=True
+    )
+
+    dataset = preprocess_dataset(
+        dataset=ds,
+        tokenizer=tokenizer,
+        prompterize=text2prompt,
+        # for training, max_length can be the max model token length, because the answer is also in the text.
+        seed=44,
+        max_length=512,
+        do_shuffle=True,
+    )
+    print(f"preprocessed dataset length: {len(dataset)}")

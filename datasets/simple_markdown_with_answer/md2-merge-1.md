@@ -25,8 +25,6 @@ B2  | Bird   |Louis   |   5 |   Ottawa
 
 Our employees are welcome for you.
 
-## Brief
-Our employees are not working in offfice, they work from home.
 
 %%%%
 

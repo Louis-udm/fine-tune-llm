@@ -8,13 +8,23 @@ import fire
 import peft
 import torch
 from torch.utils.data.dataloader import DataLoader
-from transformers import (AutoModelForCausalLM, AutoTokenizer,
-                          BitsAndBytesConfig, DataCollatorForLanguageModeling,
-                          TextStreamer, Trainer, TrainingArguments, set_seed)
+from transformers import (
+    AutoModelForCausalLM,
+    AutoTokenizer,
+    BitsAndBytesConfig,
+    DataCollatorForLanguageModeling,
+    TextStreamer,
+    Trainer,
+    TrainingArguments,
+    set_seed,
+)
 
 from datasets import Dataset, load_dataset
-from sft_lib.dataset_utils import (get_dataset_from_text_files,
-                                   preprocess_dataset, tranparent_prompterize)
+from sft_lib.dataset_utils import (
+    get_dataset_from_text_files,
+    preprocess_dataset,
+    tranparent_prompterize,
+)
 from sft_lib.model_utils import load_model_with_adaptor
 from sft_lib.prompt_utils import text2prompt
 

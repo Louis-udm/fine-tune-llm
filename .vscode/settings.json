@@ -1,5 +1,5 @@
 {
-    "python.defaultInterpreterPath": "/home/zhibin/venvs/ft310/bin/python",
+    // "python.defaultInterpreterPath": "/home/zhibin/venvs/ft310/bin/python",
     "python.analysis.extraPaths": [
         ".",
     ],

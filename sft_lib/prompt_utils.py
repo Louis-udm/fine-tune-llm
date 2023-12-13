@@ -24,6 +24,7 @@ def get_sys_prompt_template(assistant_action: str = None):
 def llama2_prompt_format(
     messages: list[dict], add_sys_prompt: bool = True, assistant_action: str = None
 ):
+    answer_label = None
     if add_sys_prompt and messages[0]["role"] != "system":
         messages = [
             {
@@ -53,8 +54,9 @@ def llama2_prompt_format(
         # this case is for training the model, the last message is what we want the answer from the model,
         # so we delete last EOS
         messages_list[-1] = messages_list[-1][: -len(EOS)].strip()
+        answer_label = messages[-1]["content"].strip()
 
-    return "".join(messages_list)
+    return "".join(messages_list), answer_label
 
 
 def text2prompt(
@@ -89,25 +91,25 @@ if __name__ == "__main__":
     ]
 
     # print(convert_openai_to_llama_format(messages))
-    assert (
-        llama2_prompt_format(messages)
-        == """<s>[INST] <<SYS>>
+    assert llama2_prompt_format(messages) == (
+        """<s>[INST] <<SYS>>
 You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
 <</SYS>>
 
-Knock knock. [/INST] Who's there? </s><s>[INST] Orange. What's your name? [/INST]"""
+Knock knock. [/INST] Who's there? </s><s>[INST] Orange. What's your name? [/INST]""",
+        None,
     )
-    assert (
-        llama2_prompt_format(messages, assistant_action="tell a story")
-        == """<s>[INST] <<SYS>>
+    assert llama2_prompt_format(messages, assistant_action="tell a story") == (
+        """<s>[INST] <<SYS>>
 You are a helpful, respectful and honest assistant who can help tell a story, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
 <</SYS>>
 
-Knock knock. [/INST] Who's there? </s><s>[INST] Orange. What's your name? [/INST]"""
+Knock knock. [/INST] Who's there? </s><s>[INST] Orange. What's your name? [/INST]""",
+        None,
     )
-    assert (
-        llama2_prompt_format(messages, add_sys_prompt=False)
-        == "<s>[INST] Knock knock. [/INST] Who's there? </s><s>[INST] Orange. What's your name? [/INST]"
+    assert llama2_prompt_format(messages, add_sys_prompt=False) == (
+        "<s>[INST] Knock knock. [/INST] Who's there? </s><s>[INST] Orange. What's your name? [/INST]",
+        None,
     )
 
     # this is the text for traning the model
@@ -121,11 +123,11 @@ Knock knock. [/INST] Who's there? </s><s>[INST] Orange. What's your name? [/INST
             "content": "Hi Orange. My name is LLM. Nice to meet you.",
         },
     ]
-    assert (
-        llama2_prompt_format(messages, add_sys_prompt=False)
-        == "<s>[INST] Knock knock. [/INST] Who's there? </s><s>[INST] Orange. What's your name? [/INST] Hi Orange. My name is LLM. Nice to meet you."
+    assert llama2_prompt_format(messages, add_sys_prompt=False) == (
+        "<s>[INST] Knock knock. [/INST] Who's there? </s><s>[INST] Orange. What's your name? [/INST] Hi Orange. My name is LLM. Nice to meet you.",
+        messages[-1]["content"],
     )
-    assert (
-        text2prompt("Knock knock.\n^^^^A^^^^Who's there?", add_sys_prompt=False)
-        == "<s>[INST] Knock knock. [/INST] Who's there?"
+    assert text2prompt("Knock knock.\n^^^^A^^^^Who's there?", add_sys_prompt=False) == (
+        "<s>[INST] Knock knock. [/INST] Who's there?",
+        "Who's there?",
     )
