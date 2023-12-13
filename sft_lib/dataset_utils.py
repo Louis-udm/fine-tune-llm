@@ -54,6 +54,10 @@ def preprocess_dataset(
     :param max_length (int): Maximum number of tokens to emit from tokenizer
     """
 
+    def _add_file_name(sample, idx, file_names):
+        sample["file_name"] = file_names[idx]
+        return sample
+
     def _create_prompt_formats(sample):
         if with_labels:
             sample["text"], sample["label_text"] = prompterize(sample["text"])
@@ -131,17 +135,26 @@ def preprocess_dataset(
     dataset = dataset.map(_create_prompt_formats, batched=False)  # , batched=True)
 
     if abandon_long_sent:  # abandon too long samples, else only truncate to max_length
+        file_names = list(dataset.info.download_checksums.keys())
+        _add_file_name_func = partial(
+            _add_file_name,
+            file_names=file_names,
+        )
+        dataset = dataset.map(_add_file_name_func, batched=False, with_indices=True)
         dataset = dataset.map(_sample_len_func, batched=False)
         long_sent_ds = dataset.filter(lambda sample: sample["token_len"] > max_length)
         if len(long_sent_ds) > 0:
             print("abandoning too long samples:")
             print(
                 "\n".join(
-                    [f"len: {d['token_len']}, sent: {d['text']}" for d in long_sent_ds]
+                    [
+                        f"len: {d['token_len']}, file name: {d['file_name']}"
+                        for d in long_sent_ds
+                    ]
                 )
             )
             dataset = dataset.filter(lambda sample: sample["token_len"] <= max_length)
-        dataset = dataset.remove_columns(["token_len"])
+        dataset = dataset.remove_columns(["token_len", "file_name"])
 
     if do_shuffle:
         dataset = dataset.shuffle(seed=seed)
@@ -160,27 +173,6 @@ def preprocess_dataset(
         dataset = dataset.remove_columns(["text"])
 
     return dataset
-
-
-# -------- create Special dataset ----
-def get_dataset_from_text_files(dir, suffix="txt"):
-    # Load text dataset: https://huggingface.co/docs/datasets/nlp_load
-    # texts = []
-    # ds_files = glob.glob(os.path.join("datasets",dir,f"*.{suffix}"))
-    # for f in ds_files:
-    #     with open(f, "rt") as fp:
-    #         texts.append(fp.read())
-
-    data_files = glob.glob(os.path.join("datasets", dir, f"*.{suffix}"))
-    data_files = sorted(data_files)
-    ds = load_dataset(
-        "text",
-        sample_by="document",
-        data_files=data_files,
-        name="simple_markdown",
-        split="train",
-    )
-    return ds
 
 
 def generate_dataloader(
@@ -221,9 +213,32 @@ def generate_dataloader(
     return dataloader
 
 
+# -------- create Special dataset ----
+def get_dataset_from_text_files(dir, suffix="txt"):
+    # Load text dataset: https://huggingface.co/docs/datasets/nlp_load
+    # texts = []
+    # ds_files = glob.glob(os.path.join("datasets",dir,f"*.{suffix}"))
+    # for f in ds_files:
+    #     with open(f, "rt") as fp:
+    #         texts.append(fp.read())
+
+    data_files = glob.glob(os.path.join("datasets", dir, f"*.{suffix}"))
+    data_files = sorted(data_files)
+    ds = load_dataset(
+        "text",
+        sample_by="document",
+        data_files=data_files,
+        # name="simple_markdown",
+        name=dir.split("/")[-1].strip(),
+        split="train",
+        save_infos=True,
+    )
+    return ds
+
+
 if __name__ == "__main__":
     tokenizer = AutoTokenizer.from_pretrained(
-        "NousResearch/Llama-2-7b-chat-hf", use_auth_token=True
+        "NousResearch/Llama-2-7b-chat-hf", token=True
     )
 
     # ds = get_dataset_from_text_files("simple_markdown_with_answer", suffix="md")

@@ -23,7 +23,6 @@ from datasets import Dataset, load_dataset
 from sft_lib.dataset_utils import (
     get_dataset_from_text_files,
     preprocess_dataset,
-    tranparent_prompterize,
     get_model_max_length,
 )
 from sft_lib.model_utils import load_model_with_adaptor
