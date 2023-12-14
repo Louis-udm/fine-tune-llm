@@ -58,14 +58,17 @@ def train_cli(
     model, tokenizer = load_model(MODEL_NAME, bnb_config)
 
     max_length = get_model_max_length(model)
-    dataset = preprocess_dataset(
+    dataset = generate_dataloader(
         dataset=dataset,
         tokenizer=tokenizer,
         prompterize=text2prompt,
         # for training, max_length can be the max model token length, because the answer is also in the text.
         seed=SEED,
         max_length=max_length,
+        batch_size=1,
         do_shuffle=True,
+        abandon_long_sent=True,
+        with_labels=True,
     )
     print(f"preprocessed dataset length: {len(dataset)}")
 

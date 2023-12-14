@@ -40,6 +40,7 @@ def load_model(model_name, bnb_config):
         quantization_config=bnb_config,
         device_map="auto",  # dispatch efficiently the model on the available ressources
         max_memory={i: max_memory for i in range(n_gpus)},
+        trust_remote_code=True,
     )
     tokenizer = AutoTokenizer.from_pretrained(model_name, use_auth_token=True)
 

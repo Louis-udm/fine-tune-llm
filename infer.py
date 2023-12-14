@@ -25,7 +25,11 @@ from sft_lib.dataset_utils import (
     preprocess_dataset,
     get_model_max_length,
 )
-from sft_lib.model_utils import load_model_with_adaptor
+from sft_lib.model_utils import (
+    create_4bit_bnb_config,
+    load_model_with_adaptor,
+    load_model,
+)
 from sft_lib.prompt_utils import text2prompt
 
 SEED = 44
@@ -38,8 +42,10 @@ set_seed(SEED)
 def predict_cli(
     # lora_adaptor_dir=None,
     # lora_adaptor_dir="Llama-2-7b-chat-hf_databricks-dolly-15k",
-    lora_adaptor_dir="Llama-2-7b-chat-hf_simple_markdown_with_answer",
-    model_name="NousResearch/Llama-2-7b-chat-hf",
+    lora_adaptor_dir=None,
+    # lora_adaptor_dir="Llama-2-7b-chat-hf_simple_markdown_with_answer",
+    # model_name="NousResearch/Llama-2-7b-chat-hf",
+    model_name="microsoft/phi-2",
     output_root="predictions",
     max_prompt_length=1400,
     max_new_length=1400,
@@ -71,9 +77,14 @@ def predict_cli(
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     # Load model and tokenizer
-    model, tokenizer = load_model_with_adaptor(
-        model_name=model_name, lora_adaptor_dir=lora_adaptor_dir
-    )
+    if lora_adaptor_dir:
+        model, tokenizer = load_model_with_adaptor(
+            model_name=model_name, lora_adaptor_dir=lora_adaptor_dir
+        )
+    else:
+        bnb_config = create_4bit_bnb_config()
+        model, tokenizer = load_model(model_name, bnb_config)
+
     streamer = TextStreamer(tokenizer)
 
     max_length = get_model_max_length(model)
