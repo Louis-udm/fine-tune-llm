@@ -175,6 +175,14 @@ def preprocess_dataset(
     return dataset
 
 
+def collate_fn_for_ids_prepared_with_labels(batch):
+    new_batch = {}
+    new_batch["input_ids"] = torch.tensor([i["input_ids"] for i in batch])
+    new_batch["labels"] = torch.tensor([i["labels"] for i in batch])
+    new_batch["attention_mask"] = torch.tensor([i["attention_mask"] for i in batch])
+    return new_batch
+
+
 def generate_dataloader(
     dataset,
     tokenizer: AutoTokenizer,
@@ -186,13 +194,6 @@ def generate_dataloader(
     abandon_long_sent=True,
     with_labels=False,
 ):
-    def _collate_fn(batch):
-        new_batch = {}
-        new_batch["input_ids"] = torch.tensor([i["input_ids"] for i in batch])
-        new_batch["labels"] = torch.tensor([i["labels"] for i in batch])
-        new_batch["attention_mask"] = torch.tensor([i["attention_mask"] for i in batch])
-        return new_batch
-
     dataset = preprocess_dataset(
         dataset=dataset,
         tokenizer=tokenizer,
@@ -208,7 +209,10 @@ def generate_dataloader(
     # shuffle have to be False, because the batch token length is different
     # shuffle ds in preprocess_dataset.
     dataloader = DataLoader(
-        dataset, batch_size=batch_size, shuffle=False, collate_fn=_collate_fn
+        dataset,
+        batch_size=batch_size,
+        shuffle=False,
+        collate_fn=collate_fn_for_ids_prepared_with_labels,
     )
     return dataloader
 

@@ -97,7 +97,8 @@ def train_cli(
             learning_rate=learning_rate,
             output_dir=os.path.join(output_root, output_dir),
         ),
-        data_collator=DataCollatorForLanguageModeling(tokenizer, mlm=False),
+        # data_collator=DataCollatorForLanguageModeling(tokenizer, mlm=False),
+        data_collator=collate_fn_for_ids_prepared_with_labels,
     )
 
     # Launch training
