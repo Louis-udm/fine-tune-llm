@@ -53,12 +53,12 @@ def load_and_show_dataset(ds_name, suffix):
 
 def train_cli(
     warmup_steps=4,
-    max_steps=30,  # 100,
+    max_steps=80,  # 100,
     learning_rate=2e-4,
     output_root="results",
     ds_name="simple_markdown_with_answer",
 ):
-    output_dir = f"{MODEL_NAME.split('/')[-1]}_{ds_name.split('/')[-1]}"
+    output_dir = f"{MODEL_NAME.split('/')[-1]}_{ds_name.split('/')[-1]}-ft_accelerate"
     # dataset = get_dataset_from_text_files(ds_name, suffix="md")
     dataset = load_and_show_dataset(ds_name, suffix="md")
     bnb_config = create_4bit_bnb_config()
@@ -74,7 +74,7 @@ def train_cli(
         max_length=max_length,
         batch_size=1,
         do_shuffle=True,
-        abandon_long_sent=True,
+        abandon_long_sample=True,
         with_labels=True,
     )
     print(f"preprocessed dataset length: {len(train_dataloader)}")
@@ -85,8 +85,9 @@ def train_cli(
     # if training_args.gradient_checkpointing:
     #     model.gradient_checkpointing_enable()
 
-    # accelerator = Accelerator(mixed_precision="yes",cpu=False,gradient_accumulation_steps=1)
-    accelerator = Accelerator(fp16=True)
+    accelerator = Accelerator(
+        mixed_precision="fp16", cpu=False, gradient_accumulation_steps=4
+    )
     accelerator.free_memory()
     # optimizer_kwargs={'lr': 0.0002, 'betas': (0.9, 0.999), 'eps': 1e-08, 'is_paged': True, 'optim_bits': 8}
     # optimizer=torch.optim.AdamW(model.parameters(),lr=learning_rate)
@@ -100,21 +101,31 @@ def train_cli(
     # Launch training
     print("\nTraining...")
     model.train()
-    for i, batch in enumerate(train_dataloader, start=1):
-        with accelerator.accumulate(model):
-            with accelerator.autocast(), torch.no_grad():
-                loss = model(**batch).loss
+    step = 0
+    epoch = 0
+    while step <= max_steps:
+        for i, batch in enumerate(train_dataloader, start=1):
+            with accelerator.accumulate(model):
+                with accelerator.autocast():
+                    loss = model(**batch).loss
 
-            # backward()
-            accelerator.backward(loss)
-            # accelerator.clip_grad_norm_(model.parameters(), 1.0)
-            optimizer.step()
-            # if lr_scheduler is not None:
-            #     lr_scheduler.step()
-            optimizer.zero_grad()
+                # backward()
+                accelerator.backward(loss)
+                if accelerator.sync_gradients:
+                    print("clip")
+                    accelerator.clip_grad_norm_(model.parameters(), 1.0)
+                optimizer.step()
+                # if lr_scheduler is not None:
+                #     lr_scheduler.step()
+                optimizer.zero_grad()
 
-            all_loss = accelerator.gather(loss).sum()
-            print(f"train loss : {loss.item()}")
+                all_loss = accelerator.gather(loss).sum()
+                step += 1
+                # print(f"step: {step}-{epoch} train loss : {loss.item()}")
+                print(f"step: {step}-{epoch} train loss : {all_loss.item()}")
+                if step > max_steps:
+                    break
+        epoch += 1
 
     # Saving model
     print("Saving last checkpoint of the model...")

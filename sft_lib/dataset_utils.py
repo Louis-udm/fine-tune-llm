@@ -46,7 +46,7 @@ def preprocess_dataset(
     max_length: int,
     batch_size: int,
     do_shuffle=True,
-    abandon_long_sent=True,
+    abandon_long_sample=True,
     with_labels=False,
 ):
     """Format & tokenize it so it is ready for training
@@ -134,7 +134,9 @@ def preprocess_dataset(
 
     dataset = dataset.map(_create_prompt_formats, batched=False)  # , batched=True)
 
-    if abandon_long_sent:  # abandon too long samples, else only truncate to max_length
+    if (
+        abandon_long_sample
+    ):  # abandon too long samples, else only truncate to max_length
         file_names = list(dataset.info.download_checksums.keys())
         _add_file_name_func = partial(
             _add_file_name,
@@ -191,7 +193,7 @@ def generate_dataloader(
     max_length: int,
     batch_size: int,
     do_shuffle=True,
-    abandon_long_sent=True,
+    abandon_long_sample=True,
     with_labels=False,
 ):
     dataset = preprocess_dataset(
@@ -203,7 +205,7 @@ def generate_dataloader(
         max_length=max_length,
         batch_size=batch_size,
         do_shuffle=do_shuffle,
-        abandon_long_sent=abandon_long_sent,
+        abandon_long_sample=abandon_long_sample,
         with_labels=with_labels,
     )
     # shuffle have to be False, because the batch token length is different
@@ -235,7 +237,9 @@ def get_dataset_from_text_files(dir, suffix="txt"):
         # name="simple_markdown",
         name=dir.split("/")[-1].strip(),
         split="train",
-        save_infos=True,
+        # save_infos=True, # will put to python3.10/site-packages/datasets/packaged_modules/text/README.md
+        cache_dir=None,
+        download_mode="force_redownload",
     )
     return ds
 
@@ -246,9 +250,9 @@ if __name__ == "__main__":
     )
 
     # ds = get_dataset_from_text_files("simple_markdown_with_answer", suffix="md")
-    # for sample in ds:
-    #     print(sample)
-    #     break
+    # # for sample in ds:
+    # #     print(sample)
+    # #     break
 
     # dataset = preprocess_dataset(
     #     dataset=ds,
@@ -259,7 +263,7 @@ if __name__ == "__main__":
     #     max_length=512,
     #     batch_size=2,
     #     do_shuffle=True,
-    #     abandon_long_sent=True,
+    #     abandon_long_sample=True,
     #     with_labels=True,
     # )
     # print(f"len of ds: {len(dataset)}, each: ")
@@ -277,7 +281,7 @@ if __name__ == "__main__":
     #     max_length=512,
     #     batch_size=2,
     #     do_shuffle=True,
-    #     abandon_long_sent=True,
+    #     abandon_long_sample=True,
     #     with_labels=True,
     # )
     # for batch in dl:
@@ -285,7 +289,6 @@ if __name__ == "__main__":
     #     # break
 
     ds = get_dataset_from_text_files("smd_with_rfp", suffix="md")
-
     dataset = preprocess_dataset(
         dataset=ds,
         tokenizer=tokenizer,
@@ -295,7 +298,7 @@ if __name__ == "__main__":
         max_length=1400,
         batch_size=1,
         do_shuffle=True,
-        abandon_long_sent=True,
+        abandon_long_sample=True,
         with_labels=False,
     )
     print(f"len of ds: {len(dataset)}, each: ")

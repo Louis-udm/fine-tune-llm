@@ -1,0 +1,342 @@
+(ft310) zhibin@vpc-modeling:~/Projects/fine-tune-llm$ python infer.py
+Loading checkpoint shards: 100%|███████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:06<00:00,  3.24s/it]
+/mnt/data/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:381: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.9` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`. This was detected when initializing the generation config instance, which means the corresponding file may hold incorrect parameterization and should be fixed.
+  warnings.warn(
+/mnt/data/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:386: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.6` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`. This was detected when initializing the generation config instance, which means the corresponding file may hold incorrect parameterization and should be fixed.
+  warnings.warn(
+/mnt/data/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/models/auto/tokenization_auto.py:671: FutureWarning: The `use_auth_token` argument is deprecated and will be removed in v5 of Transformers. Please use `token` instead.
+  warnings.warn(
+Found max lenth: 4096
+max_model_length: 4096, setting max_prompt_length to 1400
+Preprocessing dataset...
+abandoning too long samples:
+len: 2775, file name: /mnt/data/zhibin/Projects/fine-tune-llm/datasets/smd_with_rfp/md3-merge-32.md
+len: 3251, file name: /mnt/data/zhibin/Projects/fine-tune-llm/datasets/smd_with_rfp/md4-merge-22.md
+Map: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████| 4/4 [00:00<00:00, 138.36 examples/s]
+
+--------- LLM generation for sample 1-4:
+/mnt/data/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/generation/utils.py:1473: UserWarning: You have modified the pretrained model configuration to control generation. This is a deprecated strategy to control generation and will be removed soon, in a future version. Please use and modify the model generation configuration (see https://huggingface.co/docs/transformers/generation_strategies#default-text-generation-configuration )
+  warnings.warn(
+<s><s>[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Analyze the document contained by %%%% below. Within the document, locate the markdown table, then merge (combine) the original contents in all cells for each content row, and return in `JSON` format list. Note that the header of table is not the first content row. The definition of the `JSON` result is like:
+```json
+{{
+  "request": "Merge original contents of each cell in every content row.",
+  "rows": [
+    "first row merged contents",
+    "second row merged contents"
+  ]
+}}
+```
+
+Here is the document:
+
+%%%%
+
+A.4     Contract Term
+
+DC anticipates entering into negotiations with the selected proponent(s) for up to a five (5) year period,
+with an option to extend on an annual basis by DC for a total period not to exceed another five (5) years,
+at DC’s sole discretion. DC does not grant exclusivity, guarantee business or make any guarantee of the
+value or volume of work that may be assigned to the Contractor.
+A.5     Abbreviated Definitions
+
+| ADR    | Average Daily Rate                               |
+|--------|--------------------------------------------------|
+| AOR    | Average Occupancy Rate                           |
+| API    | Application Programming Interface                |
+| AWS    | Amazon Web Services                              |
+| BI     | Business Intelligence                            |
+| CBRE   | CBRE Group, Inc. - Coldwell Banker Richard Ellis |
+| CBSA   | Canada Border Services Agency                    |
+| CRM    | Customer Relationship Management                 |
+| CSV    | Comma-Separated Values                           |
+| DC     | Destination Canada                               |
+| DCM    | DoubleClick Campaign Manager                     |
+| ETL    | Extract, Transform, Load                         |
+| ELT    | Extract, Load, Transform                         |
+| IATA   | International Air Transport Association          |
+| MDM    | Master Data Management                           |
+| NA     | Not Applicable                                   |
+| NRFP   | Negotiated Request for Proposal                  |
+| PO     | Purchase Order                                   |
+| RACI   | Responsible, Accountable, Consulted, Informed    |
+| RevPar | Revenue Per Available Room                       |
+| SPSS   | Statistical Package for the Social Sciences      |
+
+%%%% [/INST]  Of course! I'll do my best to help you.
+
+To locate the markdown table in the document, I'll need to search for a line that starts with `| ` (a backticks character). This is typically the indicator for a markdown table.
+
+Here's the content of the table:
+
+| ADR    | Average Daily Rate                               |
+|--------|--------------------------------------------------|
+| AOR    | Average Occupancy Rate                           |
+| API    | Application Programming Interface                |
+| AWS    | Amazon Web Services                              |
+| BI     | Business Intelligence                            |
+| CBRE   | CBRE Group, Inc. - Coldwell Banker Richard Ellis |
+| CBSA   | Canada Border Services Agency                    |
+| CRM    | Customer Relationship Management                 |
+| CSV    | Comma-Separated Values                           |
+| DC     | Destination Canada                               |
+| DCM    | DoubleClick Campaign Manager                     |
+| ETL    | Extract, Transform, Load                         |
+| ELT    | Extract, Load, Transform                         |
+| IATA   | International Air Transport Association          |
+| MDM    | Master Data Management                           |
+| NA     | Not Applicable                                   |
+| NRFP   | Negotiated Request for Proposal                  |
+| PO     | Purchase Order                                   |
+| RACI   | Responsible, Accountable, Consulted, Informed    |
+| RevPar | Revenue Per Available Room                       |
+| SPSS   | Statistical Package for the Social Sciences      |
+
+Finally, here's the JSON format answer according to your `JSON` format example:
+```json
+{
+ "request" "Merge original contents of each cell in every content row.",
+ "rows" [
+   "ADR Average Daily Rate",
+   "AOR Average Occupancy Rate",
+   "API Application Programming Interface",
+   "AWS Amazon Web Services",
+   "BI Business Intelligence",
+   "CBRE CBRE Group, Inc. - Coldwell Banker Richard Ellis",
+   "CBSA Canada Border Services Agency",
+   "CRM Customer Relationship Management",
+   "CSV Comma-Separated Values",
+   "DC Destination Canada",
+   "DCM DoubleClick Campaign Manager",
+   "ETL Extract, Transform, Load",
+   "ELT Extract, Load, Transform",
+   "IATA International Air Transport Association",
+   "MDM Master Data Management",
+   "NA Not Applicable",
+   "NRFP Negotiated Request for Proposal",
+   "PO Purchase Order",
+   "RACI Responsible, Accountable, Consulted, Informed",
+   "RevPar Revenue Per Available Room",
+   "SPSS Statistical Package for the Social Sciences"
+ ]
+}
+```
+I hope this helps! Let me know if you have any further questions.</s>
+
+--------- LLM generation for sample 2-4:
+<s><s>[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Analyze the document contained by %%%% below. Within the document, locate the markdown table, then merge (combine) the original contents row by row, and return in `JSON` format list. Note do not include the header of the table.
+
+Here is the document:
+
+%%%%
+
+A.4     Contract Term
+
+DC anticipates entering into negotiations with the selected proponent(s) for up to a five (5) year period,
+with an option to extend on an annual basis by DC for a total period not to exceed another five (5) years,
+at DC’s sole discretion. DC does not grant exclusivity, guarantee business or make any guarantee of the
+value or volume of work that may be assigned to the Contractor.
+A.5     Abbreviated Definitions
+
+| ADR    | Average Daily Rate                               |
+|--------|--------------------------------------------------|
+| AOR    | Average Occupancy Rate                           |
+| API    | Application Programming Interface                |
+| AWS    | Amazon Web Services                              |
+| BI     | Business Intelligence                            |
+| CBRE   | CBRE Group, Inc. - Coldwell Banker Richard Ellis |
+| CBSA   | Canada Border Services Agency                    |
+| CRM    | Customer Relationship Management                 |
+| CSV    | Comma-Separated Values                           |
+| DC     | Destination Canada                               |
+| DCM    | DoubleClick Campaign Manager                     |
+| ETL    | Extract, Transform, Load                         |
+| ELT    | Extract, Load, Transform                         |
+| IATA   | International Air Transport Association          |
+| MDM    | Master Data Management                           |
+| NA     | Not Applicable                                   |
+| NRFP   | Negotiated Request for Proposal                  |
+| PO     | Purchase Order                                   |
+| RACI   | Responsible, Accountable, Consulted, Informed    |
+| RevPar | Revenue Per Available Room                       |
+| SPSS   | Statistical Package for the Social Sciences      |
+
+%%%% [/INST]  Of course! Here's the header of the table:
+
+| ADR    | Average Daily Rate                               |
+|--------|--------------------------------------------------|
+
+Then, here are the original contents of each content row in the table:
+
+| AOR    | Average Occupancy Rate                           |
+|--------|--------------------------------------------------|
+| API    | Application Programming Interface                |
+| AWS    | Amazon Web Services                              |
+| BI     | Business Intelligence                            |
+| CBRE   | CBRE Group, Inc. - Coldwell Banker Richard Ellis |
+| CBSA   | Canada Border Services Agency                    |
+| CRM    | Customer Relationship Management                 |
+| CSV    | Comma-Separated Values                           |
+| DC     | Destination Canada                               |
+| DCM    | DoubleClick Campaign Manager                     |
+| ETL    | Extract, Transform, Load                         |
+| ELT    | Extract, Load, Transform                         |
+| IATA   | International Air Transport Association          |
+| MDM    | Master Data Management                           |
+| NA     | Not Applicable                                   |
+| NRFP   | Negotiated Request for Proposal                  |
+| PO     | Purchase Order                                   |
+| RACI   | Responsible, Accountable, Consulted, Informed    |
+| RevPar | Revenue Per Available Room                       |
+| SPSS   | Statistical Package for the Social Sciences      |
+
+Finally, here's the JSON format answer according to your `JSON` format example:
+```json
+{
+ "rows": [
+   "AOR Average Occupancy Rate",
+   "API Application Programming Interface",
+   "AWS Amazon Web Services",
+   "BI Business Intelligence",
+   "CBRE CBRE Group, Inc. - Coldwell Banker Richard Ellis",
+   "CBSA Canada Border Services Agency",
+   "CRM Customer Relationship Management",
+   "CSV Comma-Separated Values",
+   "DC Destination Canada",
+   "DCM DoubleClick Campaign Manager",
+   "ETL Extract, Transform, Load",
+   "ELT Extract, Load, Transform",
+   "IATA International Air Transport Association",
+   "MDM Master Data Management",
+   "NA Not Applicable",
+   "NRFP Negotiated Request for Proposal",
+   "PO Purchase Order",
+   "RACI Responsible, Accountable, Consulted, Informed",
+   "RevPar Revenue Per Available Room",
+   "SPSS Statistical Package for the Social Sciences"
+ ]
+}
+```
+Please let me know if you have any further questions!</s>
+
+--------- LLM generation for sample 3-4:
+<s><s>[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Analyze the document contained by %%%% below. Within the document, locate the markdown table, then merge (combine) the original contents row by row, and return in `JSON` format list. Note do not include the header of the table.
+
+Here is the document:
+
+%%%%
+
+
+
+
+ANNEX C- EVALUATION CRITERIA
+Table1
+
+| ID   | Mandatory Requirement Description                                                                                                                                                                                                                                                                                                                               | Contractors Substantiation of Requirement   |
+|------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------|
+| M1   | The RPA solution must provide a bilingual (Official  languages– English and French) interface.                                                                                                                                                                                                                                                                  |                                             |
+| M2.1 | The Contractor must provide a Robotic Process Automation  (RPA) solution that will operate on an enterprise-class  infrastructure using physical and virtual machines (VMs).                                                                                                                                                                                    |                                             |
+| M2.2 | The RPA solution must include a design suite that will allow  ESDC to develop and deliver automated processes                                                                                                                                                                                                                                                   |                                             |
+| M3   | The Contractor must provide a complete list of all  components and version numbers included in their solution  and must include:   a)  an Enterprise Optical character recognition (OCR)  engine.   b)  all database components required to support the  RPA solution  c)  all web browsers and versions it supports.  d)  All cloud base services it supports. |                                             |
+
+Table2
+
+| M7   | The software must not require the use of Adobe Flash or Shockwave for any functionality.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | &#xfeff;   |
+|------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
+| M8   | The solution must support Enterprise browser standards  without degradation in functionality.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |            |
+| M9   | The solution must support the packaging and re- deployment of all required components within a given  automation process in order to migrate a process from one  RPA infrastructure environment to another such as from a  Development environment to Production environment.                                                                                                                                                                                                                                                                                                                                                                          |            |
+
+Table3
+
+| ID   | Rated Requirement Description                                                                                                                                                                                                                           | Rating Criteria                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Max Points    |
+|------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
+| R1.1 | The solution should provide written a  RPA strategic enterprise    implementation plan which will be  evaluated based on the following  marking scheme:   1.1 E- SDC infrastructure requirements;                                                       | 1 •  Information is well  documented / clear and  relevant to the subject – full  points per bullet  •  Information is semi  documented / unclear /  contains unrelated  information – half points per  bullet  .1 - ESDC infrastructure  requirements evaluation criteria   - includes relevant infrastructure  diagrams (Max 10 points)  - includes relevant infrastructure  hardware and software  requirements(Max 10 points)  - includes relevant costings and  firewall rule requirements(Max 10  points) | Max 30 points |
+| R1.2 | The solution should provide written a  RPA strategic enterprise    implementation plan which will be  evaluated based on the following  marking scheme:   1.2 - best practices for business and IT  RPA Centres of Expertise (CoE);                     | •  Information is well  documented / clear and  relevant to the subject – full  points per bullet  •  Information is semi  documented / unclear /  contains unrelated  information – half points per  bullet    1.2 -best practices for business  and IT RPA centres of expertise  (CoE);   - includes relevant best practices  for business RPA center of  excellence. (Max 10 points)  - includes relevant best practices  for IT RPA center of excellence.  (Max 10 points)                                  | Max 20 points |
+
+%%%% [/INST]  Great, I'm happy to help you with that!
+
+To merge the original contents of each cell in each content row, I will use the following format:
+```json
+{
+ "header": "Original Cell",
+ "rows": [
+   "M1   | The RPA solution must provide a bilingual (Official languages– English and French) interface.",
+   "M2.1 | The Contractor must provide a Robotic Process Automation  (RPA) solution that will operate on an enterprise-class  infrastructure using physical and virtual machines (VMs).",
+   "M2.2 | The RPA solution must include a design suite that will allow  ESDC to develop and deliver automated processes.",
+   "M3   | The Contractor must provide a complete list of all  components and version numbers included in their solution  and must include:   a)  an Enterprise Optical character recognition (OCR)  engine.   b)  all database components required to support the  RPA solution  c)  all web browsers and versions it supports.   d)  All cloud base services it supports.",
+   "M7   | The software must not require the use of Adobe Flash or Shockwave for any functionality.",
+   "M8   | The solution must support Enterprise browser standards  without degradation in functionality.",
+   "M9   | The solution must support the packaging and re- deployment of all required components within a given  automation process in order to migrate a process from one  RPA infrastructure environment to another such as from a  Development environment to Production environment.",
+   "R1.1 | The solution should provide written a  RPA strategic enterprise    implementation plan which will be  evaluated based on the following  marking scheme:   1.1 E- SDC infrastructure requirements;",
+   "R1.2 | The solution should provide written a  RPA strategic enterprise    implementation plan which will be  evaluated based on the following  marking scheme:   1.2 - best practices for business and IT  RPA Centres of Expertise (CoE);"
+ ]
+}
+```
+Finally, here's the JSON format answer according to your `JSON` format example:
+```json
+{
+ "header": "Original Cell",
+ "rows": [
+   "M1   | The RPA solution must provide a bilingual (Official languages– English and French) interface.",
+   "M2.1 | The Contractor must provide a Robotic Process Automation  (RPA) solution that will operate on an enterprise-class  infrastructure using physical and virtual machines (VMs).",
+   "M2.2 | The RPA solution must include a design suite that will allow  ESDC to develop and deliver automated processes.",
+   "M3   | The Contractor must provide a complete list of all  components and version numbers included in their solution  and must include:   a)  an Enterprise Optical character recognition (OCR)  engine.   b)  all database components required to support the  RPA solution  c)  all web browsers and versions it supports.   d)  All cloud base services it supports.",
+   "M7   | The software must not require the use of Adobe Flash or Shockwave for any functionality.",
+   "M8   | The solution must support Enterprise browser standards  without degradation in functionality.",
+   "M9   | The solution must support the packaging and re- deployment of all required components within Traceback (most recent call last):
+  File "/mnt/data/zhibin/Projects/fine-tune-llm/infer.py", line 138, in <module>
+    fire.Fire(predict_cli)
+  File "/mnt/data/zhibin/venvs/ft310/lib/python3.10/site-packages/fire/core.py", line 141, in Fire
+    component_trace = _Fire(component, args, parsed_flag_args, context, name)
+  File "/mnt/data/zhibin/venvs/ft310/lib/python3.10/site-packages/fire/core.py", line 475, in _Fire
+    component, remaining_args = _CallAndUpdateTrace(
+  File "/mnt/data/zhibin/venvs/ft310/lib/python3.10/site-packages/fire/core.py", line 691, in _CallAndUpdateTrace
+    component = fn(*varargs, **kwargs)
+  File "/mnt/data/zhibin/Projects/fine-tune-llm/infer.py", line 116, in predict_cli
+    outputs = model.generate(
+  File "/mnt/data/zhibin/venvs/ft310/lib/python3.10/site-packages/peft/peft_model.py", line 1060, in generate
+    outputs = self.base_model.generate(**kwargs)
+  File "/mnt/data/zhibin/venvs/ft310/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/mnt/data/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/generation/utils.py", line 1719, in generate
+    return self.sample(
+  File "/mnt/data/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/generation/utils.py", line 2801, in sample
+    outputs = self(
+  File "/mnt/data/zhibin/venvs/ft310/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/mnt/data/zhibin/venvs/ft310/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/mnt/data/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 1034, in forward
+    outputs = self.model(
+  File "/mnt/data/zhibin/venvs/ft310/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/mnt/data/zhibin/venvs/ft310/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/mnt/data/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 922, in forward
+    layer_outputs = decoder_layer(
+  File "/mnt/data/zhibin/venvs/ft310/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/mnt/data/zhibin/venvs/ft310/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/mnt/data/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 672, in forward
+    hidden_states, self_attn_weights, present_key_value = self.self_attn(
+  File "/mnt/data/zhibin/venvs/ft310/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/mnt/data/zhibin/venvs/ft310/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/mnt/data/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 383, in forward
+    value_states = torch.cat([past_key_value[1], value_states], dim=2)
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 16.00 MiB. GPU 0 has a total capacty of 15.77 GiB of which 3.12 MiB is free. Including non-PyTorch memory, this process has 15.77 GiB memory in use. Of the allocated memory 14.71 GiB is allocated by PyTorch, and 168.16 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+(ft310) zhibin@vpc-modeling:~/Projects/fine-tune-llm$

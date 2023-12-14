@@ -1,0 +1,377 @@
+(ft310) zhibin@vpc-modeling:~/Projects/fine-tune-llm$ python infer.py
+Downloading data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 6114.15it/s]
+Extracting data files: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 575.90it/s]
+Generating train split: 100%|█████████████████████████████████████████████████████████████████████████████████████████| 7/7 [00:00<00:00, 1792.33 examples/s]
+Loading checkpoint shards: 100%|███████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:06<00:00,  3.25s/it]
+/mnt/data/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:381: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.9` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`. This was detected when initializing the generation config instance, which means the corresponding file may hold incorrect parameterization and should be fixed.
+  warnings.warn(
+/mnt/data/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:386: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.6` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`. This was detected when initializing the generation config instance, which means the corresponding file may hold incorrect parameterization and should be fixed.
+  warnings.warn(
+/mnt/data/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/models/auto/tokenization_auto.py:671: FutureWarning: The `use_auth_token` argument is deprecated and will be removed in v5 of Transformers. Please use `token` instead.
+  warnings.warn(
+Found max lenth: 4096
+max_model_length: 4096, setting max_prompt_length to 1400
+Preprocessing dataset...
+Map: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████| 7/7 [00:00<00:00, 1875.93 examples/s]
+Map: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████| 7/7 [00:00<00:00, 2774.80 examples/s]
+Map: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████| 7/7 [00:00<00:00, 75.57 examples/s]
+Filter: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████| 7/7 [00:00<00:00, 2622.14 examples/s]
+abandoning too long samples:
+len: 2775, file name: /mnt/data/zhibin/Projects/fine-tune-llm/datasets/smd_with_rfp/md3-merge-32.md
+len: 3251, file name: /mnt/data/zhibin/Projects/fine-tune-llm/datasets/smd_with_rfp/md4-merge-22.md
+Filter: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████| 7/7 [00:00<00:00, 3224.97 examples/s]
+Map: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████| 5/5 [00:00<00:00, 224.30 examples/s]
+
+--------- LLM generation for sample 1-5:
+/mnt/data/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/generation/utils.py:1473: UserWarning: You have modified the pretrained model configuration to control generation. This is a deprecated strategy to control generation and will be removed soon, in a future version. Please use and modify the model generation configuration (see https://huggingface.co/docs/transformers/generation_strategies#default-text-generation-configuration )
+  warnings.warn(
+/mnt/data/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:381: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.3` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+  warnings.warn(
+/mnt/data/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:386: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.9` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`.
+  warnings.warn(
+/mnt/data/zhibin/venvs/ft310/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:396: UserWarning: `do_sample` is set to `False`. However, `top_k` is set to `5` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_k`.
+  warnings.warn(
+<s><s>[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Analyze the document contained by %%%% below. Within the document, locate the markdown table, then merge (combine) the original contents in all cells for each content row, and return in `JSON` format list. Note that the header of table is not the first content row. The definition of the `JSON` result is like:
+```json
+{{
+  "request": "Merge original contents of each cell in every content row.",
+  "rows": [
+    "first row merged contents",
+    "second row merged contents"
+  ]
+}}
+```
+
+Here is the document:
+
+%%%%
+
+A.4     Contract Term
+
+DC anticipates entering into negotiations with the selected proponent(s) for up to a five (5) year period,
+with an option to extend on an annual basis by DC for a total period not to exceed another five (5) years,
+at DC’s sole discretion. DC does not grant exclusivity, guarantee business or make any guarantee of the
+value or volume of work that may be assigned to the Contractor.
+A.5     Abbreviated Definitions
+
+| ADR    | Average Daily Rate                               |
+|--------|--------------------------------------------------|
+| AOR    | Average Occupancy Rate                           |
+| API    | Application Programming Interface                |
+| AWS    | Amazon Web Services                              |
+| BI     | Business Intelligence                            |
+| CBRE   | CBRE Group, Inc. - Coldwell Banker Richard Ellis |
+| CBSA   | Canada Border Services Agency                    |
+| CRM    | Customer Relationship Management                 |
+| CSV    | Comma-Separated Values                           |
+| DC     | Destination Canada                               |
+| DCM    | DoubleClick Campaign Manager                     |
+| ETL    | Extract, Transform, Load                         |
+| ELT    | Extract, Load, Transform                         |
+| IATA   | International Air Transport Association          |
+| MDM    | Master Data Management                           |
+| NA     | Not Applicable                                   |
+| NRFP   | Negotiated Request for Proposal                  |
+| PO     | Purchase Order                                   |
+| RACI   | Responsible, Accountable, Consulted, Informed    |
+| RevPar | Revenue Per Available Room                       |
+| SPSS   | Statistical Package for the Social Sciences      |
+
+%%%% [/INST]  Hello! I'm here to help you merge the markdown cells in each content row. However, I cannot provide false information, so I will not merge any cell that is not a content row.
+
+So, the merged cells are:
+| ADR    | Average Daily Rate                               |
+|--------|--------------------------------------------------|
+| AOR    | Average Occupancy Rate                           |
+| API    | Application Programming Interface                |
+| AWS    | Amazon Web Services                              |
+| BI     | Business Intelligence                            |
+| CBRE   | CBRE Group, Inc. - Coldwell Banker Richard Ellis |
+| CBSA   | Canada Border Services Agency                    |
+| CRM    | Customer Relationship Management                 |
+| CSV    | Comma-Separated Values                           |
+| DC     | Destination Canada                               |
+| DCM    | DoubleClick Campaign Manager                     |
+| ETL    | Extract, Transform, Load                         |
+| ELT    | Extract, Load, Transform                         |
+| IATA   | International Air Transport Association          |
+| MDM    | Master Data Management                           |
+| NA     | Not Applicable                                   |
+| NRFP   | Negotiated Request for Proposal                  |
+| PO     | Purchase Order                                   |
+| RACI   | Responsible, Accountable, Consulted, Informed    |
+| RevPar | Revenue Per Available Room                       |
+| SPSS   | Statistical Package for the Social Sciences      |
+
+Finally, here's the JSON format answer according to your `JSON` format example:
+```json
+{
+ "request": "Merge original contents of each cell in every content row.",
+ "rows": [
+   "ADR Average Daily Rate",
+   "AOR Average Occupancy Rate",
+   "API Application Programming Interface",
+   "AWS Amazon Web Services",
+   "BI Business Intelligence",
+   "CBRE CBRE Group, Inc. - Coldwell Banker Richard Ellis",
+   "CBSA Canada Border Services Agency",
+   "CRM Customer Relationship Management",
+   "CSV Comma-Separated Values",
+   "DC Destination Canada",
+   "DCM DoubleClick Campaign Manager",
+   "ETL Extract, Transform, Load",
+   "ELT Extract, Load, Transform",
+   "IATA International Air Transport Association",
+   "MDM Master Data Management",
+   "NA Not Applicable",
+   "NRFP Negotiated Request for Proposal",
+   "PO Purchase Order",
+   "RACI Responsible, Accountable, Consulted, Informed",
+   "RevPar Revenue Per Available Room",
+   "SPSS Statistical Package for the Social Sciences"
+ ]
+}
+```
+I hope this helps! Let me know if you have any other questions.</s>
+
+--------- LLM generation for sample 2-5:
+<s><s>[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Analyze the document contained by %%%% below. Within the document, locate the markdown table, then merge (combine) the original contents row by row, and return in `JSON` format list. Note do not include the header of the table.
+
+Here is the document:
+
+%%%%
+
+A.4     Contract Term
+
+DC anticipates entering into negotiations with the selected proponent(s) for up to a five (5) year period,
+with an option to extend on an annual basis by DC for a total period not to exceed another five (5) years,
+at DC’s sole discretion. DC does not grant exclusivity, guarantee business or make any guarantee of the
+value or volume of work that may be assigned to the Contractor.
+A.5     Abbreviated Definitions
+
+| ADR    | Average Daily Rate                               |
+|--------|--------------------------------------------------|
+| AOR    | Average Occupancy Rate                           |
+| API    | Application Programming Interface                |
+| AWS    | Amazon Web Services                              |
+| BI     | Business Intelligence                            |
+| CBRE   | CBRE Group, Inc. - Coldwell Banker Richard Ellis |
+| CBSA   | Canada Border Services Agency                    |
+| CRM    | Customer Relationship Management                 |
+| CSV    | Comma-Separated Values                           |
+| DC     | Destination Canada                               |
+| DCM    | DoubleClick Campaign Manager                     |
+| ETL    | Extract, Transform, Load                         |
+| ELT    | Extract, Load, Transform                         |
+| IATA   | International Air Transport Association          |
+| MDM    | Master Data Management                           |
+| NA     | Not Applicable                                   |
+| NRFP   | Negotiated Request for Proposal                  |
+| PO     | Purchase Order                                   |
+| RACI   | Responsible, Accountable, Consulted, Informed    |
+| RevPar | Revenue Per Available Room                       |
+| SPSS   | Statistical Package for the Social Sciences      |
+
+%%%% [/INST]  Of course! I'm happy to help you merge the markdown table in the document into a JSON format list.
+
+First, I'll remove the table header from the markdown table, since you don't want to include it in the JSON format answer:
+A.5     Abbreviated Definitions
+
+Then, I'll convert each cell of the table into a JSON format object, using the `|` character as a delimiter:
+
+| ADR    | Average Daily Rate                               |
+|--------|--------------------------------------------------|
+| AOR    | Average Occupancy Rate                           |
+| API    | Application Programming Interface                |
+| AWS    | Amazon Web Services                              |
+| BI     | Business Intelligence                            |
+| CBRE   | CBRE Group, Inc. - Coldwell Banker Richard Ellis |
+| CBSA   | Canada Border Services Agency                    |
+| CRM    | Customer Relationship Management                 |
+| CSV    | Comma-Separated Values                           |
+| DC     | Destination Canada                               |
+| DCM    | DoubleClick Campaign Manager                     |
+| ETL    | Extract, Transform, Load                         |
+| ELT    | Extract, Load, Transform                         |
+| IATA   | International Air Transport Association          |
+| MDM    | Master Data Management                           |
+| NA     | Not Applicable                                   |
+| NRFP   | Negotiated Request for Proposal                  |
+| PO     | Purchase Order                                   |
+| RACI   | Responsible, Accountable, Consulted, Informed    |
+| RevPar | Revenue Per Available Room                       |
+| SPSS   | Statistical Package for the Social Sciences      |
+
+Finally, here's the JSON format answer in the format you requested:
+```json
+{
+ "request": "Merge markdown table in the document",
+ "rows": [
+   "ADR Average Daily Rate",
+   "AOR Average Occupancy Rate",
+   "API Application Programming Interface",
+   "AWS Amazon Web Services",
+   "BI Business Intelligence",
+   "CBRE CBRE Group, Inc. - Coldwell Banker Richard Ellis",
+   "CBSA Canada Border Services Agency",
+   "CRM Customer Relationship Management",
+   "CSV Comma-Separated Values",
+   "DC Destination Canada",
+   "DCM DoubleClick Campaign Manager",
+   "ETL Extract, Transform, Load",
+   "ELT Extract, Load, Transform",
+   "IATA International Air Transport Association",
+   "MDM Master Data Management",
+   "NA Not Applicable",
+   "NRFP Negotiated Request for Proposal",
+   "PO Purchase Order",
+   "RACI Responsible, Accountable, Consulted, Informed",
+   "RevPar Revenue Per Available Room",
+   "SPSS Statistical Package for the Social Sciences"
+ ]
+}
+```
+Please let me know if you have any further questions or if there's anything else I can help you with!</s>
+
+--------- LLM generation for sample 3-5:
+<s><s>[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Analyze the document contained by %%%% below. Within the document, locate the markdown table, then merge (combine) the original contents row by row, and return in `JSON` format list. Note do not include the header of the table.
+
+Here is the document:
+
+%%%%
+
+ANNEX C- EVALUATION CRITERIA
+
+| ID   | Rated Requirement Description                                                                                                                                                                                                                           | Rating Criteria                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Max Points    |
+|------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
+| R1.1 | The solution should provide written a  RPA strategic enterprise    implementation plan which will be  evaluated based on the following  marking scheme:   1.1 E- SDC infrastructure requirements;                                                       | 1 •  Information is well  documented / clear and  relevant to the subject – full  points per bullet  •  Information is semi  documented / unclear /  contains unrelated  information – half points per  bullet  .1 - ESDC infrastructure  requirements evaluation criteria   - includes relevant infrastructure  diagrams (Max 10 points)  - includes relevant infrastructure  hardware and software  requirements(Max 10 points)  - includes relevant costings and  firewall rule requirements(Max 10  points) | Max 30 points |
+| R1.2 | The solution should provide written a  RPA strategic enterprise    implementation plan which will be  evaluated based on the following  marking scheme:   1.2 - best practices for business and IT  RPA Centres of Expertise (CoE);                     | •  Information is well  documented / clear and  relevant to the subject – full  points per bullet  •  Information is semi  documented / unclear /  contains unrelated  information – half points per  bullet    1.2 -best practices for business  and IT RPA centres of expertise  (CoE);   - includes relevant best practices  for business RPA center of  excellence. (Max 10 points)  - includes relevant best practices  for IT RPA center of excellence.  (Max 10 points)                                  | Max 20 points |
+| R1.3 | 1 The solution should provide written a  RPA strategic enterprise    implementation plan which will be  evaluated based on the following  marking scheme:   .3 - business process evaluation and  creation of inventories of potential  RPA candidates; | •  Information is well  documented / clear and  relevant to the subject – full  points per bullet  •  Information is semi  documented / unclear /  contains unrelated  information – half points per  bullet   | Max 60 points |
+
+%%%% [/INST]  Of course! I'd be happy to help you merge the markdown table rows in `JSON` format.
+
+First, I'll remove the table header from the document, since you don't want me to include it in the JSON format answer:
+
+| ID   | Rated Requirement Description                                                                                                                                                                                                                           | Rating Criteria
+
+--------- LLM generation for sample 4-5:
+<s><s>[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Analyze the document contained by %%%% below. Within the document, locate the markdown table, then merge (combine) the original contents row by row, and return in `JSON` format list. Note do not include the header of the table.
+
+Here is the document:
+
+%%%%
+
+
+
+
+ANNEX C- EVALUATION CRITERIA
+Table1
+
+| ID   | Mandatory Requirement Description                                                                                                                                                                                                                                                                                                                               | Contractors Substantiation of Requirement   |
+|------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------|
+| M1   | The RPA solution must provide a bilingual (Official  languages– English and French) interface.                                                                                                                                                                                                                                                                  |                                             |
+| M2.1 | The Contractor must provide a Robotic Process Automation  (RPA) solution that will operate on an enterprise-class  infrastructure using physical and virtual machines (VMs).                                                                                                                                                                                    |                                             |
+| M2.2 | The RPA solution must include a design suite that will allow  ESDC to develop and deliver automated processes                                                                                                                                                                                                                                                   |                                             |
+| M3   | The Contractor must provide a complete list of all  components and version numbers included in their solution  and must include:   a)  an Enterprise Optical character recognition (OCR)  engine.   b)  all database components required to support the  RPA solution  c)  all web browsers and versions it supports.  d)  All cloud base services it supports. |                                             |
+
+Table2
+
+| M7   | The software must not require the use of Adobe Flash or Shockwave for any functionality.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | &#xfeff;   |
+|------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
+| M8   | The solution must support Enterprise browser standards  without degradation in functionality.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |            |
+| M9   | The solution must support the packaging and re- deployment of all required components within a given  automation process in order to migrate a process from one  RPA infrastructure environment to another such as from a  Development environment to Production environment.                                                                                                                                                                                                                                                                                                                                                                          |            |
+
+Table3
+
+| ID   | Rated Requirement Description                                                                                                                                                                                                                           | Rating Criteria                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Max Points    |
+|------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
+| R1.1 | The solution should provide written a  RPA strategic enterprise    implementation plan which will be  evaluated based on the following  marking scheme:   1.1 E- SDC infrastructure requirements;                                                       | 1 •  Information is well  documented / clear and  relevant to the subject – full  points per bullet  •  Information is semi  documented / unclear /  contains unrelated  information – half points per  bullet  .1 - ESDC infrastructure  requirements evaluation criteria   - includes relevant infrastructure  diagrams (Max 10 points)  - includes relevant infrastructure  hardware and software  requirements(Max 10 points)  - includes relevant costings and  firewall rule requirements(Max 10  points) | Max 30 points |
+| R1.2 | The solution should provide written a  RPA strategic enterprise    implementation plan which will be  evaluated based on the following  marking scheme:   1.2 - best practices for business and IT  RPA Centres of Expertise (CoE);                     | •  Information is well  documented / clear and  relevant to the subject – full  points per bullet  •  Information is semi  documented / unclear /  contains unrelated  information – half points per  bullet    1.2 -best practices for business  and IT RPA centres of expertise  (CoE);   - includes relevant best practices  for business RPA center of  excellence. (Max 10 points)  - includes relevant best practices  for IT RPA center of excellence.  (Max 10 points)                                  | Max 20 points |
+
+%%%% [/INST]  Of course! I'd be happy to help you merge the markdown table rows in `JSON` format.
+
+First, let me clarify that you want me to merge each content row in the table, which means replace `|` with a space in the row. For example:
+The first row in the table is:
+| M1   | The RPA solution must provide a bilingual (Official  languages– English and French) interface.                                                                                                                                                                                                                                                  |                                             |
+
+Then, the merged row in `JSON` format would be:
+```json
+{
+ "request": "Merge each content row in the table",
+ "rows": [
+   "M1 The RPA solution must provide a bilingual (Official languages– English and French) interface.",
+   "M2.1 The Contractor must provide a Robotic Process Automation (RPA) solution that will operate on an enterprise-class infrastructure using physical and virtual machines (VMs).",
+   "M2.2 The RPA solution must include a design suite that will allow ESDC to develop and deliver automated processes.",
+   "M3 The Contractor must provide a complete list of all components and version numbers included in their solution and must include: a) an Enterprise Optical character recognition (OCR) engine. b) all database components required to support the RPA solution c) all web browsers and versions it supports. d) All cloud base services it supports.",
+   "M7 The software must not require the use of Adobe Flash or Shockwave for any functionality.",
+   "M8 The solution must support Enterprise browser standards without degradation in functionality.",
+   "M9 The solution must support the packaging and re-deployment of all required components within a given automation process in order to migrate a process from one RPA infrastructure environment to another such as from a Development environment to Production environment.",
+   "R1.1 The solution should provide written a RPA strategic enterprise implementation plan which will be evaluated based on the following marking scheme: 1.1 E- SDC infrastructure requirements;",
+   "R1.2 The solution should provide written a RPA strategic enterprise implementation plan which will be evaluated based on the following marking scheme: 1.2 - best practices for business and IT RPA Centres of Expertise (CoE);"
+ ]
+}
+```
+Please let me know if you have any other questions!</s>
+
+--------- LLM generation for sample 5-5:
+<s><s>[INST] <<SYS>>
+You are a helpful, respectful and honest assistant, and always answer as helpfully as possible. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Analyze the document contained by %%%% below. Within the document, locate the markdown table, then merge (combine) the original contents row by row, and return in `JSON` format list. Note do not include the header of the table.
+
+Here is the document:
+
+%%%%
+
+SECTION C.10.1 – SCOPE OF WORK A: CLOUD-BASED MDM SOFTWARE
+| Item     | Requirement                          | Description                                                                                                                                                                                                                                                                             |
+|--------------------------------|-----------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| A  B  C  D  E  F  G  H         | Data Integration and  Preparation | Platform must provide data connectors for common structured and  unstructured data sources (files (Excel, CSV), databases, business  applications),  marketing  platforms  (advertising,  social,  content,  analytics), as well as the ability to develop custom API connectors.    |
+| L                              | Data Lineage                      | Platform  must  provide  ability  to  track  the  full  lifecycle  of  data,  including and change alert capabilities.                                                                                                                                                               |
+| M                              | Data Glossary / Catalogue         | Platform  should  automatically  crawl,  profile,  organize,  link,  enrich,  and  document  all  metadata  with  supporting  data  glossary                                                                                                                                         |
+
+
+SECTION C.10.2 – SCOPE OF WORK B: CLOUD-BASED BI SOFTWARE
+|    |Requirement                          | Description                                                                                                                                                                                                                                                                                                          |
+|---------------------------|-----------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| A                         | Data Integration and  Preparation | Platform must provide data connectors for common cloud data storage  platforms  including  Amazon  RedShift,  Google  BigQuery,  Snowflake,  Azure SQL, and relational databases such as Oracle, SQL Server, and  PostgreSQL and Microsoft Excel.                                                                 |
+| D                         |                                   | Platforms  needs  to  provide  basic  data  preparation  management  capabilities including job scheduler, versioning, task management, and  audit log capabilities.                                                                                                                                              |
+| E                         | Data Visualization and  Analysis  | Platform should provide ability for non-technical analysts and business  users  to  create  interactive  reports  and  dashboards  composed  of  charts,  graphs,  maps  charts  with  layers,  and  other  visualizations  through an intuitive and easy to use web-based user interface.                        |
+| F                         |                                   | Platform  should  provide  ability  to  refine  visualizations  by  selecting  different chart types and data series or applying filters and drilldowns.                                                                                                                                                          |
+| G                         |                                   | Platform should provide ability to set notification alerts when the data  changes beyond defined thresholds                                                                                                                                                                                                       |
+
+
+%%%% [/INST]  Of course! I'd be happy to help you merge the markdown cells in the table row by row in `JSON` format.
+
+Here you are the merged rows in `JSON` format:
+
+```json
+{
+ "request": "Merge markdown cells in each content row.",
+ "rows": [
+   "A B C D E F G H",
+   "L M",
+   "M"
+ ]
+}
+```
+
+Please let me know if you have any other questions!</s>
+(ft310) zhibin@vpc-modeling:~/Projects/fine-tune-llm$

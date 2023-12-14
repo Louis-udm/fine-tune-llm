@@ -51,7 +51,7 @@ def load_and_show_dataset(ds_name, suffix):
 
 def train_cli(
     warmup_steps=4,
-    max_steps=100,  # 100,
+    max_steps=30,  # 40, 100,
     learning_rate=2e-4,
     output_root="results",
     ds_name="simple_markdown_with_answer",
@@ -73,7 +73,7 @@ def train_cli(
         max_length=max_length,
         batch_size=1,
         do_shuffle=True,
-        abandon_long_sent=True,
+        abandon_long_sample=True,
         with_labels=True,
     )
     print(f"preprocessed dataset length: {len(dataset)}")

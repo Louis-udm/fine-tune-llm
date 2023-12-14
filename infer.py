@@ -47,7 +47,7 @@ def predict_cli(
     model_name="NousResearch/Llama-2-7b-chat-hf",
     output_root="predictions",
     max_prompt_length=1400,
-    max_new_length=1400,
+    max_new_length=1000,
     # num_beams=1,
     # num_return_sequences=1,
     temperature=0.3,
@@ -77,6 +77,7 @@ def predict_cli(
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     # Load model and tokenizer
     if lora_adaptor_dir:
+        # lora_adaptor_dir+="-ft_accelerate"
         model, tokenizer = load_model_with_adaptor(
             model_name=model_name, lora_adaptor_dir=lora_adaptor_dir
         )
@@ -101,7 +102,7 @@ def predict_cli(
         max_length=max_prompt_length,
         batch_size=1,
         do_shuffle=False,
-        abandon_long_sent=True,
+        abandon_long_sample=True,
         with_labels=False,
     )
 
