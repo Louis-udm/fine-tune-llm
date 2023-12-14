@@ -9,13 +9,20 @@ import pandas as pd
 import peft
 import torch
 from accelerate import Accelerator
-from transformers import (AutoModelForCausalLM, AutoTokenizer,
-                          BitsAndBytesConfig, DataCollatorForLanguageModeling,
-                          Trainer, TrainingArguments, set_seed)
+from transformers import (
+    AutoModelForCausalLM,
+    AutoTokenizer,
+    BitsAndBytesConfig,
+    DataCollatorForLanguageModeling,
+    Trainer,
+    TrainingArguments,
+    set_seed,
+)
 
 from datasets import load_dataset
 from sft_lib.dataset_utils import *
 from sft_lib.model_utils import *
+from bitsandbytes.optim import AdamW as bnb_AdamW
 
 # Reproducibility
 SEED = 44
@@ -58,7 +65,7 @@ def train_cli(
     model, tokenizer = load_model(MODEL_NAME, bnb_config)
 
     max_length = get_model_max_length(model)
-    dataset = generate_dataloader(
+    train_dataloader = generate_dataloader(
         dataset=dataset,
         tokenizer=tokenizer,
         prompterize=text2prompt,
@@ -70,7 +77,7 @@ def train_cli(
         abandon_long_sent=True,
         with_labels=True,
     )
-    print(f"preprocessed dataset length: {len(dataset)}")
+    print(f"preprocessed dataset length: {len(train_dataloader)}")
 
     model = assemble_trainable_model(model)
     verify_datatypes(model)
@@ -78,48 +85,46 @@ def train_cli(
     # if training_args.gradient_checkpointing:
     #     model.gradient_checkpointing_enable()
 
+    # accelerator = Accelerator(mixed_precision="yes",cpu=False,gradient_accumulation_steps=1)
     accelerator = Accelerator(fp16=True)
-    model, optimizer, dataloader = accelerator.prepare(model, adam_bnb_optim, dataloader)
-
-    model.train()
-    # for epoch in range(1, 5):
-    for i, sample in enumerate(ds, start=1):
-    trainer = Trainer(
-        model=model,
-        train_dataset=dataset,
-        args=TrainingArguments(
-            # per_device_train_batch_size=1加gradient_accumulation_steps=4, 相当于每次更新参数的时候，batch_size=4
-            per_device_train_batch_size=1,
-            gradient_accumulation_steps=4,
-            fp16=True,
-            logging_steps=1,
-            optim="paged_adamw_8bit",
-            warmup_steps=warmup_steps,
-            max_steps=max_steps,
-            learning_rate=learning_rate,
-            output_dir=os.path.join(output_root, output_dir),
-        ),
-        data_collator=DataCollatorForLanguageModeling(tokenizer, mlm=False),
+    accelerator.free_memory()
+    # optimizer_kwargs={'lr': 0.0002, 'betas': (0.9, 0.999), 'eps': 1e-08, 'is_paged': True, 'optim_bits': 8}
+    # optimizer=torch.optim.AdamW(model.parameters(),lr=learning_rate)
+    optimizer = bnb_AdamW(
+        model.parameters(), lr=learning_rate, optim_bits=8, is_paged=True
+    )
+    model, optimizer, train_dataloader = accelerator.prepare(
+        model, optimizer, train_dataloader
     )
 
     # Launch training
     print("\nTraining...")
-    train_result = trainer.train()
-    metrics = train_result.metrics
-    trainer.log_metrics("train", metrics)
-    trainer.save_metrics("train", metrics)
-    trainer.save_state()
-    print(metrics)
+    model.train()
+    for i, batch in enumerate(train_dataloader, start=1):
+        with accelerator.accumulate(model):
+            with accelerator.autocast(), torch.no_grad():
+                loss = model(**batch).loss
+
+            # backward()
+            accelerator.backward(loss)
+            # accelerator.clip_grad_norm_(model.parameters(), 1.0)
+            optimizer.step()
+            # if lr_scheduler is not None:
+            #     lr_scheduler.step()
+            optimizer.zero_grad()
+
+            all_loss = accelerator.gather(loss).sum()
+            print(f"train loss : {loss.item()}")
 
     # Saving model
     print("Saving last checkpoint of the model...")
     checkpoint_dir = os.path.join(output_root, output_dir, "final_checkpoint")
     os.makedirs(checkpoint_dir, exist_ok=True)
-    trainer.model.save_pretrained(checkpoint_dir)
+    model.save_pretrained(checkpoint_dir)
 
     # Free memory for merging weights
     del model
-    del trainer
+    # del trainer
     torch.cuda.empty_cache()
 
 

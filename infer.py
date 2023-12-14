@@ -40,12 +40,11 @@ set_seed(SEED)
 
 
 def predict_cli(
-    # lora_adaptor_dir=None,
     # lora_adaptor_dir="Llama-2-7b-chat-hf_databricks-dolly-15k",
-    lora_adaptor_dir=None,
-    # lora_adaptor_dir="Llama-2-7b-chat-hf_simple_markdown_with_answer",
-    # model_name="NousResearch/Llama-2-7b-chat-hf",
-    model_name="microsoft/phi-2",
+    # lora_adaptor_dir=None,
+    lora_adaptor_dir="Llama-2-7b-chat-hf_simple_markdown_with_answer",
+    # model_name="microsoft/phi-2",
+    model_name="NousResearch/Llama-2-7b-chat-hf",
     output_root="predictions",
     max_prompt_length=1400,
     max_new_length=1400,
